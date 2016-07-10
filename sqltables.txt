@@ -1,0 +1,126 @@
+CREATE DATABASE zuifi_db;
+
+CREATE TABLE language (
+	id INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(30) NOT NULL,
+	code VARCHAR(5) NOT NULL,
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE category (
+	id INT NOT NULL AUTO_INCREMENT,
+	menuWeight INT NOT NULL,
+	parentId INT,
+	PRIMARY KEY (id),
+	FOREIGN KEY (parentId) REFERENCES category(id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+);
+
+CREATE TABLE categoryText (
+	id INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(30) NOT NULL,
+	description VARCHAR(500),
+	urlname VARCHAR(120) NOT NULL,
+	published BOOLEAN NOT NULL,
+	languageId INT,
+	categoryId INT,
+	PRIMARY KEY (id),
+	FOREIGN KEY (languageId) REFERENCES language(id)
+		ON DELETE SET NULL
+		ON UPDATE CASCADE,
+	FOREIGN KEY (categoryId) REFERENCES category(id)
+		ON DELETE SET NULL
+		ON UPDATE CASCADE
+);
+
+CREATE TABLE user (
+	id INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(20),
+	permissionlevel VARCHAR(25),
+	password VARCHAR(255),
+	registered TIMESTAMP,
+	loginattempts INT NOT NULL,
+	remember_token VARCHAR(100),
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE article (
+	id INT NOT NULL AUTO_INCREMENT,
+	categoryId INT,
+	userId INT,
+	published BOOLEAN NOT NULL,
+	timestamp TIMESTAMP,
+	PRIMARY KEY (id),
+	FOREIGN KEY (categoryId) REFERENCES category(id)
+		ON DELETE SET NULL
+		ON UPDATE CASCADE,
+	FOREIGN KEY (userId) REFERENCES user(id)
+		ON DELETE SET NULL
+		ON UPDATE CASCADE
+);
+
+CREATE TABLE tag (
+	id INT NOT NULL AUTO_INCREMENT,
+	text VARCHAR(30) NOT NULL,
+	languageId INT,
+	articleId INT NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (languageId) REFERENCES language(id)
+		ON DELETE SET NULL
+		ON UPDATE CASCADE,
+	FOREIGN KEY (articleId) REFERENCES article(id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+);
+
+CREATE TABLE summaryBox (
+	id INT NOT NULL AUTO_INCREMENT,
+	topic VARCHAR(120) NOT NULL,
+	weight INT NOT NULL,
+	languageId INT,
+	articleId INT NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (languageId) REFERENCES language(id)
+		ON DELETE SET NULL
+		ON UPDATE CASCADE,
+	FOREIGN KEY (articleId) REFERENCES article(id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+);
+
+CREATE TABLE comment (
+	id INT NOT NULL AUTO_INCREMENT,
+	writer VARCHAR(50) NOT NULL,
+	text VARCHAR(500) NOT NULL,
+	languageId INT,
+	articleId INT,
+	PRIMARY KEY (id),
+	FOREIGN KEY (languageId) REFERENCES language(id)
+		ON DELETE SET NULL
+		ON UPDATE CASCADE,
+	FOREIGN KEY (articleId) REFERENCES article(id)
+		ON DELETE SET NULL
+		ON UPDATE CASCADE
+);
+
+CREATE TABLE articleText (
+	id INT NOT NULL AUTO_INCREMENT,
+	text TEXT NOT NULL,
+	topic VARCHAR(120) NOT NULL,
+	urlname VARCHAR(120) NOT NULL,
+	published BOOLEAN NOT NULL,
+	languageId INT,
+	articleId INT,
+	PRIMARY KEY (id),
+	FOREIGN KEY (languageId) REFERENCES language(id)
+		ON DELETE SET NULL
+		ON UPDATE CASCADE,
+	FOREIGN KEY (articleId) REFERENCES article(id)
+		ON DELETE SET NULL
+		ON UPDATE CASCADE
+);
+
+INSERT INTO language (name, code) VALUES ("suomi", "fi");
+INSERT INTO language (name, code) VALUES ("english", "en");
+INSERT INTO user (name, password, loginattempts) VALUES ("Username", "hash", 0);
