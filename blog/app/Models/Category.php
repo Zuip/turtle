@@ -4,20 +4,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model {
 
-	/**
-	 * The database table used by the model.
-	 */
+	// The database table used by the model.
 	protected $table = 'category';
 
-	/**
-	 * The attributes that are mass assignable.
-	 */
+	// The attributes that are mass assignable.
 	protected $fillable = ['id', 'menuWeight', 'parentId'];
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 */
+	// The attributes excluded from the model's JSON form.
 	protected $hidden = [];
+  
+  // No default timestamps
+  public $timestamps = false;
   
   /**
    * Returns category's language versions

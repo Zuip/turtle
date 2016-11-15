@@ -115,19 +115,34 @@ Route::group(['middleware' => 'checkLocale'], function()
   // Admin operations
   Route::group(['middleware' => 'adminPermission'], function()
   {
-    Route::get('/api/{language}/views/admin', function($language)
+    Route::get('/api/{language}/views/admin', function($languageCode)
     {
       return \Response::json(array(
         "texts" => array(
-          "topic" => \Lang::get('admin.menuTopic', array(), $language),
+          "topic" => \Lang::get('admin.menuTopic', array(), $languageCode),
           "text" => "",
-          "categories" => \Lang::get('admin.categories.topic', array(), $language),
-          "published" => \Lang::get('admin.categories.published', array(), $language),
-          "notPublished" => \Lang::get('admin.categories.notPublished', array(), $language),
-          "add" => \Lang::get('views.common.form.add', array(), $language),
-          "addSubCategory" => \Lang::get('admin.categories.addSubCategory', array(), $language),
+          "categories" => \Lang::get('admin.categories.topic', array(), $languageCode),
+          "published" => \Lang::get('admin.categories.published', array(), $languageCode),
+          "notPublished" => \Lang::get('admin.categories.notPublished', array(), $languageCode),
+          "add" => \Lang::get('views.common.form.add', array(), $languageCode),
+          "addSubCategory" => \Lang::get('admin.categories.addSubCategory', array(), $languageCode)
         ),
-        "categories" => App\Http\Controllers\CategoryController::getCategories($language, true)
+        "categories" => App\Http\Controllers\CategoryController::getCategories($languageCode, true)
+      ));
+    });
+    
+    Route::get('/api/{language}/views/admin/categoryeditor', function($languageCode)
+    {
+      return \Response::json(array(
+        "texts" => array(
+          "addTopic" => \Lang::get('admin.categories.add.topic', array(), $languageCode),
+          "editTopic" => \Lang::get('admin.categories.edit.topic', array(), $languageCode),
+          "cancel" => \Lang::get('views.common.form.cancel', array(), $languageCode),
+          "save" => \Lang::get('views.common.form.save', array(), $languageCode),
+          "categoryName" => \Lang::get('admin.categories.categoryName', array(), $languageCode),
+          "categoryURLName" => \Lang::get('admin.categories.categoryURLName', array(), $languageCode),
+          "categoryDescription" => \Lang::get('admin.categories.categoryDescription', array(), $languageCode),
+        ),
       ));
     });
     
@@ -251,38 +266,19 @@ Route::group(['middleware' => 'checkLocale'], function()
       ));
     });
 
-    // Publishing a category
-    Route::put('/api/{language}/categories/{category}/publish', function($languageCode, $categoryId)
-    {
-      $categoryController = new \App\Http\Controllers\CategoryController();
-      $result = $categoryController->publishCategory($categoryId, $languageCode);
-      
-      if($result === true) {
-        return \Response::json(array("OK" => true));
-      }
-      
-      if(is_array($result) && isset($result['error'])) {
-        return \Response::json(array("error" => $result['error']), 404);
-      }
-      
-      return \Response::json(array("error" => "Unknown error"), 404);
+    Route::post('/api/{language}/categories', function($languageCode) {
+      $categoryApiController = new App\Http\Controllers\Api\CategoryApiController();
+      return $categoryApiController->postCategory();
+    });
+    
+    Route::put('/api/{language}/categories/{category}/publish', function($languageCode, $categoryId) {
+      $categoryApiController = new App\Http\Controllers\Api\CategoryApiController();
+      return $categoryApiController->publishCategory($categoryId, $languageCode);
     });
 
-    // Unpublishing a category
-    Route::put('/api/{language}/categories/{categoryId}/unpublish', function($languageCode, $categoryId)
-    {
-      $categoryController = new \App\Http\Controllers\CategoryController();
-      $result = $categoryController->unpublishCategory($categoryId, $languageCode);
-      
-      if($result === true) {
-        return \Response::json(array("OK" => true));
-      }
-      
-      if(is_array($result) && isset($result['error'])) {
-        return \Response::json(array("error" => $result['error']), 404);
-      }
-      
-      return \Response::json(array("error" => "Unknown error"), 404);
+    Route::put('/api/{language}/categories/{categoryId}/unpublish', function($languageCode, $categoryId) {
+      $categoryApiController = new App\Http\Controllers\Api\CategoryApiController();
+      return $categoryApiController->unpublishCategory($categoryId, $languageCode);
     });
   });
 });

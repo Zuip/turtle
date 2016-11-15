@@ -123,4 +123,4 @@ CREATE TABLE articleText (
 
 INSERT INTO language (name, code) VALUES ("suomi", "fi");
 INSERT INTO language (name, code) VALUES ("english", "en");
-INSERT INTO user (name, password, loginattempts) VALUES ("Username", "hash", 0);
+INSERT INTO user (name, permissionlevel, password, loginattempts) VALUES ("Username", "admin", "hash", 0);

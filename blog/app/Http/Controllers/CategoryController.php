@@ -92,10 +92,10 @@ class CategoryController extends Controller {
   public function categoryPOST() {
     
     // Retrieve the needed parameters
-    if(\Input::has('name') && \Input::has('description') && \Input::has('urlname') && \Input::has('parentId')) {
+    if(\Input::has('name') && \Input::has('description') && \Input::has('URLName') && \Input::has('parentId')) {
       $name = \Input::get('name');
       $description = \Input::get('description');
-      $URLName = \Input::get('urlname');
+      $URLName = \Input::get('URLName');
       $parentId = \Input::get('parentId');
     } else {
       return \Response::json(array('error' => 'Missing POST parameters'), 404);

@@ -144,6 +144,7 @@
     <script src="/scripts/models/admin/AdminModel.js"></script>
     <script src="/scripts/models/admin/AdminCategoryModel.js"></script>
     <script src="/scripts/models/admin/AdminArticleModel.js"></script>
+    <script src="/scripts/models/admin/CategoryEditorModel.js"></script>
     <script src="/scripts/models/NotFoundModel.js"></script>
     <script src="/scripts/controllers/HomeController.js"></script>
     <script src="/scripts/controllers/AboutController.js"></script>
@@ -154,6 +155,7 @@
     <script src="/scripts/controllers/admin/AdminController.js"></script>
     <script src="/scripts/controllers/admin/AdminCategoryController.js"></script>
     <script src="/scripts/controllers/admin/AdminArticleController.js"></script>
+    <script src="/scripts/controllers/admin/CategoryEditorController.js"></script>
     <script src="/scripts/controllers/NotFoundController.js"></script>
     
     <!-- Short JavaScripts common for all templates -->
