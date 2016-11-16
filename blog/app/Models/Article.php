@@ -28,6 +28,6 @@ class Article extends Model {
   
   //Returns the category of the article
   public function category() {
-    return $this->hasOne('\\App\\Models\\Category', 'categoryId');
+    return $this->belongsTo('\\App\\Models\\Category', 'categoryId');
   }
 }

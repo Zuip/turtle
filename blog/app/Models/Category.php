@@ -38,6 +38,6 @@ class Category extends Model {
   }
   
   public function parentCategory() {
-    return $this->hasOne('\\App\\Models\\Category', 'parentId');
+    return $this->belongsTo('\\App\\Models\\Category', 'parentId');
   }
 }

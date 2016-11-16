@@ -256,7 +256,8 @@ class ArticleController extends Controller {
     
     $articlePath = array();
       
-    $currentCategory = Category::all()->where('id', $article->categoryId)->first();
+    $currentCategory = $article->category;
+
     while(true) {
       
       // Find data of this category
@@ -269,10 +270,10 @@ class ArticleController extends Controller {
       array_unshift($articlePath , $categoryData);
       
       // Find deeper category path if it exists
-      if($currentCategory->parentId == NULL) {
+      if($currentCategory->parentCategory === NULL) {
         break;
       } else {
-        $currentCategory = Category::all()->where('id', $currentCategory->parentId)->first();
+        $currentCategory = $currentCategory->parentCategory;
       }
     }
     
