@@ -284,9 +284,9 @@ class ArticleController extends Controller {
     
     // Find article language version
     if($allowUnpublished) {
-      $articleLanguageVersion = ArticleLanguageVersion::all()->where('urlname', $articleURLName)->first();
+      $articleLanguageVersion = ArticleLanguageVersion::where('urlname', $articleURLName)->first();
     } else {
-      $articleLanguageVersion = ArticleLanguageVersion::all()->where('published', 1)->where('urlname', $articleURLName)->first();
+      $articleLanguageVersion = ArticleLanguageVersion::where('published', 1)->where('urlname', $articleURLName)->first();
     }
     
     // Check that the article language version was found
