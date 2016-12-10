@@ -9,10 +9,10 @@ CREATE TABLE language (
 
 CREATE TABLE category (
 	id INT NOT NULL AUTO_INCREMENT,
-	menuWeight INT NOT NULL,
-	parentId INT,
+	menu_weight INT NOT NULL,
+	parent_id INT,
 	PRIMARY KEY (id),
-	FOREIGN KEY (parentId) REFERENCES category(id)
+	FOREIGN KEY (parent_id) REFERENCES category(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
@@ -23,13 +23,13 @@ CREATE TABLE categorytext (
 	description VARCHAR(500),
 	urlname VARCHAR(120) NOT NULL,
 	published BOOLEAN NOT NULL,
-	languageId INT,
-	categoryId INT,
+	language_id INT,
+	category_id INT,
 	PRIMARY KEY (id),
-	FOREIGN KEY (languageId) REFERENCES language(id)
+	FOREIGN KEY (language_id) REFERENCES language(id)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE,
-	FOREIGN KEY (categoryId) REFERENCES category(id)
+	FOREIGN KEY (category_id) REFERENCES category(id)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE
 );
@@ -47,15 +47,15 @@ CREATE TABLE user (
 
 CREATE TABLE article (
 	id INT NOT NULL AUTO_INCREMENT,
-	categoryId INT,
-	userId INT,
+	category_id INT,
+	user_id INT,
 	published BOOLEAN NOT NULL,
 	timestamp TIMESTAMP,
 	PRIMARY KEY (id),
-	FOREIGN KEY (categoryId) REFERENCES category(id)
+	FOREIGN KEY (category_id) REFERENCES category(id)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE,
-	FOREIGN KEY (userId) REFERENCES user(id)
+	FOREIGN KEY (user_id) REFERENCES user(id)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE
 );
@@ -63,13 +63,13 @@ CREATE TABLE article (
 CREATE TABLE tag (
 	id INT NOT NULL AUTO_INCREMENT,
 	text VARCHAR(30) NOT NULL,
-	languageId INT,
-	articleId INT NOT NULL,
+	language_id INT,
+	article_id INT NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (languageId) REFERENCES language(id)
+	FOREIGN KEY (language_id) REFERENCES language(id)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE,
-	FOREIGN KEY (articleId) REFERENCES article(id)
+	FOREIGN KEY (article_id) REFERENCES article(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
@@ -78,13 +78,13 @@ CREATE TABLE summarybox (
 	id INT NOT NULL AUTO_INCREMENT,
 	topic VARCHAR(120) NOT NULL,
 	weight INT NOT NULL,
-	languageId INT,
-	articleId INT NOT NULL,
+	language_id INT,
+	article_id INT NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (languageId) REFERENCES language(id)
+	FOREIGN KEY (language_id) REFERENCES language(id)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE,
-	FOREIGN KEY (articleId) REFERENCES article(id)
+	FOREIGN KEY (article_id) REFERENCES article(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
@@ -93,13 +93,13 @@ CREATE TABLE comment (
 	id INT NOT NULL AUTO_INCREMENT,
 	writer VARCHAR(50) NOT NULL,
 	text VARCHAR(500) NOT NULL,
-	languageId INT,
-	articleId INT,
+	language_id INT,
+	article_id INT,
 	PRIMARY KEY (id),
-	FOREIGN KEY (languageId) REFERENCES language(id)
+	FOREIGN KEY (language_id) REFERENCES language(id)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE,
-	FOREIGN KEY (articleId) REFERENCES article(id)
+	FOREIGN KEY (article_id) REFERENCES article(id)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE
 );
@@ -110,13 +110,13 @@ CREATE TABLE articletext (
 	topic VARCHAR(120) NOT NULL,
 	urlname VARCHAR(120) NOT NULL,
 	published BOOLEAN NOT NULL,
-	languageId INT,
-	articleId INT,
+	language_id INT,
+	article_id INT,
 	PRIMARY KEY (id),
-	FOREIGN KEY (languageId) REFERENCES language(id)
+	FOREIGN KEY (language_id) REFERENCES language(id)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE,
-	FOREIGN KEY (articleId) REFERENCES article(id)
+	FOREIGN KEY (article_id) REFERENCES article(id)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE
 );

@@ -28,16 +28,16 @@ class CategoryController extends Controller {
     $localeId = LanguageController::getLocaleIdByCode($languageCode);
     
     // Fetch all categories with chosen parent id
-    $categories = Category::all()->where('parentId', $parent);
+    $categories = Category::all()->where('parent_id', $parent);
     
     // Loop through all category and fetch the needed information for them
     foreach($categories as $category) {
       
       // Fetch the language information
       if($unpublished) {
-        $categoryLanguageVersions = CategoryLanguageVersion::all()->where('categoryId', $category->id)->where('languageId', $localeId);
+        $categoryLanguageVersions = CategoryLanguageVersion::all()->where('category_id', $category->id)->where('language_id', $localeId);
       } else {
-        $categoryLanguageVersions = CategoryLanguageVersion::all()->where('categoryId', $category->id)->where('languageId', $localeId)->where('published', true);
+        $categoryLanguageVersions = CategoryLanguageVersion::all()->where('category_id', $category->id)->where('language_id', $localeId)->where('published', true);
       }
       
       // If matching language version was not found, skip to next phase of the loop
@@ -80,7 +80,7 @@ class CategoryController extends Controller {
       return array('error' => 'Category does not exist!');
     }
     
-    $categoryName = $category->languageVersions()->where('languageId', $languageId)->first()->name;
+    $categoryName = $category->languageVersions()->where('language_id', $languageId)->first()->name;
     if($categoryName == NULL) {
       return array('error' => 'Language version of category does not exist!');
     }
@@ -103,13 +103,13 @@ class CategoryController extends Controller {
     
     // Create category
     $category = new Category;
-    $category->menuWeight = Category::all()->max('menuWeight') + 1;
+    $category->menu_weight = Category::all()->max('menu_weight') + 1;
     
     // Set parent id to the category
     if($parentId === "root") {
-      $category->parentId = NULL;
+      $category->parent_id = NULL;
     } elseif(Category::all()->where('id', intval($parentId))->count() > 0) {
-      $category->parentId = intval($parentId);
+      $category->parent_id = intval($parentId);
     } else {
       return \Response::json(array('error' => 'Chosen parent does not exist!'), 400);
     }
@@ -123,8 +123,8 @@ class CategoryController extends Controller {
       $categoryLanguage->description = $description;
       $categoryLanguage->urlname = $URLName;
       $categoryLanguage->published = false;
-      $categoryLanguage->languageId = $language->id;
-      $categoryLanguage->categoryId = $category->id;
+      $categoryLanguage->language_id = $language->id;
+      $categoryLanguage->category_id = $category->id;
       $categoryLanguage->save();
     }
     
@@ -150,11 +150,14 @@ class CategoryController extends Controller {
     if(is_array($categoryLanguage)) {
       return \Response::json(array('error', $categoryLanguage['error']));
     }
-    $asd = CategoryLanguageVersion::all()->where('urlname', $URLName); // ->where('categoryId', '!=', $categoryLanguage->categoryId);
-    $bbb = CategoryLanguageVersion::all()->whereNotIn('categoryId', [$categoryLanguage->categoryId]);
-    $ttt = $categoryLanguage->categoryId;
+    
+    /* These can be removed? 10.12.2016 / Robert
+    $asd = CategoryLanguageVersion::all()->where('urlname', $URLName);
+    $bbb = CategoryLanguageVersion::all()->whereNotIn('category_id', [$categoryLanguage->categoryId]);
+    $ttt = $categoryLanguage->category_id; */
+    
     // Check that the URL name is not in use for other categories
-    if(CategoryLanguageVersion::all()->where('urlname', $URLName)->where('categoryId', '!=', $categoryLanguage->categoryId)->count() > 0) {
+    if(CategoryLanguageVersion::all()->where('urlname', $URLName)->where('category_id', '!=', $categoryLanguage->category_id)->count() > 0) {
       return \Response::json(array('error' => 'URL name is already in use.'));
     }
     
@@ -216,12 +219,12 @@ class CategoryController extends Controller {
     if($includeUnpublished) {
       $categoryLanguageVersionsArray = $categories->first()
                                                   ->languageVersions
-                                                  ->where('languageId', Language::all()->where('code', $languageCode)->first()->id);
+                                                  ->where('language_id', Language::all()->where('code', $languageCode)->first()->id);
     } else {
       $categoryLanguageVersionsArray = $categories->first()
                                                   ->languageVersions
                                                   ->where('published', true)
-                                                  ->where('languageId', Language::all()->where('code', $languageCode)->first()->id);
+                                                  ->where('language_id', Language::all()->where('code', $languageCode)->first()->id);
     }
     
     // Check that there exists one language version of the needed language
@@ -251,7 +254,7 @@ class CategoryController extends Controller {
       }
       
       // Check that the category language version has correct language
-      if($categoryLanguage->languageId == Language::all()->where('code', $languageCode)->first()->id) {
+      if($categoryLanguage->language_id == Language::all()->where('code', $languageCode)->first()->id) {
         return $categoryLanguage;
       }
     }

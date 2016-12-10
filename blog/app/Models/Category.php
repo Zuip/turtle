@@ -8,7 +8,7 @@ class Category extends Model {
 	protected $table = 'category';
 
 	// The attributes that are mass assignable.
-	protected $fillable = ['id', 'menuWeight', 'parentId'];
+	protected $fillable = ['id', 'menu_weight', 'parent_id'];
 
 	// The attributes excluded from the model's JSON form.
 	protected $hidden = [];
@@ -20,24 +20,24 @@ class Category extends Model {
    * Returns category's language versions
    */
   public function languageVersions() {
-    return $this->hasMany('\\App\\Models\\CategoryLanguageVersion', 'categoryId');
+    return $this->hasMany('\\App\\Models\\CategoryLanguageVersion', 'category_id');
   }
   
   /**
    * Returns category's child categories
    */
   public function children() {
-    return $this->hasMany('\\App\\Models\\Category', 'parentId')->orderBy('menuWeight');
+    return $this->hasMany('\\App\\Models\\Category', 'parent_id')->orderBy('menu_weight');
   }
   
   /**
    * Returns category's articles
    */
   public function articles() {
-    return $this->hasMany('\\App\\Models\\Article', 'categoryId');
+    return $this->hasMany('\\App\\Models\\Article', 'category_id');
   }
   
   public function parentCategory() {
-    return $this->belongsTo('\\App\\Models\\Category', 'parentId');
+    return $this->belongsTo('\\App\\Models\\Category', 'parent_id');
   }
 }

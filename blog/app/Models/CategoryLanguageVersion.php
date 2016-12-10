@@ -8,7 +8,7 @@ class CategoryLanguageVersion extends Model {
 	protected $table = 'categorytext';
 
 	// The attributes that are mass assignable.
-	protected $fillable = ['id', 'name', 'description', 'urlname', 'published', 'languageId', 'categoryId'];
+	protected $fillable = ['id', 'name', 'description', 'urlname', 'published', 'language_id', 'category_id'];
 
 	// The attributes excluded from the model's JSON form.
 	protected $hidden = [];
@@ -18,6 +18,6 @@ class CategoryLanguageVersion extends Model {
   
   // Returns category of category's language version
   public function category() {
-    return $this->belongsTo('\\App\\Models\\Category', 'categoryId');
+    return $this->belongsTo('\\App\\Models\\Category', 'category_id');
   }
 }

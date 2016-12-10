@@ -8,7 +8,7 @@ class ArticleLanguageVersion extends Model {
 	protected $table = 'articletext';
 
 	// The attributes that are mass assignable
-	protected $fillable = ['id', 'text', 'topic', 'urlname', 'languageId', 'articleId', 'published'];
+	protected $fillable = ['id', 'text', 'topic', 'urlname', 'language_id', 'article_id', 'published'];
   
   // No default timestamps
   public $timestamps = false;
@@ -18,6 +18,6 @@ class ArticleLanguageVersion extends Model {
   
   //Returns base article of the language version
   public function article() {
-    return $this->belongsTo('\\App\\Models\\Article', 'articleId');
+    return $this->belongsTo('\\App\\Models\\Article', 'article_id');
   }
 }

@@ -44,8 +44,8 @@ class ArticleController extends Controller {
     
     // Create article
     $article = new Article;
-    $article->categoryId = $category->id;
-    $article->userId = \Auth::user()->id;
+    $article->category_id = $category->id;
+    $article->user_id = \Auth::user()->id;
     
     $date = \DateTime::createFromFormat('d.m.Y', $publishtime);
     if($date) {
@@ -62,8 +62,8 @@ class ArticleController extends Controller {
       $articleLanguageVersion->topic = $topic;
       $articleLanguageVersion->urlname = $URLName;
       $articleLanguageVersion->text = $text;
-      $articleLanguageVersion->languageId = $language->id;
-      $articleLanguageVersion->articleId = $article->id;
+      $articleLanguageVersion->language_id = $language->id;
+      $articleLanguageVersion->article_id = $article->id;
 
       // Publish the article if chosen language id and user wants to publish it
       if($published == "1" && $language->id == $languageId) {
@@ -145,7 +145,7 @@ class ArticleController extends Controller {
     $articleLanguageVersions = array();
     foreach($articles->get() as $article) {
       
-      $languageVersion = $article->languageVersions()->where('languageId', $languageId)->first();
+      $languageVersion = $article->languageVersions()->where('language_id', $languageId)->first();
       
       // If correct language version was not found, skip
       if($languageVersion == NULL) {
@@ -211,8 +211,8 @@ class ArticleController extends Controller {
     
     // Find latest article
     $latestArticle = Article::orderBy('timestamp', 'DESC')
-                     ->join('articletext', 'articletext.articleId', '=', 'article.id')
-                     ->where('articletext.languageId', $languageId)
+                     ->join('articletext', 'articletext.article_id', '=', 'article.id')
+                     ->where('articletext.language_id', $languageId)
                      ->where('articletext.published', true)
                      ->first();
     
@@ -220,21 +220,21 @@ class ArticleController extends Controller {
       return array('error' => 'No articles exists!');
     }
 
-    $latestArticleData = self::getArticleData($latestArticle->articleId, $languageCode);
+    $latestArticleData = self::getArticleData($latestArticle->article_id, $languageCode);
     $latestArticleData['textSummary'] = explode("[summary]", $latestArticleData['text'])[0];
     $latestArticleData['boxTopic'] = \Lang::get('views.home.latestArticle', array(), $languageCode);
     
     // Find first article
     $firstArticle = Article::orderBy('timestamp')
-                    ->join('articletext', 'articletext.articleId', '=', 'article.id')
-                    ->where('articletext.languageId', $languageId)
+                    ->join('articletext', 'articletext.article_id', '=', 'article.id')
+                    ->where('articletext.language_id', $languageId)
                     ->where('articletext.published', true)
                     ->first();
     
     if($firstArticle === NULL) {
       return array('error' => 'No articles exists!');
     }
-    $firstArticleData = self::getArticleData($firstArticle->articleId, $languageCode);
+    $firstArticleData = self::getArticleData($firstArticle->article_id, $languageCode);
     $firstArticleData['textSummary'] = explode("[summary]", $firstArticleData['text'])[0];
     $firstArticleData['boxTopic'] = \Lang::get('views.home.startFromBeginning', array(), $languageCode);
     
@@ -261,7 +261,7 @@ class ArticleController extends Controller {
     while(true) {
       
       // Find data of this category
-      $languageVersion = $currentCategory->languageVersions()->where('languageId', $languageId)->first();
+      $languageVersion = $currentCategory->languageVersions()->where('language_id', $languageId)->first();
       if($languageVersion == NULL) {
         return array('error' => 'Chosen language version of the category does not exist!');
       }
@@ -294,7 +294,7 @@ class ArticleController extends Controller {
       return array('error' => 'Article language version does not exist!');
     }
     
-    return self::getArticleData($articleLanguageVersion->articleId, $languageCode);
+    return self::getArticleData($articleLanguageVersion->article_id, $languageCode);
   }
   
   public static function getArticleData($articleId, $languageCode) {
@@ -312,7 +312,7 @@ class ArticleController extends Controller {
     }
     
     // Find correct language version of the article
-    $articleLanguageVersion = $article->languageVersions()->where('languageId', $languageId)->first();
+    $articleLanguageVersion = $article->languageVersions()->where('language_id', $languageId)->first();
     if($articleLanguageVersion === NULL) {
       return array('error' => 'Chosen language version of the article does not exist!');
     }
@@ -325,9 +325,9 @@ class ArticleController extends Controller {
     
     // Find previous article
     $previousArticle = Article::orderBy('timestamp', 'DESC')
-                       ->join('articletext', 'articletext.articleId', '=', 'article.id')
+                       ->join('articletext', 'articletext.article_id', '=', 'article.id')
                        ->where('article.timestamp', '<', $article->timestamp)
-                       ->where('articletext.languageId', $languageId)
+                       ->where('articletext.language_id', $languageId)
                        ->where('articletext.published', true)
                        ->first();
     
@@ -338,9 +338,9 @@ class ArticleController extends Controller {
     
     // Find next article
     $nextArticle = Article::orderBy('timestamp')
-                   ->join('articletext', 'articletext.articleId', '=', 'article.id')
+                   ->join('articletext', 'articletext.article_id', '=', 'article.id')
                    ->where('article.timestamp', '>', $article->timestamp)
-                   ->where('articletext.languageId', $languageId)
+                   ->where('articletext.language_id', $languageId)
                    ->where('articletext.published', true)
                    ->first();
     

@@ -96,7 +96,7 @@ class ViewController extends \App\Http\Controllers\Controller {
   */
 	public function adminAddCategoryPage($categoryId, $parentId)
 	{
-		return view('admin/category', ['categoryId' => $categoryId, 'parentId' => $parentId]);
+		return view('admin/category', ['category_id' => $categoryId, 'parent_id' => $parentId]);
 	}
   
   /**
@@ -112,7 +112,7 @@ class ViewController extends \App\Http\Controllers\Controller {
     }
     
 		return view('admin/category', [
-                'categoryId' => $categoryId,
+                'category_id' => $categoryId,
                 'categoryName' => $categoryLanguage->name,
                 'categoryDescription' => $categoryLanguage->description,
                 'categoryURLName' => $categoryLanguage->urlname

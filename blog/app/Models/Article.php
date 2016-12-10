@@ -8,7 +8,7 @@ class Article extends Model {
 	protected $table = 'article';
 
 	// The attributes that are mass assignable
-	protected $fillable = ['id', 'categoryId', 'userId', 'timestamp'];
+	protected $fillable = ['id', 'category_id', 'user_id', 'timestamp'];
 
 	// The attributes excluded from the model's JSON form
 	protected $hidden = [];
@@ -18,16 +18,16 @@ class Article extends Model {
   
   // Returns article's language versions
   public function languageVersions() {
-    return $this->hasMany('\\App\\Models\\ArticleLanguageVersion', 'articleId');
+    return $this->hasMany('\\App\\Models\\ArticleLanguageVersion', 'article_id');
   }
   
   //Returns the writer of the article
   public function writer() {
-    return $this->belongsTo('\\App\\User', 'userId');
+    return $this->belongsTo('\\App\\User', 'user_id');
   }
   
   //Returns the category of the article
   public function category() {
-    return $this->belongsTo('\\App\\Models\\Category', 'categoryId');
+    return $this->belongsTo('\\App\\Models\\Category', 'category_id');
   }
 }
