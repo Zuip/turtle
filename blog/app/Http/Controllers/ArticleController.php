@@ -211,9 +211,9 @@ class ArticleController extends Controller {
     
     // Find latest article
     $latestArticle = Article::orderBy('timestamp', 'DESC')
-                     ->join('articleText', 'articleText.articleId', '=', 'article.id')
-                     ->where('articleText.languageId', $languageId)
-                     ->where('articleText.published', true)
+                     ->join('articletext', 'articletext.articleId', '=', 'article.id')
+                     ->where('articletext.languageId', $languageId)
+                     ->where('articletext.published', true)
                      ->first();
     
     if($latestArticle === NULL) {
@@ -226,9 +226,9 @@ class ArticleController extends Controller {
     
     // Find first article
     $firstArticle = Article::orderBy('timestamp')
-                    ->join('articleText', 'articleText.articleId', '=', 'article.id')
-                    ->where('articleText.languageId', $languageId)
-                    ->where('articleText.published', true)
+                    ->join('articletext', 'articletext.articleId', '=', 'article.id')
+                    ->where('articletext.languageId', $languageId)
+                    ->where('articletext.published', true)
                     ->first();
     
     if($firstArticle === NULL) {
@@ -325,10 +325,10 @@ class ArticleController extends Controller {
     
     // Find previous article
     $previousArticle = Article::orderBy('timestamp', 'DESC')
-                       ->join('articleText', 'articleText.articleId', '=', 'article.id')
+                       ->join('articletext', 'articletext.articleId', '=', 'article.id')
                        ->where('article.timestamp', '<', $article->timestamp)
-                       ->where('articleText.languageId', $languageId)
-                       ->where('articleText.published', true)
+                       ->where('articletext.languageId', $languageId)
+                       ->where('articletext.published', true)
                        ->first();
     
     $previousArticleUrlName = NULL;
@@ -338,10 +338,10 @@ class ArticleController extends Controller {
     
     // Find next article
     $nextArticle = Article::orderBy('timestamp')
-                   ->join('articleText', 'articleText.articleId', '=', 'article.id')
+                   ->join('articletext', 'articletext.articleId', '=', 'article.id')
                    ->where('article.timestamp', '>', $article->timestamp)
-                   ->where('articleText.languageId', $languageId)
-                   ->where('articleText.published', true)
+                   ->where('articletext.languageId', $languageId)
+                   ->where('articletext.published', true)
                    ->first();
     
     $nextArticleUrlName = NULL;

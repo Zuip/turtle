@@ -17,7 +17,7 @@ CREATE TABLE category (
 		ON UPDATE CASCADE
 );
 
-CREATE TABLE categoryText (
+CREATE TABLE categorytext (
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(30) NOT NULL,
 	description VARCHAR(500),
@@ -74,7 +74,7 @@ CREATE TABLE tag (
 		ON UPDATE CASCADE
 );
 
-CREATE TABLE summaryBox (
+CREATE TABLE summarybox (
 	id INT NOT NULL AUTO_INCREMENT,
 	topic VARCHAR(120) NOT NULL,
 	weight INT NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE comment (
 		ON UPDATE CASCADE
 );
 
-CREATE TABLE articleText (
+CREATE TABLE articletext (
 	id INT NOT NULL AUTO_INCREMENT,
 	text TEXT NOT NULL,
 	topic VARCHAR(120) NOT NULL,

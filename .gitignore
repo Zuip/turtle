@@ -1,3 +1,4 @@
 /blog/storage/logs
 /blog/.env
 /nbproject/private/
+/blog/storage/framework/sessions
