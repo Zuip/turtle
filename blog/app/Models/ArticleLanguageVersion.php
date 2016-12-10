@@ -18,6 +18,6 @@ class ArticleLanguageVersion extends Model {
   
   //Returns base article of the language version
   public function article() {
-    return $this->hasOne('\\App\\Models\\Article', 'articleId');
+    return $this->belongsTo('\\App\\Models\\Article', 'articleId');
   }
 }

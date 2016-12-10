@@ -23,7 +23,7 @@ class Article extends Model {
   
   //Returns the writer of the article
   public function writer() {
-    return $this->hasOne('\\App\\User', 'userId');
+    return $this->belongsTo('\\App\\User', 'userId');
   }
   
   //Returns the category of the article
