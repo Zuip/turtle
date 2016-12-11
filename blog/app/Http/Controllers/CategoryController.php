@@ -28,16 +28,16 @@ class CategoryController extends Controller {
     $localeId = LanguageController::getLocaleIdByCode($languageCode);
     
     // Fetch all categories with chosen parent id
-    $categories = Category::where('parent_id', $parent);
+    $categories = Category::where('parent_id', $parent)->get();
     
     // Loop through all category and fetch the needed information for them
     foreach($categories as $category) {
       
       // Fetch the language information
       if($unpublished) {
-        $categoryLanguageVersions = CategoryLanguageVersion::where('category_id', $category->id)->where('language_id', $localeId);
+        $categoryLanguageVersions = CategoryLanguageVersion::where('category_id', $category->id)->where('language_id', $localeId)->get();
       } else {
-        $categoryLanguageVersions = CategoryLanguageVersion::where('category_id', $category->id)->where('language_id', $localeId)->where('published', true);
+        $categoryLanguageVersions = CategoryLanguageVersion::where('category_id', $category->id)->where('language_id', $localeId)->where('published', true)->get();
       }
       
       // If matching language version was not found, skip to next phase of the loop
