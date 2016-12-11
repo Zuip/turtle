@@ -43,7 +43,7 @@ class LanguageController extends Controller {
    * Return current language's id
    */
   static public function getCurrentLocaleId() {
-    return \App\Models\Language::all()->where('code', \Session::get('language'))->first()->id;
+    return \App\Models\Language::where('code', \Session::get('language'))->first()->id;
   }
 
   /* 
@@ -51,7 +51,7 @@ class LanguageController extends Controller {
    */
   static public function getLocaleIdByCode($languageCode) {
     
-    $language = \App\Models\Language::all()->where('code', $languageCode)->first();
+    $language = \App\Models\Language::where('code', $languageCode)->first();
     if($language == NULL) {
       return false;
     }

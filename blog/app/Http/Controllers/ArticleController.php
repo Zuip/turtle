@@ -38,7 +38,7 @@ class ArticleController extends Controller {
     }
     
     // Check that the URL name is not already used
-    if(ArticleLanguageVersion::all()->where('urlname', $URLName)->first() != NULL) {
+    if(ArticleLanguageVersion::where('urlname', $URLName)->first() != NULL) {
       return array('error' => 'URL name already in use!');
     }
     
@@ -88,7 +88,7 @@ class ArticleController extends Controller {
     }
     
     // Find article
-    $article = Article::all()->where('id', intval($articleId))->first();
+    $article = Article::where('id', intval($articleId))->first();
     if($article == NULL) {
       return array('error' => 'Article does not exist!');
     }
@@ -131,7 +131,7 @@ class ArticleController extends Controller {
     // Find category
     $category = Category::where('id', intval($categoryId))->first();
     if($category == NULL) {
-      return array('error' => 'Category ' . $categoryId . ' does not exist!');
+      return array('error' => 'Category does not exist!');
     }
     
     // Find articles
@@ -306,7 +306,7 @@ class ArticleController extends Controller {
     }
     
     // Find article
-    $article = Article::all()->where('id', intval($articleId))->first();
+    $article = Article::where('id', intval($articleId))->first();
     if($article === NULL) {
       return array('error' => 'Article does not exist!');
     }
