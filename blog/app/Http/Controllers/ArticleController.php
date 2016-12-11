@@ -172,12 +172,12 @@ class ArticleController extends Controller {
       
       // Assign selected attributes of the article to the result array
       $tempArticle = array();
-      if($attributes == NULL || in_array('id',          $attributes)) { $tempArticle['id']          = $article->id;                }
-      if($attributes == NULL || in_array('topic',       $attributes)) { $tempArticle['topic']       = $languageVersion->topic;     }
-      if($attributes == NULL || in_array('urlname',     $attributes)) { $tempArticle['urlname']     = $languageVersion->urlname;   }
-      if($attributes == NULL || in_array('published',   $attributes)) { $tempArticle['published']   = $languageVersion->published; }
-      if($attributes == NULL || in_array('timestamp',   $attributes)) { $tempArticle['timestamp']   = $article->timestamp;         }
-      if($attributes == NULL || in_array('text',        $attributes)) { $tempArticle['text']        = $languageVersion->text;      }
+      if($attributes == NULL || in_array('id',          $attributes)) { $tempArticle['id']          = $article->id;                                             }
+      if($attributes == NULL || in_array('topic',       $attributes)) { $tempArticle['topic']       = $languageVersion->topic;                                  }
+      if($attributes == NULL || in_array('urlname',     $attributes)) { $tempArticle['urlname']     = $languageVersion->urlname;                                }
+      if($attributes == NULL || in_array('published',   $attributes)) { $tempArticle['published']   = intval($languageVersion->published) === 1 ? true : false; }
+      if($attributes == NULL || in_array('timestamp',   $attributes)) { $tempArticle['timestamp']   = $article->timestamp;                                      }
+      if($attributes == NULL || in_array('text',        $attributes)) { $tempArticle['text']        = $languageVersion->text;                                   }
       if($attributes == NULL || in_array('textsummary', $attributes)) {
         $tempArticle['textsummary'] = explode("[summary]", $languageVersion->text)[0];
       }
