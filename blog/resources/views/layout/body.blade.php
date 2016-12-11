@@ -39,9 +39,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          <?php /* Future feature: mobile change language menu
           <a class="navbar-toggle collapsed language" id="mobileLanguageMenu" data-toggle="collapse" data-target=".nav-language" aria-expanded="false" aria-controls="navbar">
             <span class="glyphicon glyphicon-globe" style="margin-right:3px;" aria-hidden="true"></span><span class="caret"></span>
-          </a>
+          </a> */ ?>
           </button>
           <a class="navbar-brand" href="/" style="margin-right:10px;">
             <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> Zui.fi
@@ -72,6 +73,8 @@
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </li>
+            
+            <?php /*
             <!-- Future feature: search articles
             <li>
               <a href="#" style="padding:12px;font-size:24px;" title="{{trans('views.search.menuTooltip')}}" data-toggle="tooltip" data-placement="bottom">
@@ -79,6 +82,8 @@
               </a>
             </li>
             -->
+            
+            <!-- Future feature: Change language
             <li class="dropdown" id="languagesDropdownMenu" style="font-size:16px">
               <a class="dropdown-toggle" id="chooseLanguage" data-toggle="dropdown" role="button" aria-expanded="false" style="padding:12px;font-size:24px;cursor:pointer" title="<% trans('views.chooseLanguage.menuTooltip') %>" data-placement="bottom">
                 <span class="glyphicon glyphicon-globe" style="margin-right:3px;" aria-hidden="true"></span><span class="caret"></span>
@@ -93,8 +98,13 @@
                 @endforeach
               </ul>
             </li>
+            -->
+            */ ?>
+            
           </ul>
         </div>
+        
+        <?php /* Future feature: Change language with mobile device
         <div id="languagesMobileMenu" class="collapse navbar-collapse nav-language">
           <ul class="nav navbar-nav">
             @foreach(App\Models\Language::all() as $language)
@@ -106,6 +116,8 @@
             @endforeach
           </ul>
         </div>
+        */ ?>
+        
       </div>
     </nav>
     

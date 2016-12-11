@@ -75,7 +75,7 @@ class CategoryController extends Controller {
       return array('error' => 'Language version does not exist!');
     }
     
-    $category = Category::all()->where('id', intval($categoryId))->first();
+    $category = Category::where('id', intval($categoryId))->first();
     if($category == NULL) {
       return array('error' => 'Category does not exist!');
     }
@@ -208,7 +208,7 @@ class CategoryController extends Controller {
   static public function findCategoryLanguageWithCategoryId($categoryId, $languageCode, $includeUnpublished = true) {
     
     // Find category's language versions
-    $categories = Category::all()->where('id', intval($categoryId));
+    $categories = Category::where('id', intval($categoryId))->get();
     
     // Check that some language versions exists
     if(count($categories) === 0) {
@@ -238,7 +238,7 @@ class CategoryController extends Controller {
   static public function findCategoryLanguageWithURLName($categoryURLName, $languageCode, $includeUnpublished = true) {
     
     // Find category language version
-    $categoryLanguages = CategoryLanguageVersion::all()->where('urlname', $categoryURLName);
+    $categoryLanguages = CategoryLanguageVersion::where('urlname', $categoryURLName)->get();
     
     // Check that a category was found
     if(count($categoryLanguages) < 1) {

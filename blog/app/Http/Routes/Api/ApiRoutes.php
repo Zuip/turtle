@@ -64,14 +64,14 @@ Route::group(['middleware' => 'checkLocale'], function()
   
   Route::get('/api/{language}/views/categories/{category}', function($language, $categoryURLName)
   {
-    $category = App\Http\Controllers\CategoryController::findCategoryLanguageWithURLName($categoryURLName, $language, false);
+    $categoryLanguageVersion = App\Http\Controllers\CategoryController::findCategoryLanguageWithURLName($categoryURLName, $language, false);
     
-    if(is_array($category) && isset($category['error'])) {
-      return \Response::json(array("error" => $category['error']), 404);
+    if(is_array($categoryLanguageVersion) && isset($categoryLanguageVersion['error'])) {
+      return \Response::json(array("error" => $categoryLanguageVersion['error']), 404);
     }
     
     $articles = App\Http\Controllers\ArticleController::getCategoryArticlesData(
-      $category->id,
+      $categoryLanguageVersion->category->id,
       $language,
       false,
       array('id', 'topic', 'textsummary', 'timestamp', 'publishtime', 'urlname', 'offset', 'previous'),
@@ -83,7 +83,7 @@ Route::group(['middleware' => 'checkLocale'], function()
       "texts" => array(
         "continueReading" => \Lang::get('views.category.continueReading', array(), $language)
       ),
-      "category" => $category,
+      "category" => $categoryLanguageVersion,
       "articles" => $articles
     ));
   });

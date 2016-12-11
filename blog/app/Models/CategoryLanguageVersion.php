@@ -16,7 +16,7 @@ class CategoryLanguageVersion extends Model {
   // No default timestamps
   public $timestamps = false;
   
-  // Returns category of category's language version
+  // Returns the category the language version belongs to
   public function category() {
     return $this->belongsTo('\\App\\Models\\Category', 'category_id');
   }

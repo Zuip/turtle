@@ -26,7 +26,7 @@ class ArticleController extends Controller {
     }
     
     // Find category
-    $category = Category::all()->where('id', intval($categoryId))->first();
+    $category = Category::where('id', intval($categoryId))->first();
     if($category == NULL) {
       return array('error' => 'Category does not exist!');
     }
@@ -129,9 +129,9 @@ class ArticleController extends Controller {
     }
     
     // Find category
-    $category = Category::all()->where('id', intval($categoryId))->first();
+    $category = Category::where('id', intval($categoryId))->first();
     if($category == NULL) {
-      return array('error' => 'Category does not exist!');
+      return array('error' => 'Category ' . $categoryId . ' does not exist!');
     }
     
     // Find articles
