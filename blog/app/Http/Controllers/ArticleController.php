@@ -134,16 +134,13 @@ class ArticleController extends Controller {
       return array('error' => 'Category does not exist!');
     }
     
-    // Find articles
-    $articles = $category->articles()->orderBy('timestamp');
-    
     // Variables needed for getting chosen articles
     $articleLoopCount = 0;
     $selectedArticlesCount = 0;
     
     // Find article language versions
     $articleLanguageVersions = array();
-    foreach($articles->get() as $article) {
+    foreach($category->articles()->orderBy('timestamp')->get() as $article) {
       
       $languageVersion = $article->languageVersions()->where('language_id', $languageId)->first();
       
@@ -189,7 +186,7 @@ class ArticleController extends Controller {
         $tempArticle['offset'] = $articleLoopCount - 1;
       }
 
-      $articleLanguageVersions[$article->id] = $tempArticle;
+      $articleLanguageVersions[] = $tempArticle;
       
       if($articlesInterval != NULL && $articlesInterval["amount"] <= $selectedArticlesCount) {
         break;

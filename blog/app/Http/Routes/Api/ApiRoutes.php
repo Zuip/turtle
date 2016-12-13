@@ -62,30 +62,9 @@ Route::group(['middleware' => 'checkLocale'], function()
     ));
   });
   
-  Route::get('/api/{language}/views/categories/{category}', function($language, $categoryURLName)
-  {
-    $categoryLanguageVersion = App\Http\Controllers\CategoryController::findCategoryLanguageWithURLName($categoryURLName, $language, false);
-    
-    if(is_array($categoryLanguageVersion) && isset($categoryLanguageVersion['error'])) {
-      return \Response::json(array("error" => $categoryLanguageVersion['error']), 404);
-    }
-    
-    $articles = App\Http\Controllers\ArticleController::getCategoryArticlesData(
-      $categoryLanguageVersion->category->id,
-      $language,
-      false,
-      array('id', 'topic', 'textsummary', 'timestamp', 'publishtime', 'urlname', 'offset', 'previous'),
-      array('amount' => 10, 'offset' => 0),
-      true
-    );
-      
-    return \Response::json(array(
-      "texts" => array(
-        "continueReading" => \Lang::get('views.category.continueReading', array(), $language)
-      ),
-      "category" => $categoryLanguageVersion,
-      "articles" => $articles
-    ));
+  Route::get('/api/{language}/views/categories/{category}/page/{page}', function($language, $categoryURLName, $page) {
+    $categoryViewApiController = new App\Http\Controllers\Api\CategoryViewApiController();
+    return $categoryViewApiController->get($categoryURLName, $language, intval($page));
   });
   
   Route::get('/api/{language}/views/articles/{article}', function($language, $articleURLName)
