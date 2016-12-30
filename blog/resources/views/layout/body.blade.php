@@ -132,7 +132,7 @@
     </div>
     
     <footer class="blog-footer">
-      <p>&copy; 2015-2016 Zui.fi</p>
+      <p>&copy; 2015-2017 Zui.fi</p>
     </footer>
     
     <!-- Third party JavaScripts -->

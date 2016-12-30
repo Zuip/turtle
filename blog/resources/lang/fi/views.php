@@ -18,8 +18,8 @@ return [
   ],
   'home' => [
     'link' => '/',
-    'introduction' => 'Tervetuloa matkablogiini! Tälle sivulle kokoan kertomuksia ja kuvia eri matkoiltani, toistaiseksi matkakertomukset rajoittuvat kesäkuun 2015 Balkanin matkaani.<br /><br />Seuraava kohde valittu, Marokko odottaa toukokuussa 2016!',
-    'metaDescription' => 'Matkablogi kesäkuun 2015 matkastani Balkanille',
+    'introduction' => 'Tervetuloa matkablogiini! Täältä löydät blogitekstejä matkoistani Balkanille, Marokkoon ja Meksikoon. Aloita lukemaan blogia alusta tai tutustu blogiin uusimmasta blogikirjoituksesta alla olevista linkeistä.',
+    'metaDescription' => 'Matkablogi',
     'latestArticle' => 'Uusin kirjoitus',
     'startFromBeginning' => 'Aloita alusta'
   ],
