@@ -135,6 +135,17 @@
       <p>&copy; 2015-2017 Zui.fi</p>
     </footer>
     
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-89629930-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    
     <!-- Third party JavaScripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="/assets/thirdparty/bootstrap-3.3.2/js/bootstrap.min.js"></script>
@@ -142,6 +153,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
+    <script src="/assets/thirdparty/angular-google-analytics.min.js"></script>
     
     <!-- Own JavaScripts -->
     <script src="/scripts/app.js"></script>
