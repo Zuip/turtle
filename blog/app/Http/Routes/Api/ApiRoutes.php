@@ -20,13 +20,8 @@ Route::group(['middleware' => 'checkLocale'], function()
   
   Route::get('/api/{language}/views/about', function($language)
   {
-    return \Response::json(array(
-      "texts" => array(
-        "topic" => \Lang::get('views.about.topic', array(), $language),
-        "aboutWriter" => \Lang::get('views.about.aboutWriter', array(), $language),
-        "placesVisited" => \Lang::get('views.about.placesVisited', array(), $language)
-      )
-    ));
+    $visitedPlaceApiController = new App\Http\Controllers\Api\VisitedPlaceApiController();
+    return $visitedPlaceApiController->getVisitedPlaces($language);
   });
   
   Route::get('/api/{language}/views/login', function($language)

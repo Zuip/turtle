@@ -121,6 +121,14 @@ CREATE TABLE articletext (
 		ON UPDATE CASCADE
 );
 
+CREATE TABLE visitedplace (
+	id INT NOT NULL AUTO_INCREMENT,
+	locationname TEXT NOT NULL,
+	lat VARCHAR(20) NOT NULL,
+	lng VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id)
+);
+
 INSERT INTO language (name, code) VALUES ("suomi", "fi");
 INSERT INTO language (name, code) VALUES ("english", "en");
 INSERT INTO user (name, permissionlevel, password, loginattempts) VALUES ("Username", "admin", "hash", 0);
