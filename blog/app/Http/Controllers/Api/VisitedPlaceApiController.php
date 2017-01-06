@@ -13,8 +13,8 @@ class VisitedPlaceApiController {
     foreach($visitedPlaces as $visitedPlace) {
       $visitedPlacesArray[] = array(
         "name" => $visitedPlace->locationname,
-        "lat" => intval($visitedPlace->lat),
-        "lng" => intval($visitedPlace->lng)
+        "lat" => floatval($visitedPlace->lat),
+        "lng" => floatval($visitedPlace->lng)
       );
     }
     
