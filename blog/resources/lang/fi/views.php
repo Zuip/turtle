@@ -28,6 +28,9 @@ return [
     'link' => '/about',
     'topic' => 'Kirjoittaja',
     'aboutWriter' => 'Olen tamperelaistunut, alun perin vaasalainen ohjelmistosuunnittelija. Tämä blogi syntyi luonnollisena mielenkiinnonkohteideni, matkailun ja web-ohjelmoinnin, yhdistelmänä. Olen tehnyt tämän blogin PHP:ta (Laravel-framework), MySQL:ää, AngularJS:ää ja Bootsrapia käyttäen harrastusprojektina.',
+    'contact' => 'Yhteystiedot',
+    'contactInfo' => 'Jos sinulla on asiaa tai kysyttävää vaikkapa blogiini tai blogissa mainittuihin matkakohteisiin liittyen, pistä sähköpostia allaolevaan sähköpostiosoitteeseen.',
+    'contactEmail' => 'robert [ät] zui.fi',
     'placesVisited' => 'Käydyt kohteet'
   ],
   'category' => [

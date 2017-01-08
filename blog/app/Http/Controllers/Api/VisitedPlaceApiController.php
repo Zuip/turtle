@@ -22,7 +22,12 @@ class VisitedPlaceApiController {
       "texts" => array(
         "topic" => \Lang::get('views.about.topic', array(), $language),
         "aboutWriter" => \Lang::get('views.about.aboutWriter', array(), $language),
-        "placesVisited" => \Lang::get('views.about.placesVisited', array(), $language)
+        "placesVisited" => \Lang::get('views.about.placesVisited', array(), $language),
+        "contact" => array(
+          "topic" => \Lang::get('views.about.contact', array(), $language),
+          "info" => \Lang::get('views.about.contactInfo', array(), $language),
+          "email" => \Lang::get('views.about.contactEmail', array(), $language)
+        )
       ),
       "visitedPlaces" => $visitedPlacesArray
     ));
