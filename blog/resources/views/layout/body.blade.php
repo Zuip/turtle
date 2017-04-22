@@ -166,7 +166,6 @@
     <script src="/scripts/services/LanguageService.js"></script>
     <script src="/scripts/services/SpinnerService.js"></script>
     <script src="/scripts/models/HomeModel.js"></script>
-    <script src="/scripts/models/AboutModel.js"></script>
     <script src="/scripts/models/LoginModel.js"></script>
     <script src="/scripts/models/UserModel.js"></script>
     <script src="/scripts/models/CategoryModel.js"></script>
@@ -177,7 +176,6 @@
     <script src="/scripts/models/admin/CategoryEditorModel.js"></script>
     <script src="/scripts/models/NotFoundModel.js"></script>
     <script src="/scripts/controllers/HomeController.js"></script>
-    <script src="/scripts/controllers/AboutController.js"></script>
     <script src="/scripts/controllers/LoginController.js"></script>
     <script src="/scripts/controllers/UserController.js"></script>
     <script src="/scripts/controllers/CategoryController.js"></script>
