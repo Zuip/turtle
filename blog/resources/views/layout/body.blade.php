@@ -126,8 +126,7 @@
         <div class="col-sm-2 sidebar"></div>
         <div class="col-sm-8 content" ng-view>
         </div>
-        <div class="col-sm-2 sidebar">
-        </div>
+        <div class="col-sm-2 sidebar"></div>
       </div>
     </div>
     
@@ -146,13 +145,20 @@
       ga('send', 'pageview');
     </script>
     
-    <!-- Third party JavaScripts -->
+    <!-- jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
+    <!-- Language handler -->
+    <script src="/scripts/language.js"></script>
+    
+    <!-- Third party JavaScripts -->
     <script src="/assets/thirdparty/bootstrap-3.3.2/js/bootstrap.min.js"></script>
     <script src="/assets/thirdparty/ie10-viewport-bug-workaround.js"></script> <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
+    <script src="/assets/thirdparty/reactjs/react.min.js"></script>
+    <script src="/assets/thirdparty/reactjs/react-dom.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b-VSBFUZVEUigMBiGITuacfH9KHHeg"></script>
     
     <!-- Own JavaScripts -->

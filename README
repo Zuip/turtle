@@ -8,3 +8,8 @@ Used technologies in this project
 - Laravel / Lumen
 - AngularJS
 - HTML5
+
+Create development environment
+1. clone repository https://github.com/Zuip/zuifi-public_html to the root directory of this repository
+2. run "npm install" in root directory of this repository
+3. compile react files with "npm run babel-compile"

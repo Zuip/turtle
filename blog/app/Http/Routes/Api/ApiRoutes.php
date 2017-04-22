@@ -1,7 +1,17 @@
 <?php
 
+Route::get('/api/visitedplaces', function() {
+  $visitedPlaceApiController = new App\Http\Controllers\Api\VisitedPlaceApiController();
+  return $visitedPlaceApiController->getVisitedPlaces();
+});
+
 Route::group(['middleware' => 'checkLocale'], function()
 {
+  
+  Route::get('/api/{language}/translations', function($language) {
+    return \Response::json(\Lang::get('views', array(), $language));
+  });
+  
   Route::get('/api/{language}/views/home', function($language)
   {
     $frontpageArticles = App\Http\Controllers\ArticleController::getFrontpageArticlesData($language);
@@ -16,12 +26,6 @@ Route::group(['middleware' => 'checkLocale'], function()
       ),
       "articles" => $frontpageArticles
     ));
-  });
-  
-  Route::get('/api/{language}/views/about', function($language)
-  {
-    $visitedPlaceApiController = new App\Http\Controllers\Api\VisitedPlaceApiController();
-    return $visitedPlaceApiController->getVisitedPlaces($language);
   });
   
   Route::get('/api/{language}/views/login', function($language)
