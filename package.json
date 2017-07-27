@@ -32,5 +32,8 @@
       "foo.js",
       "bar/**/*.js"
     ]
+  },
+  "devDependencies": {
+    "webpack": "^2.6.1"
   }
 }
