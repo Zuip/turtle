@@ -167,48 +167,4 @@ class CategoryController extends Controller {
     
     return \Response::json(array('success' => 'Editing a category language version succeeded!'));
   }
-  
-  // Function for publishing a category
-  public function publishCategory($categoryId, $languageCode) {
-    
-    // Search the category language object
-    $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
-    $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
-      $categoryId,
-      $languageCode
-    );
-    
-    // Check if there was an error and if there was, return it
-    if(!isset($categoryLanguage)) {
-      return false;
-    }
-    
-    // Publish the chosen language version of the category
-    $categoryLanguage->published = true;
-    $categoryLanguage->save();
-    
-    return true;
-  }
-  
-  // Function for unpuiblishing a category
-  public function unpublishCategory($categoryId, $languageCode)
-  {    
-    // Search the category language object
-    $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
-    $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
-      $categoryId,
-      $languageCode
-    );
-    
-    // Check if there was an error and if there was, return it
-    if(!isset($categoryLanguage)) {
-      return false;
-    }
-    
-    // Publish the chosen language version of the category
-    $categoryLanguage->published = false;
-    $categoryLanguage->save();
-    
-    return true;
-  }
 }

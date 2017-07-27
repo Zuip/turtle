@@ -6,6 +6,9 @@ use App\Models\Category;
 use App\Models\CategoryLanguageVersion;
 use App\Models\Language;
 
+/*
+ * A Service for finding language versions of categories with URLName or id
+ */
 class LanguageVersionFetcher {
   
   public function findWithURLName($categoryURLName, $languageCode, $includeUnpublished = true) {

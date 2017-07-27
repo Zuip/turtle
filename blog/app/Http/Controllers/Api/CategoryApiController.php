@@ -9,8 +9,8 @@ class CategoryApiController {
   
   public function publishCategory($categoryId, $languageCode) {
     
-    $categoryController = new \App\Http\Controllers\CategoryController();
-    $result = $categoryController->publishCategory($categoryId, $languageCode);
+    $categoryPublishedHandler = new \App\Services\Categories\PublishedHandler();
+    $result = $categoryPublishedHandler->publishCategory($categoryId, $languageCode);
 
     if($result) {
       return \Response::json(array("OK" => true));
@@ -26,8 +26,8 @@ class CategoryApiController {
   
   public function unpublishCategory($categoryId, $languageCode) {
     
-    $categoryController = new \App\Http\Controllers\CategoryController();
-    $result = $categoryController->unpublishCategory($categoryId, $languageCode);
+    $categoryPublishedHandler = new \App\Services\Categories\PublishedHandler();
+    $result = $categoryPublishedHandler->unpublishCategory($categoryId, $languageCode);
 
     if($result === true) {
       return \Response::json(array("OK" => true));
