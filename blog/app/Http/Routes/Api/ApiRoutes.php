@@ -7,9 +7,14 @@ Route::get('/api/visitedplaces', function() {
 
 Route::group(['middleware' => 'checkLocale'], function()
 {
-  
   Route::get('/api/{language}/translations', function($language) {
-    return \Response::json(\Lang::get('views', array(), $language));
+    if(\Auth::check() && \Auth::user()->permissionlevel == "admin") {
+      $languageData = \Lang::get('views', array(), $language);
+      $languageData['admin'] = \Lang::get('admin', array(), $language);
+      return \Response::json($languageData);
+    } else {
+      return \Response::json(\Lang::get('views', array(), $language));
+    }
   });
   
   Route::get('/api/{language}/views/home', function($language)
@@ -89,12 +94,11 @@ Route::group(['middleware' => 'checkLocale'], function()
       )
     ));
   });
-  
-  // Admin operations
-  Route::group(['middleware' => 'adminPermission'], function()
-  {
-    require __DIR__ . '/AdminApiRoutes.php';
-  });
+});
+
+// Admin operations
+Route::group(['middleware' => 'adminPermission'], function() {
+  require __DIR__ . '/AdminApiRoutes.php';
 });
 
 require __DIR__ . '/SessionApiRoutes.php';

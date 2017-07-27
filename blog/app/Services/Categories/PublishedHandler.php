@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Services\Categories;
+<?php namespace App\Services\Categories;
 
 class PublishedHandler {
 

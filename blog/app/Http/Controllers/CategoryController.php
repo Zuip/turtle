@@ -16,57 +16,6 @@ class CategoryController extends Controller {
     
 	}
   
-  /*
-   * Finds categories and returns their data in array with hierarchy
-   */
-  public static function getCategories($languageCode = 'fi', $unpublished = false, $parent = null) {
-    
-    // A variable where the function result is placed
-    $categoryHierarchy = array();
-    
-    // We need the id for the language code to make queries
-    $localeId = LanguageController::getLocaleIdByCode($languageCode);
-    
-    // Fetch all categories with chosen parent id
-    $categories = Category::where('parent_id', $parent)->get();
-    
-    // Loop through all category and fetch the needed information for them
-    foreach($categories as $category) {
-      
-      // Fetch the language information
-      if($unpublished) {
-        $categoryLanguageVersions = CategoryLanguageVersion::where('category_id', $category->id)->where('language_id', $localeId)->get();
-      } else {
-        $categoryLanguageVersions = CategoryLanguageVersion::where('category_id', $category->id)->where('language_id', $localeId)->where('published', true)->get();
-      }
-      
-      // If matching language version was not found, skip to next phase of the loop
-      if($categoryLanguageVersions->isEmpty()) {
-        continue;
-      }
-      
-      $categoryLanguageVersion = $categoryLanguageVersions->first();
-      
-      // Add category to the array
-      $categoryId = $category->id;
-      $categoryHierarchy[$categoryId] = array();
-      $categoryHierarchy[$categoryId]['name'] = $categoryLanguageVersion->name;
-      $categoryHierarchy[$categoryId]['id'] = $category->id;
-      $categoryHierarchy[$categoryId]['description'] = $categoryLanguageVersion->description;
-      $categoryHierarchy[$categoryId]['urlname'] = $categoryLanguageVersion->urlname;
-      $categoryHierarchy[$categoryId]['languageVersionId'] = $categoryLanguageVersion->id;
-      
-      if($unpublished) {
-        $categoryHierarchy[$categoryId]['published'] = $categoryLanguageVersion->published;
-      }
-      
-      // Fetch children
-      $categoryHierarchy[$categoryId]['children'] = self::getCategories($languageCode, $unpublished, $categoryId);
-    }
-    
-    return $categoryHierarchy;
-  }
-  
   // Finding category's name by category id and language code
   public static function getCategoryNameByIdAndLanguage($categoryId, $languageCode) {
     

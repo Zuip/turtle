@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Services\Categories;
+<?php namespace App\Services\Categories;
 
 use App\Models\Category;
 use App\Models\CategoryLanguageVersion;
@@ -34,7 +32,7 @@ class LanguageVersionFetcher {
     }
     
     // If the language version was wrong, find correct one and return it
-    return $this->findCategoryLanguageWithCategoryId(
+    return $this->findWithCategoryId(
       $categoryLanguage->category->id,
       $languageCode,
       $includeUnpublished
