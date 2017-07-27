@@ -12,12 +12,13 @@ class CategoryApiController {
     $categoryController = new \App\Http\Controllers\CategoryController();
     $result = $categoryController->publishCategory($categoryId, $languageCode);
 
-    if($result === true) {
+    if($result) {
       return \Response::json(array("OK" => true));
-    }
-
-    if(is_array($result) && isset($result['error'])) {
-      return \Response::json(array("error" => $result['error']), 404);
+    } else {
+      return \Response::json(
+        array("error" => "Language version of the category does not exist!"),
+        404
+      );
     }
 
     return \Response::json(array("error" => "Unknown error"), 404);
@@ -30,10 +31,11 @@ class CategoryApiController {
 
     if($result === true) {
       return \Response::json(array("OK" => true));
-    }
-
-    if(is_array($result) && isset($result['error'])) {
-      return \Response::json(array("error" => $result['error']), 404);
+    } else {
+      return \Response::json(
+        array("error" => "Language version of the category does not exist!"),
+        404
+      );
     }
 
     return \Response::json(array("error" => "Unknown error"), 404);

@@ -144,11 +144,15 @@ class CategoryController extends Controller {
       return \Response::json(array('error' => 'Missing PUT parameters'), 404);
     }
     
-    $categoryLanguage = self::findCategoryLanguageWithCategoryId($id, $languageCode);
+    $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
+    $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
+      $id,
+      $languageCode
+    );
     
     // Check if there was errors with finding the language version of category
-    if(is_array($categoryLanguage)) {
-      return \Response::json(array('error', $categoryLanguage['error']));
+    if(!isset($categoryLanguage)) {
+      return \Response::json(array("error", "Language version of the category does not exist!"));
     }
     
     // Check that the URL name is not in use for other categories
@@ -168,11 +172,15 @@ class CategoryController extends Controller {
   public function publishCategory($categoryId, $languageCode) {
     
     // Search the category language object
-    $categoryLanguage = self::findCategoryLanguageWithCategoryId($categoryId, $languageCode);
+    $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
+    $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
+      $categoryId,
+      $languageCode
+    );
     
     // Check if there was an error and if there was, return it
-    if(is_array($categoryLanguage)) {
-      return $categoryLanguage;
+    if(!isset($categoryLanguage)) {
+      return false;
     }
     
     // Publish the chosen language version of the category
@@ -186,11 +194,15 @@ class CategoryController extends Controller {
   public function unpublishCategory($categoryId, $languageCode)
   {    
     // Search the category language object
-    $categoryLanguage = self::findCategoryLanguageWithCategoryId($categoryId, $languageCode);
+    $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
+    $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
+      $categoryId,
+      $languageCode
+    );
     
     // Check if there was an error and if there was, return it
-    if(is_array($categoryLanguage)) {
-      return $categoryLanguage;
+    if(!isset($categoryLanguage)) {
+      return false;
     }
     
     // Publish the chosen language version of the category
@@ -198,63 +210,5 @@ class CategoryController extends Controller {
     $categoryLanguage->save();
     
     return true;
-  }
-  
-  static public function findCategoryLanguageWithCategoryId($categoryId, $languageCode, $includeUnpublished = true) {
-    
-    // Find category's language versions
-    $categories = Category::where('id', intval($categoryId))->get();
-    
-    // Check that some language versions exists
-    if(count($categories) === 0) {
-      return array('error' => 'Category does not exist!', 400);
-    }
-    
-    // Find needed language version in array
-    if($includeUnpublished) {
-      $categoryLanguageVersionsArray = $categories->first()
-                                                  ->languageVersions
-                                                  ->where('language_id', Language::where('code', $languageCode)->first()->id);
-    } else {
-      $categoryLanguageVersionsArray = $categories->first()
-                                                  ->languageVersions
-                                                  ->where('published', true)
-                                                  ->where('language_id', Language::where('code', $languageCode)->first()->id);
-    }
-    
-    // Check that there exists one language version of the needed language
-    if(count($categoryLanguageVersionsArray) !== 1) {
-      return array('error' => 'Language version of the category does not exist!');
-    }
-    
-    return $categoryLanguageVersionsArray->first();
-  }
-  
-  static public function findCategoryLanguageWithURLName($categoryURLName, $languageCode, $includeUnpublished = true) {
-    
-    // Find category language version
-    $categoryLanguages = CategoryLanguageVersion::where('urlname', $categoryURLName)->get();
-    
-    // Check that a category was found
-    if(count($categoryLanguages) < 1) {
-      return array('error' => 'Category does not exist!', 400);
-    }
-    
-    // One or many category language versions was found. If one of them is the correct one, return it.
-    foreach($categoryLanguages as $categoryLanguage) {
-      
-      // Only allow published if wanted
-      if(!$includeUnpublished && !$categoryLanguage->published) {
-        continue;
-      }
-      
-      // Check that the category language version has correct language
-      if($categoryLanguage->language_id == Language::where('code', $languageCode)->first()->id) {
-        return $categoryLanguage;
-      }
-    }
-    
-    // If the language version was wrong, find correct one and return it
-    return self::findCategoryLanguageWithCategoryId($categoryLanguage->category->id, $languageCode, $includeUnpublished);
   }
 }

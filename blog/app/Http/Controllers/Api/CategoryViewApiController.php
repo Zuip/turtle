@@ -4,9 +4,10 @@ class CategoryViewApiController {
 
   public function get($categoryURLName, $language, $page = 1) {
     
-    $categoryLanguageVersion = \App\Http\Controllers\CategoryController::findCategoryLanguageWithURLName($categoryURLName, $language, false);
-    if(is_array($categoryLanguageVersion) && isset($categoryLanguageVersion['error'])) {
-      return \Response::json(array("error" => $categoryLanguageVersion['error']), 404);
+    $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
+    $categoryLanguageVersion = $categoryLanguageVersionFetcher->findWithURLName($categoryURLName, $language, false);
+    if(count($categoryLanguageVersion) == 0) {
+      return \Response::json(array("error" => "Category does not exist!"), 404);
     }
 
     $articles = $this->getCategoryArticlesData($categoryLanguageVersion->category->id, $language, $page);

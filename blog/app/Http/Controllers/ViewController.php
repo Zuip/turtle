@@ -65,10 +65,11 @@ class ViewController extends \App\Http\Controllers\Controller {
 	public function categoryPage($categoryURLName)
 	{
     // Find category's language version with URL name
-    $categoryLanguage = \App\Http\Controllers\CategoryController::findCategoryLanguageWithURLName($categoryURLName, \Session::get('language'));
+    $categoryLanguageFetcher = new \App\Services\Categories\LanguageVersionFetcher();
+    $categoryLanguage = $categoryLanguageFetcher->findWithURLName($categoryURLName, \Session::get('language'));
     
     // Check if there was errors
-    if(is_array($categoryLanguage) && isset($categoryLanguage['error'])) {
+    if(count($categoryLanguage) == 0) {
       \App::abort(404);
     }
     
@@ -104,10 +105,14 @@ class ViewController extends \App\Http\Controllers\Controller {
   */
 	public function adminEditCategoryPage($categoryId)
 	{
-    $categoryLanguage = \App\Http\Controllers\CategoryController::findCategoryLanguageWithCategoryId($categoryId, \Session::get('language'));
+    $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
+    $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
+      $categoryId,
+      \Session::get('language')
+    );
     
     // Check if there was errors
-    if(is_array($categoryLanguage) && isset($categoryLanguage['error'])) {
+    if(!isset($categoryLanguage)) {
       \App::abort(404);
     }
     
