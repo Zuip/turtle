@@ -20,18 +20,15 @@ class CategoryController extends Controller {
   public static function getCategoryNameByIdAndLanguage($categoryId, $languageCode) {
     
     $languageId = LanguageController::getLocaleIdByCode($languageCode);
-    if($languageId === false) {
-      return array('error' => 'Language version does not exist!');
-    }
     
     $category = Category::where('id', intval($categoryId))->first();
     if($category == NULL) {
-      return array('error' => 'Category does not exist!');
+      throw new \App\Exceptions\ModelNotFoundException('Category does not exist!');
     }
     
     $categoryName = $category->languageVersions()->where('language_id', $languageId)->first()->name;
     if($categoryName == NULL) {
-      return array('error' => 'Language version of category does not exist!');
+      throw new \App\Exceptions\ModelNotFoundException('Language version of category does not exist!');
     }
     
     return $categoryName;

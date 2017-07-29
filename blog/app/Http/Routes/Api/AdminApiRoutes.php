@@ -4,24 +4,29 @@ Route::group(['middleware' => 'checkLocale'], function() {
 
   Route::get('/api/{language}/views/admin', function($languageCode)
   {
+    try {
+      
+      $categoryHierarchyArrayCreator = new \App\Services\Categories\CategoryHierarchyArrayCreator(
+        $languageCode,
+        true
+      );
     
-    $categoryHierarchyArrayCreator = new \App\Services\Categories\CategoryHierarchyArrayCreator(
-      $languageCode,
-      true
-    );
-    
-    return \Response::json(array(
-      "texts" => array(
-        "topic" => \Lang::get('admin.menuTopic', array(), $languageCode),
-        "text" => "",
-        "categories" => \Lang::get('admin.categories.topic', array(), $languageCode),
-        "published" => \Lang::get('admin.categories.published', array(), $languageCode),
-        "notPublished" => \Lang::get('admin.categories.notPublished', array(), $languageCode),
-        "add" => \Lang::get('views.common.form.add', array(), $languageCode),
-        "addSubCategory" => \Lang::get('admin.categories.addSubCategory', array(), $languageCode)
-      ),
-      "categories" => $categoryHierarchyArrayCreator->getCategories()
-    ));
+      return \Response::json(array(
+        "texts" => array(
+          "topic" => \Lang::get('admin.menuTopic', array(), $languageCode),
+          "text" => "",
+          "categories" => \Lang::get('admin.categories.topic', array(), $languageCode),
+          "published" => \Lang::get('admin.categories.published', array(), $languageCode),
+          "notPublished" => \Lang::get('admin.categories.notPublished', array(), $languageCode),
+          "add" => \Lang::get('views.common.form.add', array(), $languageCode),
+          "addSubCategory" => \Lang::get('admin.categories.addSubCategory', array(), $languageCode)
+        ),
+        "categories" => $categoryHierarchyArrayCreator->getCategories()
+      ));
+      
+    } catch(App\Exceptions\ModelNotFoundException $e) {
+      return \Response::json(array("error" => $e->getMessage()), 404);
+    }
   });
 
   Route::get('/api/{language}/views/admin/categoryeditor', function($languageCode)
@@ -41,10 +46,10 @@ Route::group(['middleware' => 'checkLocale'], function() {
 
   Route::get('/api/{language}/views/admin/categories/{category}/articles/new', function($languageCode, $categoryId)
   { 
-    $categoryName = App\Http\Controllers\CategoryController::getCategoryNameByIdAndLanguage($categoryId, $languageCode);
-
-    if(is_array($categoryName) && isset($categoryName['error'])) {
-      return \Response::json(array("error" => $categoryName['error']), 404);
+    try {
+      $categoryName = App\Http\Controllers\CategoryController::getCategoryNameByIdAndLanguage($categoryId, $languageCode);
+    } catch(App\Exceptions\ModelNotFoundException $e) {
+      return \Response::json(array("error" => $e->getMessage()), 404);
     }
 
     return \Response::json(array(
@@ -70,18 +75,18 @@ Route::group(['middleware' => 'checkLocale'], function() {
 
   Route::post('/api/{language}/categories/{category}/articles/new', function($languageCode, $categoryId)
   {
-    $result = App\Http\Controllers\ArticleController::createArticle(
-      $categoryId,
-      $languageCode,
-      \Input::get('topic'),
-      \Input::get('text'),
-      \Input::get('URLName'),
-      \Input::get('published'),
-      \Input::get('publishtime')
-    );
-
-    if(isset($result['error'])) {
-      return \Response::json(array("error" => $result['error']), 404);
+    try {
+      $result = App\Http\Controllers\ArticleController::createArticle(
+        $categoryId,
+        $languageCode,
+        \Input::get('topic'),
+        \Input::get('text'),
+        \Input::get('URLName'),
+        \Input::get('published'),
+        \Input::get('publishtime')
+      );
+    } catch(App\Exceptions\ModelNotFoundException $e) {
+      return \Response::json(array("error" => $e->getMessage()), 404);
     }
 
     return \Response::json(array("articleId" => $result['articleId']));
@@ -89,18 +94,18 @@ Route::group(['middleware' => 'checkLocale'], function() {
 
   Route::put('/api/{language}/articles/{article}', function($languageCode, $articleId)
   {
-    $result = App\Http\Controllers\ArticleController::editArticle(
-      $articleId,
-      $languageCode,
-      \Input::get('topic'),
-      \Input::get('text'),
-      \Input::get('URLName'),
-      \Input::get('published'),
-      \Input::get('publishtime')
-    );
-
-    if(isset($result['error'])) {
-      return \Response::json(array("error" => $result['error']), 404);
+    try {
+      App\Http\Controllers\ArticleController::editArticle(
+        $articleId,
+        $languageCode,
+        \Input::get('topic'),
+        \Input::get('text'),
+        \Input::get('URLName'),
+        \Input::get('published'),
+        \Input::get('publishtime')
+      );
+    } catch(App\Exceptions\ModelNotFoundException $e) {
+      return \Response::json(array("error" => $e->getMessage()), 404);
     }
 
     return \Response::json(array("success" => true));
@@ -108,9 +113,22 @@ Route::group(['middleware' => 'checkLocale'], function() {
 
   Route::get('/api/{language}/views/admin/articles/{article}', function($languageCode, $articleId)
   {
-    $article = App\Http\Controllers\ArticleController::getArticleData($articleId, $languageCode);
-    if(isset($article['error'])) {
-      return \Response::json(array("error" => $article['error']), 404);
+    try {
+
+      $languageId = \App\Http\Controllers\LanguageController::getLocaleIdByCode($languageCode);
+
+      $articleFetcher = new \App\Services\Articles\ArticleFetcher();
+      $article = $articleFetcher->getWithId($articleId);
+      
+      $articleLanguageVersionFetcher = new \App\Services\Articles\ArticleLanguageVersionFetcher();
+      $articleLanguageVersionFetcher->allowUnpublished(true);
+      $articleLanguageVersionFetcher->getWithArticleAndLanguageId($article, $languageId);
+      
+      $articleDataFetcher = new App\Services\Articles\ArticleDataFetcher();
+      $articleData = $articleDataFetcher->getArticleData($articleLanguageVersionFetcher);
+      
+    } catch(App\Exceptions\ModelNotFoundException $e) {
+      return \Response::json(array("error" => $e->getMessage()), 404);
     }
 
     return \Response::json(array(
@@ -130,20 +148,26 @@ Route::group(['middleware' => 'checkLocale'], function() {
         "continueEditing" => \Lang::get('admin.article.continueEditing', array(), $languageCode),
         "errorMessage" => \Lang::get('admin.article.errorMessage', array(), $languageCode),
       ),
-      "article" => $article
+      "article" => $articleData
     ));
   });
 
   Route::get('/api/{language}/views/admin/categories/{category}', function($languageCode, $categoryId)
   {
-    $categoryName = App\Http\Controllers\CategoryController::getCategoryNameByIdAndLanguage($categoryId, $languageCode);
-    if(is_array($categoryName) && isset($categoryName['error'])) {
-      return \Response::json(array("error" => $categoryName['error']), 404);
-    }
-
-    $articles = App\Http\Controllers\ArticleController::getCategoryArticlesData($categoryId, $languageCode, true, ['id', 'topic', 'published', 'timestamp']);
-    if(is_array($articles) && isset($articles['error'])) {
-      return \Response::json(array("error" => $articles['error']), 404);
+    
+    try {
+      $categoryName = App\Http\Controllers\CategoryController::getCategoryNameByIdAndLanguage(
+        $categoryId,
+        $languageCode
+      );
+      $articles = App\Http\Controllers\ArticleController::getCategoryArticlesData(
+        $categoryId,
+        $languageCode,
+        true,
+        ['id', 'topic', 'published', 'timestamp']
+      );
+    } catch(App\Exceptions\ModelNotFoundException $e) {
+      return \Response::json(array("error" => $e->getMessage()), 404);
     }
 
     return \Response::json(array(

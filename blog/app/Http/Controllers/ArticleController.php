@@ -21,25 +21,22 @@ class ArticleController extends Controller {
     
     // Find language id by language code
     $languageId = LanguageController::getLocaleIdByCode($languageCode);
-    if($languageId === false) {
-      return array('error' => 'Language version does not exist!');
-    }
     
     // Find category
     $category = Category::where('id', intval($categoryId))->first();
     if($category == NULL) {
-      return array('error' => 'Category does not exist!');
+      throw new \App\Exceptions\ModelNotFoundException('Category does not exist!');
     }
     
     // Find language version of category
     $categoryLanguageVersion = $category->languageVersions()->first();
     if($categoryLanguageVersion == NULL) {
-      return array('error' => 'Language version of the category does not exist!');
+      throw new \App\Exceptions\ModelNotFoundException('Language version of the category does not exist!');
     }
     
     // Check that the URL name is not already used
     if(ArticleLanguageVersion::where('urlname', $URLName)->first() != NULL) {
-      return array('error' => 'URL name already in use!');
+      throw new \App\Exceptions\ModelNotFoundException('URL name already in use!');
     }
     
     // Create article
@@ -83,15 +80,10 @@ class ArticleController extends Controller {
     
     // Find language id by language code
     $languageId = LanguageController::getLocaleIdByCode($languageCode);
-    if($languageId === false) {
-      return array('error' => 'Language version does not exist!');
-    }
     
     // Find article
-    $article = Article::where('id', intval($articleId))->first();
-    if($article == NULL) {
-      return array('error' => 'Article does not exist!');
-    }
+    $articleFetcher = new \App\Services\Articles\ArticleFetcher();
+    $article = $articleFetcher->getWithId($articleId);
     
     $date = \DateTime::createFromFormat('d.m.Y', $publishtime);
     if($date) {
@@ -102,7 +94,7 @@ class ArticleController extends Controller {
     // Find language version of article
     $articleLanguageVersion = $article->languageVersions()->first();
     if($articleLanguageVersion == NULL) {
-      return array('error' => 'Language version of the article does not exist!');
+      throw new \App\Exceptions\ModelNotFoundException('Language version of the article does not exist!');
     }
     
     // Edit article language version
@@ -124,14 +116,11 @@ class ArticleController extends Controller {
     
     // Find language id
     $languageId = LanguageController::getLocaleIdByCode($languageCode);
-    if($languageId === false) {
-      return array('error' => 'Language version does not exist!');
-    }
     
     // Find category
     $category = Category::where('id', intval($categoryId))->first();
     if($category == NULL) {
-      return array('error' => 'Category does not exist!');
+      throw new \App\Exceptions\ModelNotFoundException('Category does not exist!');
     }
     
     // Variables needed for getting chosen articles
@@ -202,36 +191,36 @@ class ArticleController extends Controller {
     
     // Find language id
     $languageId = LanguageController::getLocaleIdByCode($languageCode);
-    if($languageId === false) {
-      return array('error' => 'Language version does not exist!');
-    }
     
     // Find latest article
-    $latestArticle = Article::orderBy('timestamp', 'DESC')
-                     ->join('articletext', 'articletext.article_id', '=', 'article.id')
+    $latestArticle = ArticleLanguageVersion::join('article', 'articletext.article_id', '=', 'article.id')
                      ->where('articletext.language_id', $languageId)
                      ->where('articletext.published', true)
+                     ->orderBy('article.timestamp', 'DESC')
                      ->first();
     
-    if($latestArticle === NULL) {
-      return array('error' => 'No articles exists!');
+    if($latestArticle === null) {
+      throw new \App\Exceptions\ModelNotFoundException('No articles exists!');
     }
-
-    $latestArticleData = self::getArticleData($latestArticle->article_id, $languageCode);
+    
+    $latestArticleDataFetcher = new \App\Services\Articles\ArticleDataFetcher();
+    $latestArticleData = $latestArticleDataFetcher->getArticleData($latestArticle);
     $latestArticleData['textSummary'] = explode("[summary]", $latestArticleData['text'])[0];
     $latestArticleData['boxTopic'] = \Lang::get('views.home.latestArticle', array(), $languageCode);
     
     // Find first article
-    $firstArticle = Article::orderBy('timestamp')
-                    ->join('articletext', 'articletext.article_id', '=', 'article.id')
+    $firstArticle = ArticleLanguageVersion::join('article', 'articletext.article_id', '=', 'article.id')
                     ->where('articletext.language_id', $languageId)
                     ->where('articletext.published', true)
+                    ->orderBy('article.timestamp')
                     ->first();
     
     if($firstArticle === NULL) {
-      return array('error' => 'No articles exists!');
+      throw new \App\Exceptions\ModelNotFoundException('No articles exists!');
     }
-    $firstArticleData = self::getArticleData($firstArticle->article_id, $languageCode);
+    
+    $firstArticleDataFetcher = new \App\Services\Articles\ArticleDataFetcher();
+    $firstArticleData = $firstArticleDataFetcher->getArticleData($firstArticle);
     $firstArticleData['textSummary'] = explode("[summary]", $firstArticleData['text'])[0];
     $firstArticleData['boxTopic'] = \Lang::get('views.home.startFromBeginning', array(), $languageCode);
     
@@ -247,112 +236,5 @@ class ArticleController extends Controller {
     }
     
     return $frontpageArticlesData;
-  }
-  
-  public static function getArticlePath($article, $languageId) {
-    
-    $articlePath = array();
-      
-    $currentCategory = $article->category;
-
-    while(true) {
-      
-      // Find data of this category
-      $languageVersion = $currentCategory->languageVersions()->where('language_id', $languageId)->first();
-      if($languageVersion == NULL) {
-        return array('error' => 'Chosen language version of the category does not exist!');
-      }
-
-      $categoryData = array('id' => $currentCategory->id, 'name' => $languageVersion->name, 'URLName' => $languageVersion->urlname);
-      array_unshift($articlePath , $categoryData);
-      
-      // Find deeper category path if it exists
-      if($currentCategory->parentCategory === NULL) {
-        break;
-      } else {
-        $currentCategory = $currentCategory->parentCategory;
-      }
-    }
-    
-    return $articlePath;
-  }
-  
-  public static function getArticleDataByURLName($articleURLName, $languageCode, $allowUnpublished = false) {
-    
-    // Find article language version
-    if($allowUnpublished) {
-      $articleLanguageVersion = ArticleLanguageVersion::where('urlname', $articleURLName)->first();
-    } else {
-      $articleLanguageVersion = ArticleLanguageVersion::where('published', 1)->where('urlname', $articleURLName)->first();
-    }
-    
-    // Check that the article language version was found
-    if($articleLanguageVersion == NULL) {
-      return array('error' => 'Article language version does not exist!');
-    }
-    
-    return self::getArticleData($articleLanguageVersion->article_id, $languageCode);
-  }
-  
-  public static function getArticleData($articleId, $languageCode) {
-    
-    // Find language id
-    $languageId = LanguageController::getLocaleIdByCode($languageCode);
-    if($languageId === false) {
-      return array('error' => 'Language version does not exist!');
-    }
-    
-    // Find article
-    $article = Article::where('id', intval($articleId))->first();
-    if($article === NULL) {
-      return array('error' => 'Article does not exist!');
-    }
-    
-    // Find correct language version of the article
-    $articleLanguageVersion = $article->languageVersions()->where('language_id', $languageId)->first();
-    if($articleLanguageVersion === NULL) {
-      return array('error' => 'Chosen language version of the article does not exist!');
-    }
-
-    // Find article's category path
-    $articlePathFetcher = new \App\Services\Articles\ArticlePathFetcher();
-    $articlePathFetcher->setLanguageFetcher(
-      new \App\Services\Languages\LanguageFetcher()
-    );
-    $articlePathFetcher->setCategoryLanguageVersionFetcher(
-      new \App\Services\Categories\LanguageVersionFetcher()
-    );
-    $articlePath = $articlePathFetcher->getArticlePath($articleLanguageVersion);
-    
-    $articleNavigation = new \App\Services\Articles\ArticleNavigation();
-    $articleNavigation->setCurrentArticle($articleLanguageVersion);
-    
-    // Find previous article
-    $previousArticle = $articleNavigation->getPreviousArticle();
-    
-    $previousArticleUrlName = NULL;
-    if($previousArticle !== NULL) {
-      $previousArticleUrlName = $previousArticle->urlname;
-    }
-    
-    // Find next article
-    $nextArticle = $articleNavigation->getNextArticle();
-    
-    $nextArticleUrlName = NULL;
-    if($nextArticle !== NULL) {
-      $nextArticleUrlName = $nextArticle->urlname;
-    }
-    
-    return array(
-      "id"              => $article->id,
-      "topic"           => $articleLanguageVersion->topic,
-      "URLName"         => $articleLanguageVersion->urlname,
-      "text"            => $articleLanguageVersion->text,
-      "published"       => $articleLanguageVersion->published,
-      "path"            => $articlePath,
-      "publishtime"     => date("j.n.Y", strtotime($article->timestamp)),
-      "previousArticle" => $previousArticleUrlName,
-      "nextArticle"     => $nextArticleUrlName
-    );
   }
 }

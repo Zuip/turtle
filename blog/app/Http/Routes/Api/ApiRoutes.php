@@ -19,9 +19,10 @@ Route::group(['middleware' => 'checkLocale'], function()
   
   Route::get('/api/{language}/views/home', function($language)
   {
-    $frontpageArticles = App\Http\Controllers\ArticleController::getFrontpageArticlesData($language);
-    if(isset($frontpageArticles['error'])) {
-      return $frontpageArticles;
+    try {
+      $frontpageArticles = App\Http\Controllers\ArticleController::getFrontpageArticlesData($language);
+    } catch(App\Exceptions\ModelNotFoundException $e) {
+      return \Response::json(array("error" => $e->getMessage()), 404);
     }
     
     return \Response::json(array(
@@ -71,26 +72,33 @@ Route::group(['middleware' => 'checkLocale'], function()
     return $categoryViewApiController->get($categoryURLName, $language, intval($page));
   });
   
-  Route::get('/api/{language}/views/articles/{article}', function($language, $articleURLName)
+  Route::get('/api/{language}/views/articles/{article}', function($languageCode, $articleURLName)
   {
-    $article = App\Http\Controllers\ArticleController::getArticleDataByURLName($articleURLName, $language, false);
-    
-    if(is_array($article) && isset($article['error'])) {
-      return \Response::json(array("error" => $article['error']), 404);
+    try {
+      
+      $articleLanguageVersionFetcher = new \App\Services\Articles\ArticleLanguageVersionFetcher();
+      $articleLanguageVersionFetcher->allowUnpublished(false);
+      $articleLanguageVersion = $articleLanguageVersionFetcher->getWithURLName($articleURLName);
+      
+      $articleDataFetcher = new App\Services\Articles\ArticleDataFetcher();
+      $articleData = $articleDataFetcher->getArticleData($articleLanguageVersion);
+      
+    } catch(App\Exceptions\ModelNotFoundException $e) {
+      return \Response::json(array("error" => $e->getMessage()), 404);
     }
       
     return \Response::json(array(
       "texts" => array(
-        "previousPage" => \Lang::get('views.article.previousPage', array(), $language),
-        "nextPage" => \Lang::get('views.article.nextPage', array(), $language)
+        "previousPage" => \Lang::get('views.article.previousPage', array(), $languageCode),
+        "nextPage" => \Lang::get('views.article.nextPage', array(), $languageCode)
       ),
       "article"           => array(
-        "topic"           => $article["topic"],
-        "text"            => str_replace("[summary]", "", $article["text"]),
-        "publishtime"     => $article["publishtime"],
-        "path"            => $article["path"],
-        "previousArticle" => $article["previousArticle"],
-        "nextArticle"     => $article["nextArticle"]
+        "topic"           => $articleData["topic"],
+        "text"            => str_replace("[summary]", "", $articleData["text"]),
+        "publishtime"     => $articleData["publishtime"],
+        "path"            => $articleData["path"],
+        "previousArticle" => $articleData["previousArticle"],
+        "nextArticle"     => $articleData["nextArticle"]
       )
     ));
   });

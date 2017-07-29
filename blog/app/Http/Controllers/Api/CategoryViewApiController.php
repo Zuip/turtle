@@ -16,11 +16,11 @@ class CategoryViewApiController {
         false
       );
       
+      $articles = $this->getCategoryArticlesData($categoryLanguageVersion->category->id, $languageCode, $page);
+      
     } catch(\App\Exceptions\ModelNotFoundException $e) {
       return \Response::json(array("error" => $e->getMessage()), 404);
     }
-
-    $articles = $this->getCategoryArticlesData($categoryLanguageVersion->category->id, $languageCode, $page);
 
     return \Response::json(array(
       "texts" => array(

@@ -53,7 +53,7 @@ class LanguageController extends Controller {
     
     $language = \App\Models\Language::where('code', $languageCode)->first();
     if($language == NULL) {
-      return false;
+      throw new \App\Exceptions\ModelNotFoundException("Language version does not exist!");
     }
     
     return $language->id;
