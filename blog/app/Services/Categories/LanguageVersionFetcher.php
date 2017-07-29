@@ -1,20 +1,20 @@
 <?php namespace App\Services\Categories;
 
-use App\Models\Category;
-use App\Models\CategoryLanguageVersion;
-use App\Models\Language;
+use App\Models\Categories\ICategory;
+use App\Models\Categories\CategoryLanguageVersion;
+use App\Models\ILanguage;
 
 /*
  * A Service for finding language versions of categories with URLName or id
  */
-class LanguageVersionFetcher {
+class LanguageVersionFetcher implements ILanguageVersionFetcher {
   
-  public function findWithURLName($categoryURLName, $languageCode, $includeUnpublished = true) {
+  public function findWithURLName($categoryURLName, ILanguage $language, $includeUnpublished = true) {
     
     $categoryLanguageVersions = CategoryLanguageVersion::where('urlname', $categoryURLName)->get();
     
     if(count($categoryLanguageVersions) == 0) {
-      return array();
+      throw new \App\Exceptions\ModelNotFoundException("Category does not exist!");
     }
     
     // One or many category language versions was found. If one of them is the correct one, return it.
@@ -26,7 +26,7 @@ class LanguageVersionFetcher {
       }
       
       // Check that the category language version has correct language
-      if($categoryLanguage->language_id == Language::where('code', $languageCode)->first()->id) {
+      if($categoryLanguage->language_id == $language->id) {
         return $categoryLanguage;
       }
     }
@@ -34,22 +34,29 @@ class LanguageVersionFetcher {
     // If the language version was wrong, find correct one and return it
     return $this->findWithCategoryId(
       $categoryLanguage->category->id,
-      $languageCode,
+      $language,
       $includeUnpublished
     );
   }
   
-  public function findWithCategoryId($categoryId, $languageCode, $includeUnpublished = true) {
+  public function findWithCategoryId($categoryId, ILanguage $language, $includeUnpublished = true) {
     
     $categories = Category::where('id', intval($categoryId))->get();
     
-    if(count($categories) === 0) {
-      return array('error' => 'Category does not exist!', 400);
+    if(count($categories) !== 1) {
+      throw new \App\Exceptions\ModelNotFoundException('Category does not exist!');
     }
     
+    $category = $categories->first();
+ 
+    return $this->findWithCategory($category, $language, $includeUnpublished);
+  }
+  
+  public function findWithCategory(ICategory $category, ILanguage $language, $includeUnpublished = true) {
+    
     $categoryLanguageVersionsArray = $this->getCategoryLanguageVersionsArray(
-      $categories,
-      $languageCode,
+      $category,
+      $language,
       $includeUnpublished
     );
     
@@ -60,23 +67,17 @@ class LanguageVersionFetcher {
     return $categoryLanguageVersionsArray->first();
   }
   
-  private function getCategoryLanguageVersionsArray($categories, $languageCode, $includeUnpublished) {
+  private function getCategoryLanguageVersionsArray(ICategory $category, ILanguage $language, $includeUnpublished) {
     
     if($includeUnpublished) {
-      return $categories->first()
-             ->languageVersions
-             ->where(
-               'language_id',
-               Language::where('code', $languageCode)->first()->id
-             );
+      return $category
+      ->languageVersions
+      ->where('language_id', $language->id);
     }
     
-    return $categories->first()
-           ->languageVersions
-           ->where('published', true)
-           ->where(
-             'language_id',
-             Language::where('code', $languageCode)->first()->id
-           );
+    return $category
+    ->languageVersions
+    ->where('published', true)
+    ->where('language_id', $language->id);
   }
 }

@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers;
 
 use App\Models\Language;
-use App\Models\Category;
-use App\Models\Article;
-use App\Models\ArticleLanguageVersion;
+use App\Models\Categories\Category;
+use App\Models\Articles\Article;
+use App\Models\Articles\ArticleLanguageVersion;
 use App\Http\Controllers\LanguageController;
 
 class ArticleController extends Controller {
@@ -315,18 +315,20 @@ class ArticleController extends Controller {
     }
 
     // Find article's category path
-    $articlePath = self::getArticlePath($article, $languageId);
-    if(isset($articlePath['error'])) {
-      return $articlePath;
-    }
+    $articlePathFetcher = new \App\Services\Articles\ArticlePathFetcher();
+    $articlePathFetcher->setLanguageFetcher(
+      new \App\Services\Languages\LanguageFetcher()
+    );
+    $articlePathFetcher->setCategoryLanguageVersionFetcher(
+      new \App\Services\Categories\LanguageVersionFetcher()
+    );
+    $articlePath = $articlePathFetcher->getArticlePath($articleLanguageVersion);
+    
+    $articleNavigation = new \App\Services\Articles\ArticleNavigation();
+    $articleNavigation->setCurrentArticle($articleLanguageVersion);
     
     // Find previous article
-    $previousArticle = Article::orderBy('timestamp', 'DESC')
-                       ->join('articletext', 'articletext.article_id', '=', 'article.id')
-                       ->where('article.timestamp', '<', $article->timestamp)
-                       ->where('articletext.language_id', $languageId)
-                       ->where('articletext.published', true)
-                       ->first();
+    $previousArticle = $articleNavigation->getPreviousArticle();
     
     $previousArticleUrlName = NULL;
     if($previousArticle !== NULL) {
@@ -334,12 +336,7 @@ class ArticleController extends Controller {
     }
     
     // Find next article
-    $nextArticle = Article::orderBy('timestamp')
-                   ->join('articletext', 'articletext.article_id', '=', 'article.id')
-                   ->where('article.timestamp', '>', $article->timestamp)
-                   ->where('articletext.language_id', $languageId)
-                   ->where('articletext.published', true)
-                   ->first();
+    $nextArticle = $articleNavigation->getNextArticle();
     
     $nextArticleUrlName = NULL;
     if($nextArticle !== NULL) {

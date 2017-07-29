@@ -1,0 +1,48 @@
+<?php namespace Tests\Mocks\Services\Categories\LanguageVersionFetcher;
+
+use App\Models\ILanguage;
+use App\Models\Categories\ICategory;
+use App\Models\Categories\ICategoryLanguageVersion;
+use App\Services\Categories\ILanguageVersionFetcher;
+
+class MockCategoryLanguageVersionFetcher implements ILanguageVersionFetcher {
+  
+  private $categoryLanguageVersions;
+  
+  public function __construct() {
+    $this->categoryLanguageVersions = array();
+  }
+  
+  /*
+   * Interface methods
+   */
+  
+  public function findWithURLName($categoryURLName, ILanguage $language, $includeUnpublished = true) { }
+  public function findWithCategoryId($categoryId, ILanguage $language, $includeUnpublished = true) { }
+  
+  public function findWithCategory(ICategory $category, ILanguage $language, $includeUnpublished = true) {
+    
+    foreach($this->categoryLanguageVersions as $categoryLanguageVersion) {
+      
+      if($categoryLanguageVersion->language_id !== $language->id) {
+        continue;
+      }
+      
+      if(!$includeUnpublished && !$categoryLanguageVersion->published) {
+        continue;
+      }
+      
+      if($categoryLanguageVersion->category_id === $category->id) {
+        return $categoryLanguageVersion;
+      }
+    }
+  }
+  
+  /*
+   * Mock methods
+   */
+  
+  public function addCategorylanguageVersion(ICategoryLanguageVersion $categoryLanguageVersion) {
+    $this->categoryLanguageVersions[] = $categoryLanguageVersion;
+  }
+}

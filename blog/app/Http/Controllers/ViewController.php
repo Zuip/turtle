@@ -64,12 +64,16 @@ class ViewController extends \App\Http\Controllers\Controller {
 	 */
 	public function categoryPage($categoryURLName)
 	{
-    // Find category's language version with URL name
-    $categoryLanguageFetcher = new \App\Services\Categories\LanguageVersionFetcher();
-    $categoryLanguage = $categoryLanguageFetcher->findWithURLName($categoryURLName, \Session::get('language'));
     
-    // Check if there was errors
-    if(count($categoryLanguage) == 0) {
+    try {
+      
+      $languageFetcher = new \App\Services\Languages\LanguageFetcher();
+      $language = $languageFetcher->getWithCode(\Session::get('language'));
+      
+      // Find category's language version with URL name
+      $categoryLanguageFetcher = new \App\Services\Categories\LanguageVersionFetcher();
+      $categoryLanguage = $categoryLanguageFetcher->findWithURLName($categoryURLName, $language);
+    } catch(\App\Exceptions\ModelNotFoundException $e) {
       \App::abort(404);
     }
     
@@ -105,17 +109,20 @@ class ViewController extends \App\Http\Controllers\Controller {
   */
 	public function adminEditCategoryPage($categoryId)
 	{
-    $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
-    $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
-      $categoryId,
-      \Session::get('language')
-    );
-    
-    // Check if there was errors
-    if(!isset($categoryLanguage)) {
+    try {
+      
+      $languageFetcher = new \App\Services\Languages\LanguageFetcher();
+      $language = $languageFetcher->getWithCode(\Session::get('language'));
+      
+      $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
+      $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
+        $categoryId,
+        $language
+      );
+    } catch(\App\Exceptions\ModelNotFoundException $e) {
       \App::abort(404);
     }
-    
+
 		return view('admin/category', [
                 'category_id' => $categoryId,
                 'categoryName' => $categoryLanguage->name,

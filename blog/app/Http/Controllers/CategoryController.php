@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\CategoryLanguageVersion;
+use App\Models\Categories\Category;
+use App\Models\Categories\CategoryLanguageVersion;
 use App\Models\Language;
 
 class CategoryController extends Controller {
@@ -93,13 +93,21 @@ class CategoryController extends Controller {
       return \Response::json(array('error' => 'Missing PUT parameters'), 404);
     }
     
-    $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
-    $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
-      $id,
-      $languageCode
-    );
     
-    // Check if there was errors with finding the language version of category
+    try {
+      
+      $languageFetcher = new \App\Services\Languages\LanguageFetcher();
+      $language = $languageFetcher->getWithCode($languageCode);
+      
+      $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
+      $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
+        $id,
+        $language
+      );
+    } catch(\App\Exceptions\ModelNotFoundException $e) {
+      return \Response::json(array("error", $e->getMessage()), 404);
+    }
+    
     if(!isset($categoryLanguage)) {
       return \Response::json(array("error", "Language version of the category does not exist!"));
     }

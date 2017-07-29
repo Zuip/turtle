@@ -1,8 +1,8 @@
-<?php namespace App\Models;
+<?php namespace App\Models\Categories;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model {
+class Category extends Model implements ICategory {
 
 	// The database table used by the model.
 	protected $table = 'category';
@@ -20,24 +20,24 @@ class Category extends Model {
    * Returns category's language versions
    */
   public function languageVersions() {
-    return $this->hasMany('\\App\\Models\\CategoryLanguageVersion', 'category_id');
+    return $this->hasMany('\\App\\Models\\Categories\\CategoryLanguageVersion', 'category_id');
   }
   
   /**
    * Returns category's child categories
    */
   public function children() {
-    return $this->hasMany('\\App\\Models\\Category', 'parent_id')->orderBy('menu_weight');
+    return $this->hasMany('\\App\\Models\\Categories\\Category', 'parent_id')->orderBy('menu_weight');
   }
   
   /**
    * Returns category's articles
    */
   public function articles() {
-    return $this->hasMany('\\App\\Models\\Article', 'category_id');
+    return $this->hasMany('\\App\\Models\\Articles\\Article', 'category_id');
   }
   
   public function parentCategory() {
-    return $this->belongsTo('\\App\\Models\\Category', 'parent_id');
+    return $this->belongsTo('\\App\\Models\\Categories\\Category', 'parent_id');
   }
 }

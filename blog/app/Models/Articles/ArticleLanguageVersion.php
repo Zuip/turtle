@@ -1,8 +1,8 @@
-<?php namespace App\Models;
+<?php namespace App\Models\Articles;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ArticleLanguageVersion extends Model {
+class ArticleLanguageVersion extends Model implements IArticleLanguageVersion {
 
 	// The database table used by the model
 	protected $table = 'articletext';
@@ -18,6 +18,6 @@ class ArticleLanguageVersion extends Model {
   
   // Returns base article of the language version
   public function article() {
-    return $this->belongsTo('\\App\\Models\\Article', 'article_id');
+    return $this->belongsTo('\\App\\Models\\Articles\\Article', 'article_id');
   }
 }

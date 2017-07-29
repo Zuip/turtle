@@ -1,4 +1,4 @@
-<?php namespace App\Models;
+<?php namespace App\Models\Categories;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,6 +18,6 @@ class CategoryLanguageVersion extends Model {
   
   // Returns the category the language version belongs to
   public function category() {
-    return $this->belongsTo('\\App\\Models\\Category', 'category_id');
+    return $this->belongsTo('\\App\\Models\\Categories\\Category', 'category_id');
   }
 }

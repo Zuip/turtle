@@ -2,19 +2,29 @@
 
 class CategoryViewApiController {
 
-  public function get($categoryURLName, $language, $page = 1) {
+  public function get($categoryURLName, $languageCode, $page = 1) {
     
-    $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
-    $categoryLanguageVersion = $categoryLanguageVersionFetcher->findWithURLName($categoryURLName, $language, false);
-    if(count($categoryLanguageVersion) == 0) {
-      return \Response::json(array("error" => "Category does not exist!"), 404);
+    try {
+      
+      $languageFetcher = new \App\Services\Languages\LanguageFetcher();
+      $language = $languageFetcher->getWithCode($languageCode);
+      
+      $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
+      $categoryLanguageVersion = $categoryLanguageVersionFetcher->findWithURLName(
+        $categoryURLName,
+        $language,
+        false
+      );
+      
+    } catch(\App\Exceptions\ModelNotFoundException $e) {
+      return \Response::json(array("error" => $e->getMessage()), 404);
     }
 
-    $articles = $this->getCategoryArticlesData($categoryLanguageVersion->category->id, $language, $page);
+    $articles = $this->getCategoryArticlesData($categoryLanguageVersion->category->id, $languageCode, $page);
 
     return \Response::json(array(
       "texts" => array(
-        "continueReading" => \Lang::get('views.category.continueReading', array(), $language)
+        "continueReading" => \Lang::get('views.category.continueReading', array(), $languageCode)
       ),
       "category" => array(
         "id" => $categoryLanguageVersion->category->id,

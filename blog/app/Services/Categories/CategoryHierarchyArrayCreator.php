@@ -1,7 +1,7 @@
 <?php namespace App\Services\Categories;
 
-use App\Models\Category;
-use App\Models\CategoryLanguageVersion;
+use App\Models\Categories\Category;
+use App\Models\Categories\CategoryLanguageVersion;
 use App\Http\Controllers\LanguageController;
 
 class CategoryHierarchyArrayCreator {

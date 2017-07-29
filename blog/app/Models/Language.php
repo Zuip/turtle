@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Language extends Model {
+class Language extends Model implements ILanguage {
 
 	/**
 	 * The database table used by the model.

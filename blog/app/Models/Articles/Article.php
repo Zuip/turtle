@@ -1,8 +1,8 @@
-<?php namespace App\Models;
+<?php namespace App\Models\Articles;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model {
+class Article extends Model implements IArticle {
 
 	// The database table used by the model
 	protected $table = 'article';
@@ -18,7 +18,7 @@ class Article extends Model {
   
   // Returns article's language versions
   public function languageVersions() {
-    return $this->hasMany('\\App\\Models\\ArticleLanguageVersion', 'article_id');
+    return $this->hasMany('\\App\\Models\\Articles\\ArticleLanguageVersion', 'article_id');
   }
   
   //Returns the writer of the article
@@ -28,6 +28,6 @@ class Article extends Model {
   
   //Returns the category of the article
   public function category() {
-    return $this->belongsTo('\\App\\Models\\Category', 'category_id');
+    return $this->belongsTo('\\App\\Models\\Categories\\Category', 'category_id');
   }
 }
