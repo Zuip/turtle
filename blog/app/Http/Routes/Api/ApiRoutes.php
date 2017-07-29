@@ -1,8 +1,10 @@
 <?php
 
 Route::get('/api/visitedplaces', function() {
-  $visitedPlaceApiController = new App\Http\Controllers\Api\VisitedPlaceApiController();
-  return $visitedPlaceApiController->getVisitedPlaces();
+  $visitedPlacesService = new App\Services\VisitedPlacesService();
+  return \Response::json(array(
+    "visitedPlaces" => $visitedPlacesService->getVisitedPlaces()
+  ));
 });
 
 Route::group(['middleware' => 'checkLocale'], function()
@@ -20,7 +22,8 @@ Route::group(['middleware' => 'checkLocale'], function()
   Route::get('/api/{language}/views/home', function($language)
   {
     try {
-      $frontpageArticles = App\Http\Controllers\ArticleController::getFrontpageArticlesData($language);
+      $frontpageArticlesDataFetcher = new App\Services\Articles\FrontpageArticlesDataFetcher();
+      $frontpageArticles = $frontpageArticlesDataFetcher->getFrontpageArticlesData($language);
     } catch(App\Exceptions\ModelNotFoundException $e) {
       return \Response::json(array("error" => $e->getMessage()), 404);
     }
@@ -67,9 +70,18 @@ Route::group(['middleware' => 'checkLocale'], function()
     ));
   });
   
-  Route::get('/api/{language}/views/categories/{category}/page/{page}', function($language, $categoryURLName, $page) {
-    $categoryViewApiController = new App\Http\Controllers\Api\CategoryViewApiController();
-    return $categoryViewApiController->get($categoryURLName, $language, intval($page));
+  Route::get('/api/{language}/views/categories/{category}/page/{page}', function($languageCode, $categoryURLName, $page) {
+    try {
+      $categoryDataFetcher = new App\Services\Categories\CategoryDataFetcher();
+      return \Response::json(array(
+        "texts" => array(
+          "continueReading" => \Lang::get('views.category.continueReading', array(), $languageCode)
+        ),
+        "category" => $categoryDataFetcher->getData($categoryURLName, $languageCode, intval($page))
+      ));
+    } catch(\App\Exceptions\ModelNotFoundException $e) {
+      return \Response::json(array("error" => $e->getMessage()), 404);
+    }
   });
   
   Route::get('/api/{language}/views/articles/{article}', function($languageCode, $articleURLName)

@@ -16,21 +16,15 @@ class PublishedHandler {
    */
   private function changePublishedState($categoryId, $languageCode, $published) {
     
-    try {
-      
-      $languageFetcher = new \App\Services\Languages\LanguageFetcher();
-      $language = $languageFetcher->getWithCode($languageCode);
-      
-      $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
-      $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
-        $categoryId,
-        $language
-      );
-      
-    } catch (\App\Exceptions\ModelNotFoundException $e) {
-      return false;
-    }
-    
+    $languageFetcher = new \App\Services\Languages\LanguageFetcher();
+    $language = $languageFetcher->getWithCode($languageCode);
+
+    $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
+    $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
+      $categoryId,
+      $language
+    );
+
     $categoryLanguage->published = $published;
     $categoryLanguage->save();
     

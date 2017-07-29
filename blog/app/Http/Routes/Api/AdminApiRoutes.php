@@ -184,17 +184,26 @@ Route::group(['middleware' => 'checkLocale'], function() {
   });
 
   Route::post('/api/{language}/categories', function($languageCode) {
-    $categoryApiController = new App\Http\Controllers\Api\CategoryApiController();
-    return $categoryApiController->postCategory();
+    $categoryController = new \App\Http\Controllers\CategoryController();
+    return $categoryController->categoryPOST();
   });
 
   Route::put('/api/{language}/categories/{category}/publish', function($languageCode, $categoryId) {
-    $categoryApiController = new App\Http\Controllers\Api\CategoryApiController();
-    return $categoryApiController->publishCategory($categoryId, $languageCode);
+    try {
+      $categoryPublishedHandler = new \App\Services\Categories\PublishedHandler();
+      $categoryPublishedHandler->publishCategory($categoryId, $languageCode);
+      return \Response::json(array("OK" => true));
+    } catch(App\Exceptions\ModelNotFoundException $e) {
+      return \Response::json(array("error" => $e->getMessage()), 404);
+    }
   });
 
   Route::put('/api/{language}/categories/{categoryId}/unpublish', function($languageCode, $categoryId) {
-    $categoryApiController = new App\Http\Controllers\Api\CategoryApiController();
-    return $categoryApiController->unpublishCategory($categoryId, $languageCode);
+    try {
+      $categoryPublishedHandler = new \App\Services\Categories\PublishedHandler();
+      $categoryPublishedHandler->unpublishCategory($categoryId, $languageCode);
+    } catch(App\Exceptions\ModelNotFoundException $e) {
+      return \Response::json(array("error" => $e->getMessage()), 404);
+    }
   });
 });

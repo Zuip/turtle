@@ -1,12 +1,23 @@
 <?php namespace App\Services;
 
+use App\Models\VisitedPlace;
+
 class VisitedPlacesService {
   
   public function getVisitedPlaces() {
     
-    $visitedPlaces = \App\Models\VisitedPlace::all();
+    $visitedPlaces = VisitedPlace::all();
     
-    return $visitedPlaces;
+    $visitedPlacesArray = array();
+    
+    foreach($visitedPlaces as $visitedPlace) {
+      $visitedPlacesArray[] = array(
+        "name" => $visitedPlace->locationname,
+        "lat" => floatval($visitedPlace->lat),
+        "lng" => floatval($visitedPlace->lng)
+      );
+    }
+    
+    return $visitedPlacesArray;
   }
-  
 }
