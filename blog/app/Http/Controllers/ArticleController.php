@@ -17,7 +17,7 @@ class ArticleController extends Controller {
     
 	}
   
-  public static function createArticle($categoryId, $languageCode, $topic, $text, $URLName, $published, $publishtime) {
+  public function createArticle($categoryId, $languageCode, $topic, $text, $URLName, $published, $publishtime) {
     
     // Find language id by language code
     $languageId = LanguageController::getLocaleIdByCode($languageCode);
@@ -76,7 +76,7 @@ class ArticleController extends Controller {
     return array("articleId" => $article->id);
   }
   
-  public static function editArticle($articleId, $languageCode, $topic, $text, $URLName, $published, $publishtime) {
+  public function editArticle($articleId, $languageCode, $topic, $text, $URLName, $published, $publishtime) {
     
     // Find language id by language code
     $languageId = LanguageController::getLocaleIdByCode($languageCode);
@@ -112,7 +112,7 @@ class ArticleController extends Controller {
     return true;
   }
   
-  public static function getCategoryArticlesData($categoryId, $languageCode, $includeUnpublished = false, $attributes = NULL, $articlesInterval = NULL) {
+  public function getCategoryArticlesData($categoryId, $languageCode, $includeUnpublished = false, $attributes = NULL, $articlesInterval = NULL) {
     
     // Find language id
     $languageId = LanguageController::getLocaleIdByCode($languageCode);

@@ -5,34 +5,6 @@ use App\Models\Categories\CategoryLanguageVersion;
 use App\Models\Language;
 
 class CategoryController extends Controller {
-
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-    
-	}
-  
-  // Finding category's name by category id and language code
-  public static function getCategoryNameByIdAndLanguage($categoryId, $languageCode) {
-    
-    $languageId = LanguageController::getLocaleIdByCode($languageCode);
-    
-    $category = Category::where('id', intval($categoryId))->first();
-    if($category == NULL) {
-      throw new \App\Exceptions\ModelNotFoundException('Category does not exist!');
-    }
-    
-    $categoryName = $category->languageVersions()->where('language_id', $languageId)->first()->name;
-    if($categoryName == NULL) {
-      throw new \App\Exceptions\ModelNotFoundException('Language version of category does not exist!');
-    }
-    
-    return $categoryName;
-  }
   
   // REST api POST operation handling
   public function categoryPOST() {
@@ -103,10 +75,6 @@ class CategoryController extends Controller {
       );
     } catch(\App\Exceptions\ModelNotFoundException $e) {
       return \Response::json(array("error", $e->getMessage()), 404);
-    }
-    
-    if(!isset($categoryLanguage)) {
-      return \Response::json(array("error", "Language version of the category does not exist!"));
     }
     
     // Check that the URL name is not in use for other categories

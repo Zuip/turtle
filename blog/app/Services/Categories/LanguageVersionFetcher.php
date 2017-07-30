@@ -44,7 +44,7 @@ class LanguageVersionFetcher implements ILanguageVersionFetcher {
     $categories = Category::where('id', intval($categoryId))->get();
     
     if(count($categories) !== 1) {
-      throw new \App\Exceptions\ModelNotFoundException('Category does not exist!');
+      throw new \App\Exceptions\ModelNotFoundException('Category language version does not exist!');
     }
     
     $category = $categories->first();

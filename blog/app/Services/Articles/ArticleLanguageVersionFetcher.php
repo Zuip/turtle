@@ -28,7 +28,7 @@ class ArticleLanguageVersionFetcher {
                                         ->first();
     }
     
-    if($articleLanguageVersion === NULL) {
+    if($articleLanguageVersion === null) {
       throw new \App\Exceptions\ModelNotFoundException(
         'Article language version does not exist!'
       );
@@ -50,7 +50,7 @@ class ArticleLanguageVersionFetcher {
     }
     
     // Check that the article language version was found
-    if($articleLanguageVersion == NULL) {
+    if($articleLanguageVersion == null) {
       throw new \App\Exceptions\ModelNotFoundException(
         'Article language version does not exist!'
       );

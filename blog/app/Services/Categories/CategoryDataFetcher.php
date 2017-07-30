@@ -42,7 +42,8 @@ class CategoryDataFetcher {
   }
   
   private function getCategoryArticlesData($categoryId, $language, $page) {
-    return \App\Http\Controllers\ArticleController::getCategoryArticlesData(
+    $articleController = new \App\Http\Controllers\ArticleController();
+    return $articleController->getCategoryArticlesData(
       $categoryId,
       $language,
       false,

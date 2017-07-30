@@ -47,7 +47,16 @@ Route::group(['middleware' => 'checkLocale'], function() {
   Route::get('/api/{language}/views/admin/categories/{category}/articles/new', function($languageCode, $categoryId)
   { 
     try {
-      $categoryName = App\Http\Controllers\CategoryController::getCategoryNameByIdAndLanguage($categoryId, $languageCode);
+      
+      $languageId = LanguageController::getLocaleIdByCode($languageCode);
+    
+      $categoryFetcher = new \App\Services\Categories\CategoryFetcher();
+      $category = $categoryFetcher->getWithId($categoryId);
+
+      $categoryLanguageVersionFetcher = new \App\Services\Categories\CategoryLanguageVersionFetcher();
+      $categoryLanguageVersion = $categoryLanguageVersionFetcher->getWithCategoryAndLanguageId($category, $languageId);
+      $categoryName = $categoryLanguageVersion->name;
+      
     } catch(App\Exceptions\ModelNotFoundException $e) {
       return \Response::json(array("error" => $e->getMessage()), 404);
     }
@@ -76,7 +85,8 @@ Route::group(['middleware' => 'checkLocale'], function() {
   Route::post('/api/{language}/categories/{category}/articles/new', function($languageCode, $categoryId)
   {
     try {
-      $result = App\Http\Controllers\ArticleController::createArticle(
+      $articleController = new \App\Http\Controllers\ArticleController();
+      $result = $articleController->createArticle(
         $categoryId,
         $languageCode,
         \Input::get('topic'),
@@ -95,7 +105,8 @@ Route::group(['middleware' => 'checkLocale'], function() {
   Route::put('/api/{language}/articles/{article}', function($languageCode, $articleId)
   {
     try {
-      App\Http\Controllers\ArticleController::editArticle(
+      $articleController = new \App\Http\Controllers\ArticleController();
+      $articleController->editArticle(
         $articleId,
         $languageCode,
         \Input::get('topic'),
@@ -156,11 +167,18 @@ Route::group(['middleware' => 'checkLocale'], function() {
   {
     
     try {
-      $categoryName = App\Http\Controllers\CategoryController::getCategoryNameByIdAndLanguage(
-        $categoryId,
-        $languageCode
-      );
-      $articles = App\Http\Controllers\ArticleController::getCategoryArticlesData(
+      
+      $languageId = LanguageController::getLocaleIdByCode($languageCode);
+    
+      $categoryFetcher = new \App\Services\Categories\CategoryFetcher();
+      $category = $categoryFetcher->getWithId($categoryId);
+
+      $categoryLanguageVersionFetcher = new \App\Services\Categories\CategoryLanguageVersionFetcher();
+      $categoryLanguageVersion = $categoryLanguageVersionFetcher->getWithCategoryAndLanguageId($category, $languageId);
+      $categoryName = $categoryLanguageVersion->name;
+
+      $articleController = new \App\Http\Controllers\ArticleController();
+      $articles = $articleController->getCategoryArticlesData(
         $categoryId,
         $languageCode,
         true,

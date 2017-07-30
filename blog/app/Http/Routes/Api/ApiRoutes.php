@@ -23,7 +23,7 @@ Route::group(['middleware' => 'checkLocale'], function()
   {
     try {
       $frontpageArticlesDataFetcher = new App\Services\Articles\FrontpageArticlesDataFetcher();
-      $frontpageArticles = $frontpageArticlesDataFetcher->getFrontpageArticlesData($language);
+      $frontpageArticles = $frontpageArticlesDataFetcher->getData($language);
     } catch(App\Exceptions\ModelNotFoundException $e) {
       return \Response::json(array("error" => $e->getMessage()), 404);
     }
