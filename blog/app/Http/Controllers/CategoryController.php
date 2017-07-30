@@ -29,7 +29,7 @@ class CategoryController extends Controller {
     } elseif(Category::where('id', intval($parentId))->count() > 0) {
       $category->parent_id = intval($parentId);
     } else {
-      return \Response::json(array('error' => 'Chosen parent does not exist!'), 400);
+      throw new \App\Exceptions\ModelNotFoundException('Chosen parent does not exist!');
     }
     
     $category->save();
@@ -62,20 +62,14 @@ class CategoryController extends Controller {
       return \Response::json(array('error' => 'Missing PUT parameters'), 404);
     }
     
-    
-    try {
-      
-      $languageFetcher = new \App\Services\Languages\LanguageFetcher();
-      $language = $languageFetcher->getWithCode($languageCode);
-      
-      $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
-      $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
-        $id,
-        $language
-      );
-    } catch(\App\Exceptions\ModelNotFoundException $e) {
-      return \Response::json(array("error", $e->getMessage()), 404);
-    }
+    $languageFetcher = new \App\Services\Languages\LanguageFetcher();
+    $language = $languageFetcher->getWithCode($languageCode);
+
+    $categoryLanguageVersionFetcher = new \App\Services\Categories\LanguageVersionFetcher();
+    $categoryLanguage = $categoryLanguageVersionFetcher->findWithCategoryId(
+      $id,
+      $language
+    );
     
     // Check that the URL name is not in use for other categories
     if(CategoryLanguageVersion::where('urlname', $URLName)->where('category_id', '!=', $categoryLanguage->category_id)->count() > 0) {

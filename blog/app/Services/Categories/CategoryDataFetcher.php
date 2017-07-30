@@ -1,8 +1,10 @@
 <?php namespace App\Services\Categories;
 
 use App\Models\Categories\Category;
+use App\Models\Categories\ICategory;
 use App\Services\Languages\LanguageFetcher;
 use App\Services\Categories\LanguageVersionFetcher;
+use App\Services\Articles\CategoryArticlesDataFetcher;
 
 /*
  * Data fetching for the page with category's information and
@@ -10,10 +12,10 @@ use App\Services\Categories\LanguageVersionFetcher;
  */
 class CategoryDataFetcher {
 
-  public function getData($categoryURLName, $languageCode, $page = 1) {
+  public function getData($categoryURLName, $languageId, $page = 1) {
     
     $languageFetcher = new LanguageFetcher();
-    $language = $languageFetcher->getWithCode($languageCode);
+    $language = $languageFetcher->getWithId($languageId);
 
     $categoryLanguageVersionFetcher = new LanguageVersionFetcher();
     $categoryLanguageVersion = $categoryLanguageVersionFetcher->findWithURLName(
@@ -22,14 +24,8 @@ class CategoryDataFetcher {
       false
     );
 
-    $articles = $this->getCategoryArticlesData(
-      $categoryLanguageVersion->category->id,
-      $languageCode,
-      $page
-    );
-
-    return array(
-      "id" => $categoryLanguageVersion->category->id,
+    return [
+      "id"  => $categoryLanguageVersion->category->id,
       "description" => $categoryLanguageVersion->description,
       "name" => $categoryLanguageVersion->name,
       "urlname" => $categoryLanguageVersion->urlname,
@@ -37,31 +33,32 @@ class CategoryDataFetcher {
       "amountOfArticles" => $this->getCategoryPublishedArticlesCount(
         $categoryLanguageVersion->category->id
       ),
-      "articles" => $articles
-    );
+      "articles" => $this->getArticles($categoryLanguageVersion->category, $languageId, $page)
+    ];
   }
   
-  private function getCategoryArticlesData($categoryId, $language, $page) {
-    $articleController = new \App\Http\Controllers\ArticleController();
-    return $articleController->getCategoryArticlesData(
-      $categoryId,
-      $language,
-      false,
-      array(
-        'id',
-        'topic',
-        'textsummary',
-        'timestamp',
-        'publishtime',
-        'urlname',
-        'offset',
-        'previous'
-      ),
-      array(
-        'amount' => 10,
-        'offset' => ($page - 1) * 10
-      ),
-      true
+  private function getArticles(ICategory $category, $languageId, $page) {
+    
+    $categoryArticlesDataFetcher = new CategoryArticlesDataFetcher();
+    $categoryArticlesDataFetcher->setAmountToFetch(10);
+    $categoryArticlesDataFetcher->setOffset(($page - 1) * 10);
+    
+    $categoryArticlesDataFetcher->setArticleLanguageVersionFetcher(
+      new \App\Services\Articles\ArticleLanguageVersionFetcher()
+    );
+    
+    $categoryArticlesDataFetcher->setArticleDataFetcher(
+      new \App\Services\Articles\ArticleDataFetcher()
+    );
+    
+    $categoryArticlesFetcher = new \App\Services\Articles\CategoryArticlesFetcher();
+    $categoryArticlesFetcher->setOrderByTimestamp(true);
+    $categoryArticlesDataFetcher->setCategoryArticlesFetcher($categoryArticlesFetcher);
+    
+    return $categoryArticlesDataFetcher->getData(
+      $category,
+      $languageId,
+      ['id', 'topic', 'textSummary', 'timestamp', 'publishtime', 'URLName', 'offset']
     );
   }
   

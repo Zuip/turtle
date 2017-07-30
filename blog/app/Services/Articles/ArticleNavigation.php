@@ -24,6 +24,10 @@ class ArticleNavigation implements IArticleNavigation {
     ->first();
   }
   
+  public function getPreviousArticleURLName() {
+    return $this->getArticleUrlName($this->getPreviousArticle());
+  }
+  
   // Next article is the first published article with the same language
   // that was created after current article
   public function getNextArticle() {
@@ -33,6 +37,19 @@ class ArticleNavigation implements IArticleNavigation {
     ->where('articletext.published', true)
     ->orderBy('article.timestamp')
     ->first();
+  }
+  
+  public function getNextArticleURLName() {
+    return $this->getArticleUrlName($this->getNextArticle());
+  }
+  
+  private function getArticleUrlName($articleLanguageVersion) {
+
+    if($articleLanguageVersion instanceof IArticleLanguageVersion) {
+      return $articleLanguageVersion->urlname;
+    }
+    
+    return null;
   }
   
 }

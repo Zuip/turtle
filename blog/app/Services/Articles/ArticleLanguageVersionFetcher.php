@@ -3,16 +3,22 @@
 use App\Models\Articles\IArticle;
 use App\Models\Articles\ArticleLanguageVersion;
 
-class ArticleLanguageVersionFetcher {
+class ArticleLanguageVersionFetcher implements IArticleLanguageVersionFetcher {
   
   private $allowUnpublishedFlag;
+  private $throwExceptionOnNotFound;
   
   public function __construct() {
     $this->allowUnpublishedFlag = false;
+    $this->throwExceptionOnNotFound = true;
   }
   
   public function allowUnpublished($allowUnpublished) {
     $this->allowUnpublishedFlag = $allowUnpublished;
+  }
+  
+  public function setThrowExceptionOnNotFound($throwExceptionOnNotFound) {
+    $this->throwExceptionOnNotFound = $throwExceptionOnNotFound;
   }
   
   public function getWithArticleAndLanguageId(IArticle $article, $languageId) {
@@ -28,18 +34,13 @@ class ArticleLanguageVersionFetcher {
                                         ->first();
     }
     
-    if($articleLanguageVersion === null) {
-      throw new \App\Exceptions\ModelNotFoundException(
-        'Article language version does not exist!'
-      );
-    }
+    $this->validate($articleLanguageVersion);
     
     return $articleLanguageVersion;
   }
   
   public function getWithURLName($URLName) {
     
-    // Find article language version
     if($this->allowUnpublishedFlag) {
       $articleLanguageVersion = ArticleLanguageVersion::where('urlname', $URLName)
                                                       ->first();
@@ -49,13 +50,21 @@ class ArticleLanguageVersionFetcher {
                                                       ->first();
     }
     
-    // Check that the article language version was found
+    $this->validate($articleLanguageVersion);
+    
+    return $articleLanguageVersion;
+  }
+  
+  private function validate($articleLanguageVersion) {
+    
+    if(!$this->throwExceptionOnNotFound) {
+      return;
+    }
+    
     if($articleLanguageVersion == null) {
       throw new \App\Exceptions\ModelNotFoundException(
         'Article language version does not exist!'
       );
     }
-    
-    return $articleLanguageVersion;
   }
 }

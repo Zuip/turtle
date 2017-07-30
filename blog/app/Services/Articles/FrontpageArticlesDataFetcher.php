@@ -13,14 +13,18 @@ class FrontpageArticlesDataFetcher {
     // Create the latest article data
     $latestArticle = $this->getLatestArticle($languageId);
     $latestArticleDataFetcher = new ArticleDataFetcher();
-    $latestArticleDataFetcher->setIsFrontpageSummaryArticle(true);
+    $latestArticleDataFetcher->limitToAttributes(array(
+      "topic", "URLName", "publishtime", "textSummary"
+    ));
     $latestArticleData = $latestArticleDataFetcher->getArticleData($latestArticle);
     $latestArticleData['boxTopic'] = \Lang::get('views.home.latestArticle', array(), $languageCode);
     
     // First article
     $firstArticle = $this->getFirstArticle($languageId);
     $firstArticleDataFetcher = new ArticleDataFetcher();
-    $firstArticleDataFetcher->setIsFrontpageSummaryArticle(true);
+    $firstArticleDataFetcher->limitToAttributes(array(
+      "topic", "URLName", "publishtime", "textSummary"
+    ));
     $firstArticleData = $firstArticleDataFetcher->getArticleData($firstArticle);
     $firstArticleData['boxTopic'] = \Lang::get('views.home.startFromBeginning', array(), $languageCode);
     

@@ -21,12 +21,8 @@ Route::group(['middleware' => 'checkLocale'], function()
   
   Route::get('/api/{language}/views/home', function($language)
   {
-    try {
-      $frontpageArticlesDataFetcher = new App\Services\Articles\FrontpageArticlesDataFetcher();
-      $frontpageArticles = $frontpageArticlesDataFetcher->getData($language);
-    } catch(App\Exceptions\ModelNotFoundException $e) {
-      return \Response::json(array("error" => $e->getMessage()), 404);
-    }
+    $frontpageArticlesDataFetcher = new App\Services\Articles\FrontpageArticlesDataFetcher();
+    $frontpageArticles = $frontpageArticlesDataFetcher->getData($language);
     
     return \Response::json(array(
       "texts" => array(
@@ -71,33 +67,33 @@ Route::group(['middleware' => 'checkLocale'], function()
   });
   
   Route::get('/api/{language}/views/categories/{category}/page/{page}', function($languageCode, $categoryURLName, $page) {
-    try {
-      $categoryDataFetcher = new App\Services\Categories\CategoryDataFetcher();
-      return \Response::json(array(
-        "texts" => array(
-          "continueReading" => \Lang::get('views.category.continueReading', array(), $languageCode)
-        ),
-        "category" => $categoryDataFetcher->getData($categoryURLName, $languageCode, intval($page))
-      ));
-    } catch(\App\Exceptions\ModelNotFoundException $e) {
-      return \Response::json(array("error" => $e->getMessage()), 404);
-    }
+    $languageId = \App\Http\Controllers\LanguageController::getLocaleIdByCode($languageCode);
+    $categoryDataFetcher = new App\Services\Categories\CategoryDataFetcher();
+    return \Response::json(array(
+      "texts" => array(
+        "continueReading" => \Lang::get('views.category.continueReading', array(), $languageCode)
+      ),
+      "category" => $categoryDataFetcher->getData($categoryURLName, $languageId, intval($page))
+    ));
   });
   
   Route::get('/api/{language}/views/articles/{article}', function($languageCode, $articleURLName)
   {
-    try {
+ 
       
       $articleLanguageVersionFetcher = new \App\Services\Articles\ArticleLanguageVersionFetcher();
       $articleLanguageVersionFetcher->allowUnpublished(false);
       $articleLanguageVersion = $articleLanguageVersionFetcher->getWithURLName($articleURLName);
       
       $articleDataFetcher = new App\Services\Articles\ArticleDataFetcher();
+      $articleDataFetcher->limitToAttributes(
+        array(
+          "topic", "text", "path", "publishtime", "previousArticle", "nextArticle"
+        )
+      );
       $articleData = $articleDataFetcher->getArticleData($articleLanguageVersion);
       
-    } catch(App\Exceptions\ModelNotFoundException $e) {
-      return \Response::json(array("error" => $e->getMessage()), 404);
-    }
+ 
       
     return \Response::json(array(
       "texts" => array(

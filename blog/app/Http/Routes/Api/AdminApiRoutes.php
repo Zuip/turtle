@@ -4,29 +4,23 @@ Route::group(['middleware' => 'checkLocale'], function() {
 
   Route::get('/api/{language}/views/admin', function($languageCode)
   {
-    try {
-      
-      $categoryHierarchyArrayCreator = new \App\Services\Categories\CategoryHierarchyArrayCreator(
-        $languageCode,
-        true
-      );
-    
-      return \Response::json(array(
-        "texts" => array(
-          "topic" => \Lang::get('admin.menuTopic', array(), $languageCode),
-          "text" => "",
-          "categories" => \Lang::get('admin.categories.topic', array(), $languageCode),
-          "published" => \Lang::get('admin.categories.published', array(), $languageCode),
-          "notPublished" => \Lang::get('admin.categories.notPublished', array(), $languageCode),
-          "add" => \Lang::get('views.common.form.add', array(), $languageCode),
-          "addSubCategory" => \Lang::get('admin.categories.addSubCategory', array(), $languageCode)
-        ),
-        "categories" => $categoryHierarchyArrayCreator->getCategories()
-      ));
-      
-    } catch(App\Exceptions\ModelNotFoundException $e) {
-      return \Response::json(array("error" => $e->getMessage()), 404);
-    }
+    $categoryHierarchyArrayCreator = new \App\Services\Categories\CategoryHierarchyArrayCreator(
+      $languageCode,
+      true
+    );
+
+    return \Response::json(array(
+      "texts" => array(
+        "topic" => \Lang::get('admin.menuTopic', array(), $languageCode),
+        "text" => "",
+        "categories" => \Lang::get('admin.categories.topic', array(), $languageCode),
+        "published" => \Lang::get('admin.categories.published', array(), $languageCode),
+        "notPublished" => \Lang::get('admin.categories.notPublished', array(), $languageCode),
+        "add" => \Lang::get('views.common.form.add', array(), $languageCode),
+        "addSubCategory" => \Lang::get('admin.categories.addSubCategory', array(), $languageCode)
+      ),
+      "categories" => $categoryHierarchyArrayCreator->getCategories()
+    ));
   });
 
   Route::get('/api/{language}/views/admin/categoryeditor', function($languageCode)
@@ -46,20 +40,14 @@ Route::group(['middleware' => 'checkLocale'], function() {
 
   Route::get('/api/{language}/views/admin/categories/{category}/articles/new', function($languageCode, $categoryId)
   { 
-    try {
-      
-      $languageId = LanguageController::getLocaleIdByCode($languageCode);
-    
-      $categoryFetcher = new \App\Services\Categories\CategoryFetcher();
-      $category = $categoryFetcher->getWithId($categoryId);
+    $languageId = LanguageController::getLocaleIdByCode($languageCode);
 
-      $categoryLanguageVersionFetcher = new \App\Services\Categories\CategoryLanguageVersionFetcher();
-      $categoryLanguageVersion = $categoryLanguageVersionFetcher->getWithCategoryAndLanguageId($category, $languageId);
-      $categoryName = $categoryLanguageVersion->name;
-      
-    } catch(App\Exceptions\ModelNotFoundException $e) {
-      return \Response::json(array("error" => $e->getMessage()), 404);
-    }
+    $categoryFetcher = new \App\Services\Categories\CategoryFetcher();
+    $category = $categoryFetcher->getWithId($categoryId);
+
+    $categoryLanguageVersionFetcher = new \App\Services\Categories\CategoryLanguageVersionFetcher();
+    $categoryLanguageVersion = $categoryLanguageVersionFetcher->getWithCategoryAndLanguageId($category, $languageId);
+    $categoryName = $categoryLanguageVersion->name;
 
     return \Response::json(array(
       "texts" => array(
@@ -84,63 +72,56 @@ Route::group(['middleware' => 'checkLocale'], function() {
 
   Route::post('/api/{language}/categories/{category}/articles/new', function($languageCode, $categoryId)
   {
-    try {
-      $articleController = new \App\Http\Controllers\ArticleController();
-      $result = $articleController->createArticle(
-        $categoryId,
-        $languageCode,
-        \Input::get('topic'),
-        \Input::get('text'),
-        \Input::get('URLName'),
-        \Input::get('published'),
-        \Input::get('publishtime')
-      );
-    } catch(App\Exceptions\ModelNotFoundException $e) {
-      return \Response::json(array("error" => $e->getMessage()), 404);
-    }
+    $articleController = new \App\Http\Controllers\ArticleController();
+    $result = $articleController->createArticle(
+      $categoryId,
+      $languageCode,
+      \Input::get('topic'),
+      \Input::get('text'),
+      \Input::get('URLName'),
+      \Input::get('published'),
+      \Input::get('publishtime')
+    );
 
     return \Response::json(array("articleId" => $result['articleId']));
   });
 
   Route::put('/api/{language}/articles/{article}', function($languageCode, $articleId)
   {
-    try {
-      $articleController = new \App\Http\Controllers\ArticleController();
-      $articleController->editArticle(
-        $articleId,
-        $languageCode,
-        \Input::get('topic'),
-        \Input::get('text'),
-        \Input::get('URLName'),
-        \Input::get('published'),
-        \Input::get('publishtime')
-      );
-    } catch(App\Exceptions\ModelNotFoundException $e) {
-      return \Response::json(array("error" => $e->getMessage()), 404);
-    }
+    $articleController = new \App\Http\Controllers\ArticleController();
+    $articleController->editArticle(
+      $articleId,
+      $languageCode,
+      \Input::get('topic'),
+      \Input::get('text'),
+      \Input::get('URLName'),
+      \Input::get('published'),
+      \Input::get('publishtime')
+    );
 
     return \Response::json(array("success" => true));
   });
 
   Route::get('/api/{language}/views/admin/articles/{article}', function($languageCode, $articleId)
   {
-    try {
 
-      $languageId = \App\Http\Controllers\LanguageController::getLocaleIdByCode($languageCode);
+    $languageId = \App\Http\Controllers\LanguageController::getLocaleIdByCode($languageCode);
 
-      $articleFetcher = new \App\Services\Articles\ArticleFetcher();
-      $article = $articleFetcher->getWithId($articleId);
-      
-      $articleLanguageVersionFetcher = new \App\Services\Articles\ArticleLanguageVersionFetcher();
-      $articleLanguageVersionFetcher->allowUnpublished(true);
-      $articleLanguageVersionFetcher->getWithArticleAndLanguageId($article, $languageId);
-      
-      $articleDataFetcher = new App\Services\Articles\ArticleDataFetcher();
-      $articleData = $articleDataFetcher->getArticleData($articleLanguageVersionFetcher);
-      
-    } catch(App\Exceptions\ModelNotFoundException $e) {
-      return \Response::json(array("error" => $e->getMessage()), 404);
-    }
+    $articleFetcher = new \App\Services\Articles\ArticleFetcher();
+    $article = $articleFetcher->getWithId($articleId);
+
+    $articleLanguageVersionFetcher = new \App\Services\Articles\ArticleLanguageVersionFetcher();
+    $articleLanguageVersionFetcher->allowUnpublished(true);
+    $articleLanguageVersionFetcher->getWithArticleAndLanguageId($article, $languageId);
+
+    $articleDataFetcher = new App\Services\Articles\ArticleDataFetcher();
+    $articleDataFetcher->limitToAttributes(
+      array(
+        "id", "topic", "URLName", "text", "published", "path",
+        "publishtime", "previousArticle", "nextArticle"
+      )
+    );
+    $articleData = $articleDataFetcher->getArticleData($articleLanguageVersionFetcher);
 
     return \Response::json(array(
       "texts" => array(
@@ -166,27 +147,30 @@ Route::group(['middleware' => 'checkLocale'], function() {
   Route::get('/api/{language}/views/admin/categories/{category}', function($languageCode, $categoryId)
   {
     
-    try {
-      
-      $languageId = LanguageController::getLocaleIdByCode($languageCode);
+    $languageId = LanguageController::getLocaleIdByCode($languageCode);
+
+    $categoryFetcher = new \App\Services\Categories\CategoryFetcher();
+    $category = $categoryFetcher->getWithId($categoryId);
+
+    $categoryLanguageVersionFetcher = new \App\Services\Categories\CategoryLanguageVersionFetcher();
+    $categoryLanguageVersion = $categoryLanguageVersionFetcher->getWithCategoryAndLanguageId($category, $languageId);
+    $categoryName = $categoryLanguageVersion->name;
+
+    $articleLanguageVersionFetcher = new \App\Services\Articles\ArticleLanguageVersionFetcher();
+    $articleLanguageVersionFetcher->allowUnpublished(true);
     
-      $categoryFetcher = new \App\Services\Categories\CategoryFetcher();
-      $category = $categoryFetcher->getWithId($categoryId);
+    $categoryArticlesFetcher = new \App\Services\Articles\CategoryArticlesFetcher();
+    $categoryArticlesFetcher->setOrderByTimestamp(true);
 
-      $categoryLanguageVersionFetcher = new \App\Services\Categories\CategoryLanguageVersionFetcher();
-      $categoryLanguageVersion = $categoryLanguageVersionFetcher->getWithCategoryAndLanguageId($category, $languageId);
-      $categoryName = $categoryLanguageVersion->name;
-
-      $articleController = new \App\Http\Controllers\ArticleController();
-      $articles = $articleController->getCategoryArticlesData(
-        $categoryId,
-        $languageCode,
-        true,
-        ['id', 'topic', 'published', 'timestamp']
-      );
-    } catch(App\Exceptions\ModelNotFoundException $e) {
-      return \Response::json(array("error" => $e->getMessage()), 404);
-    }
+    $categoryArticlesDataFetcher = new \App\Services\Articles\CategoryArticlesDataFetcher();
+    $categoryArticlesDataFetcher->setArticleLanguageVersionFetcher($articleLanguageVersionFetcher);
+    $categoryArticlesDataFetcher->setArticleDataFetcher(new App\Services\Articles\ArticleDataFetcher());
+    $categoryArticlesDataFetcher->setCategoryArticlesFetcher($categoryArticlesFetcher);
+    $articles = $categoryArticlesDataFetcher->getData(
+      $category,
+      $languageId,
+      ['id', 'topic', 'published', 'timestamp']
+    );
 
     return \Response::json(array(
       "texts" => array(
@@ -207,21 +191,13 @@ Route::group(['middleware' => 'checkLocale'], function() {
   });
 
   Route::put('/api/{language}/categories/{category}/publish', function($languageCode, $categoryId) {
-    try {
-      $categoryPublishedHandler = new \App\Services\Categories\PublishedHandler();
-      $categoryPublishedHandler->publishCategory($categoryId, $languageCode);
-      return \Response::json(array("OK" => true));
-    } catch(App\Exceptions\ModelNotFoundException $e) {
-      return \Response::json(array("error" => $e->getMessage()), 404);
-    }
+    $categoryPublishedHandler = new \App\Services\Categories\PublishedHandler();
+    $categoryPublishedHandler->publishCategory($categoryId, $languageCode);
+    return \Response::json(array("OK" => true));
   });
 
   Route::put('/api/{language}/categories/{categoryId}/unpublish', function($languageCode, $categoryId) {
-    try {
-      $categoryPublishedHandler = new \App\Services\Categories\PublishedHandler();
-      $categoryPublishedHandler->unpublishCategory($categoryId, $languageCode);
-    } catch(App\Exceptions\ModelNotFoundException $e) {
-      return \Response::json(array("error" => $e->getMessage()), 404);
-    }
+    $categoryPublishedHandler = new \App\Services\Categories\PublishedHandler();
+    $categoryPublishedHandler->unpublishCategory($categoryId, $languageCode);
   });
 });
