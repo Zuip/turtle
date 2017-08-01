@@ -775,9 +775,13 @@ class ComposerStaticInit40b6b2a110c6dbc7d4553914814f6307
         'Tests\\Mocks\\Models\\Categories\\CategoryLanguageVersion\\MockCategoryLanguageVersion' => __DIR__ . '/../..' . '/tests/Mocks/Models/Categories/CategoryLanguageVersion/MockCategoryLanguageVersion.php',
         'Tests\\Mocks\\Models\\Categories\\Category\\MockCategory' => __DIR__ . '/../..' . '/tests/Mocks/Models/Categories/Category/MockCategory.php',
         'Tests\\Mocks\\Models\\Language\\MockLanguage' => __DIR__ . '/../..' . '/tests/Mocks/Models/Language/MockLanguage.php',
-        'Tests\\Mocks\\Services\\Categories\\LanguageVersionFetcher\\MockCategoryLanguageVersionFetcher' => __DIR__ . '/../..' . '/tests/Mocks/Services/Categories/LanguageVersionFetcher/MockLanguageVersionFetcher.php',
+        'Tests\\Mocks\\Services\\Articles\\ArticleDataFetcher\\Mock' => __DIR__ . '/../..' . '/tests/Mocks/Services/Articles/ArticleDataFetcher/Mock.php',
+        'Tests\\Mocks\\Services\\Articles\\ArticleLanguageVersionFetcher\\Mock' => __DIR__ . '/../..' . '/tests/Mocks/Services/Articles/ArticleLanguageVersionFetcher/Mock.php',
+        'Tests\\Mocks\\Services\\Articles\\CategoryArticlesFetcher\\Mock' => __DIR__ . '/../..' . '/tests/Mocks/Services/Articles/CategoryArticlesFetcher/Mock.php',
+        'Tests\\Mocks\\Services\\Categories\\LanguageVersionFetcher\\Mock' => __DIR__ . '/../..' . '/tests/Mocks/Services/Categories/LanguageVersionFetcher/Mock.php',
         'Tests\\Mocks\\Services\\Languages\\LanguageFetcher\\MockLanguageFetcher' => __DIR__ . '/../..' . '/tests/Mocks/Services/Languages/LanguageFetcher/MockLanguageFetcher.php',
         'Tests\\TestCases\\Services\\Articles\\ArticlePathFetcherTests' => __DIR__ . '/../..' . '/tests/TestCases/Services/Articles/ArticlePathFetcherTests.php',
+        'Tests\\TestCases\\Services\\Articles\\CategoryArticlesDataFetcherTests' => __DIR__ . '/../..' . '/tests/TestCases/Services/Articles/CategoryArticlesDataFetcherTests.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
     );
 

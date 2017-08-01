@@ -6,11 +6,11 @@ use Tests\Mocks\Models\Articles\ArticleLanguageVersion\MockArticleLanguageVersio
 use Tests\Mocks\Models\Categories\Category\MockCategory;
 use Tests\Mocks\Models\Categories\CategoryLanguageVersion\MockCategoryLanguageVersion;
 use Tests\Mocks\Services\Languages\LanguageFetcher\MockLanguageFetcher;
-use Tests\Mocks\Services\Categories\LanguageVersionFetcher\MockCategoryLanguageVersionFetcher;
+use Tests\Mocks\Services\Categories\LanguageVersionFetcher\Mock as MockCategoryLanguageVersionFetcher;
 
 class ArticlePathFetcherTests extends TestCase {
   
-  public function testSomethingIsTrue() {
+  public function testArticlePathGeneration() {
     
     $articlePathFetcher = new \App\Services\Articles\ArticlePathFetcher();
     

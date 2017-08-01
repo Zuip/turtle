@@ -7,6 +7,15 @@ class MockArticleLanguageVersion implements IArticleLanguageVersion {
   
   public $article;
   public $language_id;
+  public $published;
+  public $topic;
+  public $urlname;
+  public $text;
+  
+  public function __construct() {
+    $this->language_id = 1;
+    $this->published = true;
+  }
   
   /*
    * Interface methods
@@ -24,5 +33,17 @@ class MockArticleLanguageVersion implements IArticleLanguageVersion {
   
   public function setLanguageId($languageId) {
     $this->language_id = $languageId;
+  }
+  
+  public function setTopic($topic) {
+    $this->topic = $topic;
+  }
+  
+  public function setURLName($URLName) {
+    $this->urlname = $URLName;
+  }
+  
+  public function setText($text) {
+    $this->text = $text;
   }
 }

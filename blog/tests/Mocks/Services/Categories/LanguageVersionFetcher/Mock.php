@@ -5,7 +5,7 @@ use App\Models\Categories\ICategory;
 use App\Models\Categories\ICategoryLanguageVersion;
 use App\Services\Categories\ILanguageVersionFetcher;
 
-class MockCategoryLanguageVersionFetcher implements ILanguageVersionFetcher {
+class Mock implements ILanguageVersionFetcher {
   
   private $categoryLanguageVersions;
   

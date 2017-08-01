@@ -1,14 +1,17 @@
 <?php namespace Tests\Mocks\Models\Categories\Category;
 
+use App\Models\Articles\IArticle;
 use App\Models\Categories\ICategory;
 
 class MockCategory implements ICategory {
   
   public $id;
   public $parentCategory;
+  private $articles;
   
   public function __construct() {
     $this->parentCategory = null;
+    $this->articles = array();
   }
   
   /*
@@ -16,8 +19,13 @@ class MockCategory implements ICategory {
    */
   
   public function languageVersions() { }
+  
   public function children() { }
-  public function articles() { }
+  
+  public function articles() {
+    return $this->articles;
+  }
+  
   public function parentCategory() { }
   
   /*
@@ -30,5 +38,9 @@ class MockCategory implements ICategory {
   
   public function setParentCategory(ICategory $parentCategory) {
     $this->parentCategory = $parentCategory;
+  }
+  
+  public function addArticle(IArticle $article) {
+    $this->articles[] = $article;
   }
 }
