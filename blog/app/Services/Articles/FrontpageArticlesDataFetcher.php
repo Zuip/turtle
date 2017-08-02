@@ -1,6 +1,6 @@
 <?php namespace App\Services\Articles;
 
-use App\Http\Controllers\LanguageController;
+use App\Services\Languages\LanguageFetcher;
 use App\Models\Articles\ArticleLanguageVersion;
 use App\Services\Articles\ArticleDataFetcher;
 
@@ -8,10 +8,11 @@ class FrontpageArticlesDataFetcher {
   
   public function getData($languageCode) {
 
-    $languageId = LanguageController::getLocaleIdByCode($languageCode);
+    $languageFetcher = new LanguageFetcher();
+    $language = $languageFetcher->getWithCode($languageCode);
     
     // Create the latest article data
-    $latestArticle = $this->getLatestArticle($languageId);
+    $latestArticle = $this->getLatestArticle($language->id);
     $latestArticleDataFetcher = new ArticleDataFetcher();
     $latestArticleDataFetcher->limitToAttributes(array(
       "topic", "URLName", "publishtime", "textSummary"
@@ -20,7 +21,7 @@ class FrontpageArticlesDataFetcher {
     $latestArticleData['boxTopic'] = \Lang::get('views.home.latestArticle', array(), $languageCode);
     
     // First article
-    $firstArticle = $this->getFirstArticle($languageId);
+    $firstArticle = $this->getFirstArticle($language->id);
     $firstArticleDataFetcher = new ArticleDataFetcher();
     $firstArticleDataFetcher->limitToAttributes(array(
       "topic", "URLName", "publishtime", "textSummary"

@@ -67,13 +67,14 @@ Route::group(['middleware' => 'checkLocale'], function()
   });
   
   Route::get('/api/{language}/views/categories/{category}/page/{page}', function($languageCode, $categoryURLName, $page) {
-    $languageId = \App\Http\Controllers\LanguageController::getLocaleIdByCode($languageCode);
+    $languageFetcher = new \App\Services\Languages\LanguageFetcher();
+    $language = $languageFetcher->getWithCode($languageCode);
     $categoryDataFetcher = new App\Services\Categories\CategoryDataFetcher();
     return \Response::json(array(
       "texts" => array(
         "continueReading" => \Lang::get('views.category.continueReading', array(), $languageCode)
       ),
-      "category" => $categoryDataFetcher->getData($categoryURLName, $languageId, intval($page))
+      "category" => $categoryDataFetcher->getData($categoryURLName, $language->id, intval($page))
     ));
   });
   

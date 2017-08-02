@@ -8,7 +8,7 @@ class CheckLocale {
   
   public function handle($request, Closure $next) {
     
-    if (!\App\Http\Controllers\LanguageController::localeExists($request->language)) {
+    if (!\App\Services\Languages\LanguageService::localeExists($request->language)) {
       return \Response::json(array("error" => "Locale does not exist"), 404);
     }
 

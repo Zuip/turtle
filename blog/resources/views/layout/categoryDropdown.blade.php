@@ -5,10 +5,10 @@
   @foreach(\App\Models\Categories\Category::where('parent_id', NULL)->orderBy('menu_weight')->get() as $category)
     <ul class="dropdown-menu" role="menu">
       @foreach(\App\Models\Categories\Category::where('parent_id', $category->id)->orderBy('menu_weight')->get() as $subCategory)
-        @if ($subCategory->languageVersions()->where('language_id', App\Http\Controllers\LanguageController::getCurrentLocaleId())->first()->published)
+        @if ($subCategory->languageVersions()->where('language_id', App\Services\Languages\LanguageService::getCurrentLocaleId())->first()->published)
           <li>
-            <a href="<% trans('views.category.linkBase') %>/<% $subCategory->languageVersions()->where('language_id', App\Http\Controllers\LanguageController::getCurrentLocaleId())->first()->urlname %>">
-              <% $subCategory->languageVersions()->where('language_id', App\Http\Controllers\LanguageController::getCurrentLocaleId())->first()->name %>
+            <a href="<% trans('views.category.linkBase') %>/<% $subCategory->languageVersions()->where('language_id', App\Services\Languages\LanguageService::getCurrentLocaleId())->first()->urlname %>">
+              <% $subCategory->languageVersions()->where('language_id', App\Services\Languages\LanguageService::getCurrentLocaleId())->first()->name %>
             </a>
           </li>
         @endif

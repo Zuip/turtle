@@ -26,10 +26,8 @@ class ViewController extends \App\Http\Controllers\Controller {
     if($lang == NULL) {
       $lang = 'fi';
     }
-    
-    $languageController = new LanguageController();
-    $languageController->changeLocale($lang);
-    $languageController->setLocale();
+
+    \App\Services\Languages\LanguageService::setLocale($lang);
 		// $this->middleware('quest');
     
     // Because of the conflict with AngularJS templating tags, change

@@ -4,7 +4,7 @@ use App\Models\Language;
 use App\Models\Categories\Category;
 use App\Models\Articles\Article;
 use App\Models\Articles\ArticleLanguageVersion;
-use App\Http\Controllers\LanguageController;
+use App\Services\Languages\LanguageFetcher;
 
 class ArticleController extends Controller {
 
@@ -19,8 +19,9 @@ class ArticleController extends Controller {
   
   public function createArticle($categoryId, $languageCode, $topic, $text, $URLName, $published, $publishtime) {
     
-    // Find language id by language code
-    $languageId = LanguageController::getLocaleIdByCode($languageCode);
+    // Find language by language code
+    $languageFetcher = new LanguageFetcher();
+    $currentLanguage = $languageFetcher->getWithCode($languageCode);
     
     // Find category
     $category = Category::where('id', intval($categoryId))->first();
@@ -63,7 +64,7 @@ class ArticleController extends Controller {
       $articleLanguageVersion->article_id = $article->id;
 
       // Publish the article if chosen language id and user wants to publish it
-      if($published == "1" && $language->id == $languageId) {
+      if($published == "1" && $language == $currentLanguage) {
         $articleLanguageVersion->published = true;
       } else {
         $articleLanguageVersion->published = false;
@@ -78,9 +79,6 @@ class ArticleController extends Controller {
   
   public function editArticle($articleId, $languageCode, $topic, $text, $URLName, $published, $publishtime) {
     
-    // Find language id by language code
-    $languageId = LanguageController::getLocaleIdByCode($languageCode);
-    
     // Find article
     $articleFetcher = new \App\Services\Articles\ArticleFetcher();
     $article = $articleFetcher->getWithId($articleId);
@@ -94,7 +92,9 @@ class ArticleController extends Controller {
     // Find language version of article
     $articleLanguageVersion = $article->languageVersions()->first();
     if($articleLanguageVersion == NULL) {
-      throw new \App\Exceptions\ModelNotFoundException('Language version of the article does not exist!');
+      throw new \App\Exceptions\ModelNotFoundException(
+        'Language version of the article does not exist!'
+      );
     }
     
     // Edit article language version

@@ -2,7 +2,7 @@
 
 use App\Models\Categories\Category;
 use App\Models\Categories\CategoryLanguageVersion;
-use App\Http\Controllers\LanguageController;
+use App\Services\Languages\LanguageFetcher;
 
 class CategoryHierarchyArrayCreator {
   
@@ -22,7 +22,8 @@ class CategoryHierarchyArrayCreator {
     $categoryHierarchy = array();
     
     // We need the id for the language code to make queries
-    $localeId = LanguageController::getLocaleIdByCode($this->languageCode);
+    $languageFetcher = new LanguageFetcher();
+    $language = $languageFetcher->getWithCode($this->languageCode);
     
     // Fetch all categories with chosen parent id
     $categories = Category::where('parent_id', $parent)->get();
@@ -30,7 +31,7 @@ class CategoryHierarchyArrayCreator {
     // Loop through all category and fetch the needed information for them
     foreach($categories as $category) {
       
-      $categoryLanguageVersions = $this->getCategoryVersions($category, $localeId);
+      $categoryLanguageVersions = $this->getCategoryVersions($category, $language->id);
       
       // If matching language version was not found, skip to next phase of the loop
       if($categoryLanguageVersions->isEmpty()) {

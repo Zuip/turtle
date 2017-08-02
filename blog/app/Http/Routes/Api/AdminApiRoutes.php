@@ -40,13 +40,14 @@ Route::group(['middleware' => 'checkLocale'], function() {
 
   Route::get('/api/{language}/views/admin/categories/{category}/articles/new', function($languageCode, $categoryId)
   { 
-    $languageId = LanguageController::getLocaleIdByCode($languageCode);
+    $languageFetcher = new \App\Services\Languages\LanguageFetcher();
+    $language = $languageFetcher->getWithCode($languageCode);
 
     $categoryFetcher = new \App\Services\Categories\CategoryFetcher();
     $category = $categoryFetcher->getWithId($categoryId);
 
     $categoryLanguageVersionFetcher = new \App\Services\Categories\CategoryLanguageVersionFetcher();
-    $categoryLanguageVersion = $categoryLanguageVersionFetcher->getWithCategoryAndLanguageId($category, $languageId);
+    $categoryLanguageVersion = $categoryLanguageVersionFetcher->getWithCategoryAndLanguageId($category, $language->id);
     $categoryName = $categoryLanguageVersion->name;
 
     return \Response::json(array(
@@ -105,14 +106,15 @@ Route::group(['middleware' => 'checkLocale'], function() {
   Route::get('/api/{language}/views/admin/articles/{article}', function($languageCode, $articleId)
   {
 
-    $languageId = \App\Http\Controllers\LanguageController::getLocaleIdByCode($languageCode);
+    $languageFetcher = new \App\Services\Languages\LanguageFetcher();
+    $language = $languageFetcher->getWithCode($languageCode);
 
     $articleFetcher = new \App\Services\Articles\ArticleFetcher();
     $article = $articleFetcher->getWithId($articleId);
 
     $articleLanguageVersionFetcher = new \App\Services\Articles\ArticleLanguageVersionFetcher();
     $articleLanguageVersionFetcher->allowUnpublished(true);
-    $articleLanguageVersionFetcher->getWithArticleAndLanguageId($article, $languageId);
+    $articleLanguageVersionFetcher->getWithArticleAndLanguageId($article, $language->id);
 
     $articleDataFetcher = new App\Services\Articles\ArticleDataFetcher();
     $articleDataFetcher->limitToAttributes(
@@ -147,13 +149,14 @@ Route::group(['middleware' => 'checkLocale'], function() {
   Route::get('/api/{language}/views/admin/categories/{category}', function($languageCode, $categoryId)
   {
     
-    $languageId = LanguageController::getLocaleIdByCode($languageCode);
+    $languageFetcher = new \App\Services\Languages\LanguageFetcher();
+    $language = $languageFetcher->getWithCode($languageCode);
 
     $categoryFetcher = new \App\Services\Categories\CategoryFetcher();
     $category = $categoryFetcher->getWithId($categoryId);
 
     $categoryLanguageVersionFetcher = new \App\Services\Categories\CategoryLanguageVersionFetcher();
-    $categoryLanguageVersion = $categoryLanguageVersionFetcher->getWithCategoryAndLanguageId($category, $languageId);
+    $categoryLanguageVersion = $categoryLanguageVersionFetcher->getWithCategoryAndLanguageId($category, $language->id);
     $categoryName = $categoryLanguageVersion->name;
 
     $articleLanguageVersionFetcher = new \App\Services\Articles\ArticleLanguageVersionFetcher();
@@ -168,7 +171,7 @@ Route::group(['middleware' => 'checkLocale'], function() {
     $categoryArticlesDataFetcher->setCategoryArticlesFetcher($categoryArticlesFetcher);
     $articles = $categoryArticlesDataFetcher->getData(
       $category,
-      $languageId,
+      $language->id,
       ['id', 'topic', 'published', 'timestamp']
     );
 
