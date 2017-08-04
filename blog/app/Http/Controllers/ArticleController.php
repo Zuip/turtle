@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\Services\Articles\ArticleCreator;
+use App\Services\Articles\ArticleEditor;
+use App\Services\Articles\ArticleFetcher;
 use App\Services\Categories\CategoryFetcher;
 use App\Services\Languages\LanguageFetcher;
 
@@ -8,12 +10,15 @@ class ArticleController extends Controller {
 
   public function createArticle($categoryId, $languageCode) {
     
+    // Find category model
     $categoryFetcher = new CategoryFetcher();
     $category = $categoryFetcher->getWithId($categoryId);
     
+    // Find language model
     $languageFetcher = new LanguageFetcher();
     $language = $languageFetcher->getWithCode($languageCode);
     
+    // Create article with post data
     $articleCreator = new ArticleCreator();
     $articleCreator->setCategory($category);
     $articleCreator->setLanguage($language);
@@ -27,43 +32,37 @@ class ArticleController extends Controller {
 
     return \Response::json(
       array(
-        "articleId" => $articleCreator->getCreatedArticleId()
+        "articleId" => $articleCreator->getCreatedArticle()->id
       )
     );
   }
   
-  public function editArticle($articleId, $languageCode, $topic, $text, $URLName, $published, $publishtime) {
+  public function editArticle($articleId, $languageCode) {
     
-    // Find article
-    $articleFetcher = new \App\Services\Articles\ArticleFetcher();
+    // Find article model
+    $articleFetcher = new ArticleFetcher();
     $article = $articleFetcher->getWithId($articleId);
     
-    $date = \DateTime::createFromFormat('d.m.Y', $publishtime);
-    if($date) {
-      $article->timestamp = $date;
-      $article->save();
-    }
+    // Find language model
+    $languageFetcher = new LanguageFetcher();
+    $language = $languageFetcher->getWithCode($languageCode);
     
-    // Find language version of article
-    $articleLanguageVersion = $article->languageVersions()->first();
-    if($articleLanguageVersion == NULL) {
-      throw new \App\Exceptions\ModelNotFoundException(
-        'Language version of the article does not exist!'
-      );
-    }
+    // Edit article with post data
+    $articleEditor = new ArticleEditor();
+    $articleEditor->setArticle($article);
+    $articleEditor->setLanguage($language);
+    $articleEditor->setTopic(\Input::get('topic'));
+    $articleEditor->setText(\Input::get('text'));
+    $articleEditor->setURLName(\Input::get('URLName'));
+    $articleEditor->setPublished(\Input::get('published'));
+    $articleEditor->setPublishTime(\Input::get('publishtime'));
     
-    // Edit article language version
-    $articleLanguageVersion->topic = $topic;
-    $articleLanguageVersion->urlname = $URLName;
-    $articleLanguageVersion->text = $text;
-    if($published == "1") {
-      $articleLanguageVersion->published = true;
-    } else {
-      $articleLanguageVersion->published = false;
-    }
+    $articleEditor->editArticle();
     
-    $articleLanguageVersion->save();
-    
-    return true;
+    return \Response::json(
+      array(
+        "success" => true
+      )
+    );
   }
 }

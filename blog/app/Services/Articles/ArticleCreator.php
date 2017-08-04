@@ -45,8 +45,8 @@ class ArticleCreator {
     $this->publishTime = $publishTime;
   }
   
-  public function getCreatedArticleId() {
-    return $this->articleId;
+  public function getCreatedArticle() {
+    return $this->article;
   }
   
   public function createArticle() {
@@ -61,7 +61,7 @@ class ArticleCreator {
     $article->category_id = $this->category->id;
     $article->user_id = \Auth::user()->id;
     
-    $date = \DateTime::createFromFormat('d.m.Y', $this->publishtime);
+    $date = \DateTime::createFromFormat('d.m.Y', $this->publishTime);
     if($date) {
       $article->timestamp = $date;
     }
@@ -73,7 +73,7 @@ class ArticleCreator {
       $this->createArticleLanguageVersion($article, $language);
     }
     
-    $this->articleId = $article->id;
+    $this->article = $article;
   }
   
   private function createArticleLanguageVersion(Article $article, ILanguage $language) {
