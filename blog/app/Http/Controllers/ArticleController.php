@@ -1,80 +1,35 @@
 <?php namespace App\Http\Controllers;
 
-use App\Models\Language;
-use App\Models\Categories\Category;
-use App\Models\Articles\Article;
-use App\Models\Articles\ArticleLanguageVersion;
+use App\Services\Articles\ArticleCreator;
+use App\Services\Categories\CategoryFetcher;
 use App\Services\Languages\LanguageFetcher;
 
 class ArticleController extends Controller {
 
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct() {
+  public function createArticle($categoryId, $languageCode) {
     
-	}
-  
-  public function createArticle($categoryId, $languageCode, $topic, $text, $URLName, $published, $publishtime) {
+    $categoryFetcher = new CategoryFetcher();
+    $category = $categoryFetcher->getWithId($categoryId);
     
-    // Find language by language code
     $languageFetcher = new LanguageFetcher();
-    $currentLanguage = $languageFetcher->getWithCode($languageCode);
+    $language = $languageFetcher->getWithCode($languageCode);
     
-    // Find category
-    $category = Category::where('id', intval($categoryId))->first();
-    if($category == NULL) {
-      throw new \App\Exceptions\ModelNotFoundException('Category does not exist!');
-    }
+    $articleCreator = new ArticleCreator();
+    $articleCreator->setCategory($category);
+    $articleCreator->setLanguage($language);
+    $articleCreator->setTopic(\Input::get('topic'));
+    $articleCreator->setText(\Input::get('text'));
+    $articleCreator->setURLName(\Input::get('URLName'));
+    $articleCreator->setPublished(\Input::get('published'));
+    $articleCreator->setPublishTime(\Input::get('publishtime'));
     
-    // Find language version of category
-    $categoryLanguageVersion = $category->languageVersions()->first();
-    if($categoryLanguageVersion == NULL) {
-      throw new \App\Exceptions\ModelNotFoundException('Language version of the category does not exist!');
-    }
-    
-    // Check that the URL name is not already used
-    if(ArticleLanguageVersion::where('urlname', $URLName)->first() != NULL) {
-      throw new \App\Exceptions\ModelNotFoundException('URL name already in use!');
-    }
-    
-    // Create article
-    $article = new Article;
-    $article->category_id = $category->id;
-    $article->user_id = \Auth::user()->id;
-    
-    $date = \DateTime::createFromFormat('d.m.Y', $publishtime);
-    if($date) {
-      $article->timestamp = $date;
-    }
-    
-    $article->save();
-    
-    // Create language versions for all languages, only accept publishing for chosen language
-    foreach(Language::all() as $language) {
-    
-      // Create article language version
-      $articleLanguageVersion = new ArticleLanguageVersion;
-      $articleLanguageVersion->topic = $topic;
-      $articleLanguageVersion->urlname = $URLName;
-      $articleLanguageVersion->text = $text;
-      $articleLanguageVersion->language_id = $language->id;
-      $articleLanguageVersion->article_id = $article->id;
+    $articleCreator->createArticle();
 
-      // Publish the article if chosen language id and user wants to publish it
-      if($published == "1" && $language == $currentLanguage) {
-        $articleLanguageVersion->published = true;
-      } else {
-        $articleLanguageVersion->published = false;
-      }
-
-      $articleLanguageVersion->save();
-    }
-    
-    // Creating article succeeded, return article id
-    return array("articleId" => $article->id);
+    return \Response::json(
+      array(
+        "articleId" => $articleCreator->getCreatedArticleId()
+      )
+    );
   }
   
   public function editArticle($articleId, $languageCode, $topic, $text, $URLName, $published, $publishtime) {

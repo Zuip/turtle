@@ -71,20 +71,9 @@ Route::group(['middleware' => 'checkLocale'], function() {
     ));
   });
 
-  Route::post('/api/{language}/categories/{category}/articles/new', function($languageCode, $categoryId)
-  {
+  Route::post('/api/{language}/categories/{category}/articles/new', function($languageCode, $categoryId) {
     $articleController = new \App\Http\Controllers\ArticleController();
-    $result = $articleController->createArticle(
-      $categoryId,
-      $languageCode,
-      \Input::get('topic'),
-      \Input::get('text'),
-      \Input::get('URLName'),
-      \Input::get('published'),
-      \Input::get('publishtime')
-    );
-
-    return \Response::json(array("articleId" => $result['articleId']));
+    return $articleController->createArticle($categoryId, $languageCode);
   });
 
   Route::put('/api/{language}/articles/{article}', function($languageCode, $articleId)
