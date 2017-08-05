@@ -124,7 +124,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-2 sidebar"></div>
-        <div class="col-sm-8 content" ng-view>
+        <div id="app" class="col-sm-8 content" ng-view>
         </div>
         <div class="col-sm-2 sidebar"></div>
       </div>
@@ -149,19 +149,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     
     <!-- Language handler -->
-    <script src="/scripts/language.js"></script>
+    <!-- <script src="/scripts/language.js"></script> -->
     
     <!-- Third party JavaScripts -->
     <script src="/assets/thirdparty/bootstrap-3.3.2/js/bootstrap.min.js"></script>
-    <script src="/assets/thirdparty/ie10-viewport-bug-workaround.js"></script> <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <!-- <script src="/assets/thirdparty/ie10-viewport-bug-workaround.js"></script> <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
-    <script src="/assets/thirdparty/reactjs/react.min.js"></script>
-    <script src="/assets/thirdparty/reactjs/react-dom.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script> -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b-VSBFUZVEUigMBiGITuacfH9KHHeg"></script>
     
     <!-- Own JavaScripts -->
+    
+    <script src="/scripts/app.bundle.js"></script>
+    
+    <!-- Old AngularJS functionalities
     <script src="/scripts/app.js"></script>
     <script src="/scripts/services/LanguageService.js"></script>
     <script src="/scripts/services/SpinnerService.js"></script>
@@ -185,6 +187,7 @@
     <script src="/scripts/controllers/admin/AdminArticleController.js"></script>
     <script src="/scripts/controllers/admin/CategoryEditorController.js"></script>
     <script src="/scripts/controllers/NotFoundController.js"></script>
+    -->
     
     <!-- Short JavaScripts common for all templates -->
     <script type="text/javascript">
