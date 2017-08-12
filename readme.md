@@ -1,21 +1,19 @@
-Zui.fi
-------
+## Zui.fi
 I have made this blog as a hobby. It combines my interest in travel with my interest in programming.
 
-Used technologies in this project
+## Used technologies in this project
 - PHP
 - MySQL
-- Laravel / Lumen
-- AngularJS
-- HTML5
+- Laravel
+- React
+- Sass
 
 Create development environment
 1. clone repository https://github.com/Zuip/zuifi-public_html to the root directory of this repository
 2. run "npm install" in root directory of this repository
-3. compile react files with "npm run babel-compile"
 
-TESTING
--------
+## TESTING
+
 Running tests
 - Run in command line when in root directory: "php phpunit.phar -c blog/phpunit.xml"
 

@@ -7,7 +7,62 @@
 
   padding: 15px;
 
-  p {
+  h1, h2, h3, h4, h5, p {
     font-family: $theme-font-family;
+  }
+  
+  a {
+    color: inherit;
+  }
+  
+  a:hover {
+    text-decoration: none;
+  }
+  
+  .front-page-article {
+    
+    border-top: 1px solid $theme-grey;
+    padding: 10px;
+    cursor: pointer;
+    
+    h2 {
+      margin: 10px 0 20px 0;
+    }
+    
+    h3 {
+      margin: 0;
+    }
+    
+    h4 {
+      color: $theme-dark-grey;
+      font-size: 14px;
+    }
+    
+    img {
+      width: 80%;
+      margin: 0 auto;
+      display: block;
+    }
+    
+    .continue-reading {
+      
+      text-align: right;
+      color: $link-color;
+      
+      i {
+        position: relative;
+        top: 1px;
+        margin-left: 5px;
+      }
+    }
+    
+    p.continue-reading:hover {
+      color: $link-hover-color;
+    }
+  }
+  
+  .front-page-article:hover {
+    
+    background-color: $theme-light-grey;
   }
 }

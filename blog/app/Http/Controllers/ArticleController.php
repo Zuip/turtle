@@ -26,7 +26,7 @@ class ArticleController extends Controller {
     $articleCreator->setText(\Input::get('text'));
     $articleCreator->setURLName(\Input::get('URLName'));
     $articleCreator->setPublished(\Input::get('published'));
-    $articleCreator->setPublishTime(\Input::get('publishtime'));
+    $articleCreator->setPublishTime(\Input::get('publishTime'));
     
     $articleCreator->createArticle();
 
@@ -55,7 +55,7 @@ class ArticleController extends Controller {
     $articleEditor->setText(\Input::get('text'));
     $articleEditor->setURLName(\Input::get('URLName'));
     $articleEditor->setPublished(\Input::get('published'));
-    $articleEditor->setPublishTime(\Input::get('publishtime'));
+    $articleEditor->setPublishTime(\Input::get('publishTime'));
     
     $articleEditor->editArticle();
     

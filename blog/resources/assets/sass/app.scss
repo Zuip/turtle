@@ -3,13 +3,16 @@
 
 $theme-color: #579ABF;
 $theme-font-family: 'Roboto', sans-serif;
+$theme-light-grey: #fbfbfb;
+$theme-grey: #f3f3f3;
+$theme-dark-grey: #959595;
 
 $header-element-font-family: 'Nunito', sans-serif;
 $header-logo-font-family: 'Caveat Brush', cursive;
 $header-font-color: #FFFFFF;
 $header-height: 70px;
 
-$footer-color: #f3f3f3;
+$footer-color: $theme-grey;
 $footer-height: 120px;
 
 #grid-container {

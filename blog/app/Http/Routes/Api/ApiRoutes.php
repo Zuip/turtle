@@ -19,18 +19,10 @@ Route::group(['middleware' => 'checkLocale'], function()
     }
   });
   
-  Route::get('/api/{language}/views/home', function($language)
-  {
+  Route::get('/api/frontpage/articles/{language}', function($language) {
     $frontpageArticlesDataFetcher = new App\Services\Articles\FrontpageArticlesDataFetcher();
     $frontpageArticles = $frontpageArticlesDataFetcher->getData($language);
-    
-    return \Response::json(array(
-      "texts" => array(
-        "introduction" => \Lang::get('views.home.introduction', array(), $language),
-        "continueReading" => \Lang::get('views.category.continueReading', array(), $language)
-      ),
-      "articles" => $frontpageArticles
-    ));
+    return \Response::json(array("articles" => $frontpageArticles));
   });
   
   Route::get('/api/{language}/views/login', function($language)
@@ -89,7 +81,7 @@ Route::group(['middleware' => 'checkLocale'], function()
       $articleDataFetcher = new App\Services\Articles\ArticleDataFetcher();
       $articleDataFetcher->limitToAttributes(
         array(
-          "topic", "text", "path", "publishtime", "previousArticle", "nextArticle"
+          "topic", "text", "path", "publishTime", "previousArticle", "nextArticle"
         )
       );
       $articleData = $articleDataFetcher->getArticleData($articleLanguageVersion);
@@ -104,7 +96,7 @@ Route::group(['middleware' => 'checkLocale'], function()
       "article"           => array(
         "topic"           => $articleData["topic"],
         "text"            => str_replace("[summary]", "", $articleData["text"]),
-        "publishtime"     => $articleData["publishtime"],
+        "publishTime"     => $articleData["publishTime"],
         "path"            => $articleData["path"],
         "previousArticle" => $articleData["previousArticle"],
         "nextArticle"     => $articleData["nextArticle"]

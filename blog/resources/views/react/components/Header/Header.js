@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 class Header extends React.Component {
 
   render() {
@@ -15,7 +15,7 @@ class Header extends React.Component {
           <h3>Matkat</h3>
           <div id="header-travels-menu"></div>
         </div>
-        <Link to={'/about'}>
+        <Link to={'about'}>
           <div id="header-about-link" className="header-element">
             <h3>Kirjoittaja</h3>
           </div>

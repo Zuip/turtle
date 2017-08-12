@@ -108,6 +108,17 @@
     
     */ ?>
     
+    <script type="text/javascript">
+      var GlobalState = {
+        language: "<% trans('views.common.languageCode') %>",
+        @if(trans('views.common.languageCode') == 'en')
+          rootURL: "<% URL::to('/') %>/en"
+        @else
+          rootURL: "<% URL::to('/') %>"
+        @endif
+      };
+    </script>
+    
     <!-- Third party JavaScripts -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b-VSBFUZVEUigMBiGITuacfH9KHHeg"></script>
 

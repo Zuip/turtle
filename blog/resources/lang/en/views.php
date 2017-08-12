@@ -16,7 +16,7 @@ return [
     ],
     'path' => 'Path'
   ],
-  'home' => [
+  'frontPage' => [
     'link' => '/en',
     'introduction' => 'Welcome to my travel blog!<br /><br />This travel blog is still incomplete. The web site will be completed and some content will start appearing in the end of May when my trip to Balkan begins.',
     'metaDescription' => 'A travel blog of my travels in Balkan in June 2015',

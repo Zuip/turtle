@@ -98,7 +98,7 @@ Route::group(['middleware' => 'checkLocale'], function() {
     $articleDataFetcher->limitToAttributes(
       array(
         "id", "topic", "URLName", "text", "published", "path",
-        "publishtime", "previousArticle", "nextArticle"
+        "publishTime", "previousArticle", "nextArticle"
       )
     );
     $articleData = $articleDataFetcher->getArticleData($articleLanguageVersionFetcher);

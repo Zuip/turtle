@@ -15,23 +15,25 @@ class FrontpageArticlesDataFetcher {
     $latestArticle = $this->getLatestArticle($language->id);
     $latestArticleDataFetcher = new ArticleDataFetcher();
     $latestArticleDataFetcher->limitToAttributes(array(
-      "topic", "URLName", "publishtime", "textSummary"
+      "topic", "URLName", "publishTime", "textSummary"
     ));
     $latestArticleData = $latestArticleDataFetcher->getArticleData($latestArticle);
-    $latestArticleData['boxTopic'] = \Lang::get('views.home.latestArticle', array(), $languageCode);
+    $latestArticleData['boxTopic'] = \Lang::get('views.frontPage.latestArticle', array(), $languageCode);
+    $latestArticleData['type'] = 'latest-article';
     
     // First article
     $firstArticle = $this->getFirstArticle($language->id);
     $firstArticleDataFetcher = new ArticleDataFetcher();
     $firstArticleDataFetcher->limitToAttributes(array(
-      "topic", "URLName", "publishtime", "textSummary"
+      "topic", "URLName", "publishTime", "textSummary"
     ));
     $firstArticleData = $firstArticleDataFetcher->getArticleData($firstArticle);
-    $firstArticleData['boxTopic'] = \Lang::get('views.home.startFromBeginning', array(), $languageCode);
+    $firstArticleData['boxTopic'] = \Lang::get('views.frontPage.startFromBeginning', array(), $languageCode);
+    $firstArticleData['type'] = 'first-article';
     
     return array(
-      'latestArticle' => $latestArticleData,
-      'firstArticle'  => $firstArticleData
+      $latestArticleData,
+      $firstArticleData
     );
   }
   

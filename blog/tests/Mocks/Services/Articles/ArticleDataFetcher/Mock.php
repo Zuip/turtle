@@ -24,7 +24,7 @@ class Mock implements IArticleDataFetcher {
     if($this->chosen("topic"      )) { $articleData["topic"]       = $articleLanguageVersion->topic;                 }
     if($this->chosen("URLName"    )) { $articleData["URLName"]     = $articleLanguageVersion->urlname;               }
     if($this->chosen("timestamp"  )) { $articleData["timestamp"]   = $articleLanguageVersion->article->timestamp;    }
-    if($this->chosen("publishtime")) { $articleData["publishtime"] = $this->getPublishTime($articleLanguageVersion); }
+    if($this->chosen("publishTime")) { $articleData["publishTime"] = $this->getPublishTime($articleLanguageVersion); }
     if($this->chosen("published"  )) { $articleData["published"]   = $articleLanguageVersion->published;             }
     if($this->chosen("text"       )) { $articleData["text"]        = $articleLanguageVersion->text;                  }
     if($this->chosen("textSummary")) { $articleData["textSummary"] = $this->getTextSummary($articleLanguageVersion); }

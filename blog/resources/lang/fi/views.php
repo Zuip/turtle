@@ -16,8 +16,7 @@ return [
     ],
     'path' => 'Polku'
   ],
-  'home' => [
-    'link' => '/',
+  'frontPage' => [
     'introduction' => 'Tervetuloa matkablogiini! Täältä löydät blogitekstejä matkoistani Balkanille, Marokkoon ja Meksikoon. Aloita lukemaan blogia alusta tai tutustu blogiin uusimmasta blogikirjoituksesta alla olevista linkeistä.',
     'metaDescription' => 'Matkablogi',
     'latestArticle' => 'Uusin kirjoitus',
@@ -25,7 +24,6 @@ return [
   ],
 	'about' => [
     'menuTopic' => 'Kirjoittaja',
-    'link' => '/about',
     'topic' => 'Kirjoittaja',
     'aboutWriter' => 'Olen tamperelaistunut, alun perin vaasalainen ohjelmistosuunnittelija. Tämä blogi syntyi luonnollisena mielenkiinnonkohteideni, matkailun ja web-ohjelmoinnin, yhdistelmänä. Olen tehnyt tämän blogin PHP:ta (Laravel-framework), MySQL:ää, AngularJS:ää ja Bootsrapia käyttäen harrastusprojektina.',
     'contact' => 'Yhteystiedot',
@@ -34,7 +32,6 @@ return [
     'placesVisited' => 'Käydyt kohteet'
   ],
   'category' => [
-    'linkBase' => '/categories',
     'continueReading' => 'Jatka lukemista'
   ],
   'article' => [
@@ -46,7 +43,6 @@ return [
   ],
   'login' => [
     'menuTopic' => 'Kirjaudu sisään',
-    'link' => '/login',
     'topic' => 'Kirjaudu sisään',
     'username' => 'Käyttäjätunnus',
     'password' => 'Salasana',
