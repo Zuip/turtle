@@ -2,8 +2,7 @@
 <html lang="<% trans('views.common.languageCode') %>" ng-app="zui">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Zui">
     <link rel="icon" href="/assets/icon.png">
@@ -16,20 +15,23 @@
 
     <title>Zui.fi</title>
 
+    <!-- Third party fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Caveat+Brush" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    
     <!-- Third party CSS -->
-    <link href="/assets/thirdparty/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="/assets/thirdparty/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet"> -->
 
     <!-- Custom styles -->
-    <link href="/assets/css/style.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link href="/assets/css/app.css" rel="stylesheet">
   </head>
 
   <body>
+    
+    <div id="app"></div>
+    
+    <?php /*
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
@@ -39,10 +41,6 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <?php /* Future feature: mobile change language menu
-          <a class="navbar-toggle collapsed language" id="mobileLanguageMenu" data-toggle="collapse" data-target=".nav-language" aria-expanded="false" aria-controls="navbar">
-            <span class="glyphicon glyphicon-globe" style="margin-right:3px;" aria-hidden="true"></span><span class="caret"></span>
-          </a> */ ?>
           </button>
           <a class="navbar-brand" href="/" style="margin-right:10px;">
             <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> Zui.fi
@@ -73,51 +71,8 @@
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </li>
-            
-            <?php /*
-            <!-- Future feature: search articles
-            <li>
-              <a href="#" style="padding:12px;font-size:24px;" title="{{trans('views.search.menuTooltip')}}" data-toggle="tooltip" data-placement="bottom">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-              </a>
-            </li>
-            -->
-            
-            <!-- Future feature: Change language
-            <li class="dropdown" id="languagesDropdownMenu" style="font-size:16px">
-              <a class="dropdown-toggle" id="chooseLanguage" data-toggle="dropdown" role="button" aria-expanded="false" style="padding:12px;font-size:24px;cursor:pointer" title="<% trans('views.chooseLanguage.menuTooltip') %>" data-placement="bottom">
-                <span class="glyphicon glyphicon-globe" style="margin-right:3px;" aria-hidden="true"></span><span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" role="menu">
-                @foreach(App\Models\Language::all() as $language)
-                  <li>
-                    <a class="languageSelect" lan="<% $language->code %>" style="cursor:pointer">
-                      <% strtoupper($language->code) %> - <% ucfirst($language->name) %>
-                    </a>
-                  </li>
-                @endforeach
-              </ul>
-            </li>
-            -->
-            */ ?>
-            
           </ul>
         </div>
-        
-        <?php /* Future feature: Change language with mobile device
-        <div id="languagesMobileMenu" class="collapse navbar-collapse nav-language">
-          <ul class="nav navbar-nav">
-            @foreach(App\Models\Language::all() as $language)
-              <li>
-                <a class="languageSelect" lan="<% $language->code %>" style="cursor:pointer">
-                  <% strtoupper($language->code) %> - <% ucfirst($language->name) %>
-                </a>
-              </li>
-            @endforeach
-          </ul>
-        </div>
-        */ ?>
-        
       </div>
     </nav>
     
@@ -151,17 +106,15 @@
     <!-- Language handler -->
     <!-- <script src="/scripts/language.js"></script> -->
     
+    */ ?>
+    
     <!-- Third party JavaScripts -->
-    <script src="/assets/thirdparty/bootstrap-3.3.2/js/bootstrap.min.js"></script>
-    <!-- <script src="/assets/thirdparty/ie10-viewport-bug-workaround.js"></script> <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script> -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b-VSBFUZVEUigMBiGITuacfH9KHHeg"></script>
-    
+
     <!-- Own JavaScripts -->
-    
     <script src="/scripts/app.bundle.js"></script>
+    
+    <?php /*
     
     <!-- Old AngularJS functionalities
     <script src="/scripts/app.js"></script>
@@ -193,7 +146,7 @@
     <script type="text/javascript">
       
       // Enable Bootstrap tooltips
-      $(function () {
+      /* $(function () {
         $('[data-toggle="tooltip"]').tooltip();
         $('#chooseLanguage').tooltip();
       });
@@ -232,6 +185,6 @@
       $(document).ready(function() { initializeLanguageMenu(); });
       $(window).resize(function()  { initializeLanguageMenu(); });
       
-    </script>
+    </script> */ ?>
   </body>
 </html>

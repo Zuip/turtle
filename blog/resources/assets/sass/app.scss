@@ -1,2 +1,25 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import '../vendor/font-awesome/font-awesome.scss';
 
+$theme-color: #579ABF;
+$theme-font-family: 'Roboto', sans-serif;
+
+$header-element-font-family: 'Nunito', sans-serif;
+$header-logo-font-family: 'Caveat Brush', cursive;
+$header-font-color: #FFFFFF;
+$header-height: 70px;
+
+$footer-color: #f3f3f3;
+$footer-height: 120px;
+
+#grid-container {
+  
+  display: grid;
+  grid-template-columns: [page-start] 2fr [content-start] 4fr [content-end] 2fr [page-end];
+  grid-template-rows: [header-start] 70px [header-end] 1fr [footer-start] $footer-height [footer-end];
+  min-height: 100vh;
+  
+  @import "header";
+  @import "content";
+  @import "footer";
+}

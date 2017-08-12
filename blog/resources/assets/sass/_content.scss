@@ -1,0 +1,13 @@
+#navigation-content {
+  
+  grid-column-start: content-start;
+  grid-column-end: content-end;
+  grid-row-start: header-end;
+  grid-row-end: footer-start;
+
+  padding: 15px;
+
+  p {
+    font-family: $theme-font-family;
+  }
+}

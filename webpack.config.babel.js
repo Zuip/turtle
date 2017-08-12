@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 module.exports = {
   entry: './blog/resources/views/react/app.js',
   devtool: 'source-map',
@@ -18,4 +20,12 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+	  $: 'jquery',
+	  jQuery: 'jquery',
+	  'window.jQuery': 'jquery',
+	  Popper: ['popper.js', 'default']
+    })
+  ]
 }

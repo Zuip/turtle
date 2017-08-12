@@ -1,0 +1,50 @@
+#navigation-header-color-bar {
+  grid-column-start: page-start;
+  grid-column-end: page-end;
+  grid-row-start: header-start;
+  grid-row-end: header-end;
+  background-color: $theme-color;
+}
+
+#navigation-header-content {
+
+  grid-column-start: content-start;
+  grid-column-end: content-end;
+  grid-row-start: header-start;
+  grid-row-end: header-end;
+
+  .header-element {
+    float:left;
+    line-height: $header-height;
+    cursor: pointer;
+    padding: 0 15px;
+    margin-right: 10px;
+
+    h3 {
+      font-size: 18px;
+      font-family: $header-element-font-family;
+      line-height: $header-height;
+      color: $header-font-color;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .header-element:hover {
+    background-color:rgba(0, 0, 0, 0.15);
+  }
+
+  #site-name {
+
+    margin-right: 20px;
+
+    h1 {
+      font-size: 36px;
+      font-family: $header-logo-font-family;
+      line-height: $header-height;
+      color: $header-font-color;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
