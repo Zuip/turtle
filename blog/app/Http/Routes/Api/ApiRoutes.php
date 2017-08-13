@@ -48,16 +48,6 @@ Route::group(['middleware' => 'checkLocale'], function()
     ));
   });
   
-  Route::get('/api/{language}/views/404', function($language)
-  {
-    return \Response::json(array(
-      "texts" => array(
-        "topic" => \Lang::get('views.404.topic', array(), $language),
-        "text" => \Lang::get('views.404.text', array(), $language)
-      )
-    ));
-  });
-  
   Route::get('/api/{language}/views/categories/{category}/page/{page}', function($languageCode, $categoryURLName, $page) {
     $languageFetcher = new \App\Services\Languages\LanguageFetcher();
     $language = $languageFetcher->getWithCode($languageCode);
@@ -70,37 +60,27 @@ Route::group(['middleware' => 'checkLocale'], function()
     ));
   });
   
-  Route::get('/api/{language}/views/articles/{article}', function($languageCode, $articleURLName)
-  {
+  Route::get('/api/articles/{article}/{language}', function($articleURLName, $languageCode) {
  
-      
-      $articleLanguageVersionFetcher = new \App\Services\Articles\ArticleLanguageVersionFetcher();
-      $articleLanguageVersionFetcher->allowUnpublished(false);
-      $articleLanguageVersion = $articleLanguageVersionFetcher->getWithURLName($articleURLName);
-      
-      $articleDataFetcher = new App\Services\Articles\ArticleDataFetcher();
-      $articleDataFetcher->limitToAttributes(
-        array(
-          "topic", "text", "path", "publishTime", "previousArticle", "nextArticle"
-        )
-      );
-      $articleData = $articleDataFetcher->getArticleData($articleLanguageVersion);
-      
- 
+    $articleLanguageVersionFetcher = new \App\Services\Articles\ArticleLanguageVersionFetcher();
+    $articleLanguageVersionFetcher->allowUnpublished(false);
+    $articleLanguageVersion = $articleLanguageVersionFetcher->getWithURLName($articleURLName);
+
+    $articleDataFetcher = new App\Services\Articles\ArticleDataFetcher();
+    $articleDataFetcher->limitToAttributes(
+      array(
+        "topic", "text", "path", "publishTime", "previousArticle", "nextArticle"
+      )
+    );
+    $articleData = $articleDataFetcher->getArticleData($articleLanguageVersion);
       
     return \Response::json(array(
-      "texts" => array(
-        "previousPage" => \Lang::get('views.article.previousPage', array(), $languageCode),
-        "nextPage" => \Lang::get('views.article.nextPage', array(), $languageCode)
-      ),
-      "article"           => array(
-        "topic"           => $articleData["topic"],
-        "text"            => str_replace("[summary]", "", $articleData["text"]),
-        "publishTime"     => $articleData["publishTime"],
-        "path"            => $articleData["path"],
-        "previousArticle" => $articleData["previousArticle"],
-        "nextArticle"     => $articleData["nextArticle"]
-      )
+      "topic"           => $articleData["topic"],
+      "text"            => str_replace("[summary]", "", $articleData["text"]),
+      "publishTime"     => $articleData["publishTime"],
+      "path"            => $articleData["path"],
+      "previousArticle" => $articleData["previousArticle"],
+      "nextArticle"     => $articleData["nextArticle"]
     ));
   });
 });

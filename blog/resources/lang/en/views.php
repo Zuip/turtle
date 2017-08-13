@@ -61,7 +61,7 @@ return [
     'text' => 'The page may not exist or you might not have the needed permissions for it.'
   ],
   'trips' => [
-    'menuTopic' => 'Trips',
+    'topic' => 'Trips',
   ],
   'sideBar' => [
     'blogArticles' => [

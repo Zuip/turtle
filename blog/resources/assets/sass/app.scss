@@ -2,6 +2,8 @@
 @import '../vendor/font-awesome/font-awesome.scss';
 
 $theme-color: #579ABF;
+$theme-hover-color: #317499;
+$theme-text-color-on-theme-color: #FFFFFF;
 $theme-font-family: 'Roboto', sans-serif;
 $theme-light-grey: #fbfbfb;
 $theme-grey: #f3f3f3;
@@ -9,7 +11,6 @@ $theme-dark-grey: #959595;
 
 $header-element-font-family: 'Nunito', sans-serif;
 $header-logo-font-family: 'Caveat Brush', cursive;
-$header-font-color: #FFFFFF;
 $header-height: 70px;
 
 $footer-color: $theme-grey;

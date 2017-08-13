@@ -60,7 +60,7 @@ return [
     'text' => 'Sivua ei ole olemassa tai käyttöoikeutesi ei riitä sen avaamiseen.'
   ],
   'trips' => [
-    'menuTopic' => 'Matkat',
+    'topic' => 'Matkat',
   ],
   'sideBar' => [
     'blogArticles' => [

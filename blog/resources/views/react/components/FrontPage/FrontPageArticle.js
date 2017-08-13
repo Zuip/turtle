@@ -12,11 +12,11 @@ class FrontPageArticle extends React.Component {
 
   render() {
     return (
-      <Link to={'articles/' + this.props.article.URLName}>
-        <div className="front-page-article">
+      <Link to={'/articles/' + this.props.article.URLName}>
+        <div className="article article-summary">
           <h2>{this.props.article.boxTopic}</h2>
           <h3>{this.props.article.topic}</h3>
-          <h4>{this.props.article.publishTime}</h4>
+          <h5>{this.props.article.publishTime}</h5>
           <p dangerouslySetInnerHTML={{__html: this.props.article.textSummary}}></p>
           <p className="continue-reading">
             {Language.getTranslation("category.continueReading")}
