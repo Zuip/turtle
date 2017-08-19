@@ -7,6 +7,8 @@ import {Header} from './components/Header/Header.js';
 import {About} from './components/About/About.js';
 import {FrontPage} from './components/FrontPage/FrontPage.js';
 import {Article} from './components/Article/Article.js';
+import {Category} from './components/Category/Category.js';
+import {CategoryFirstPage} from './components/Category/CategoryFirstPage.js';
 import {NotFoundPage} from './components/NotFoundPage.js';
 
 render(
@@ -19,6 +21,8 @@ render(
           <Route exact component={FrontPage} path="/" />
           <Route exact component={About} path="/about" />
           <Route exact component={Article} path="/articles/:articleURLName" />
+          <Route exact component={CategoryFirstPage} path="/categories/:categoryURLName" />
+          <Route exact component={Category} path="/categories/:categoryURLName/pages/:page" />
           <Route component={NotFoundPage} />
         </Switch>
       </div>

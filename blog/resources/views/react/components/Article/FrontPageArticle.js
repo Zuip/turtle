@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 import {Language} from '../../services/Language.js';
 
-class FrontPageArticle extends React.Component {
+class ArticleSummary extends React.Component {
 
   constructor(props) {
     super(props);
@@ -28,4 +28,4 @@ class FrontPageArticle extends React.Component {
   }
 }
 
-export {FrontPageArticle};
+export {ArticleSummary};

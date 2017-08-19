@@ -13,7 +13,7 @@ class Header extends React.Component {
           </div>
         </Link>
         <div className="header-element">
-          <h3>Matkat</h3>
+          <h3>Matkat <i className="fa fa-angle-down" aria-hidden="true"></i></h3>
           <div id="header-travels-menu"></div>
         </div>
         <Link to={'/about'}>

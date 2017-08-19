@@ -3,7 +3,8 @@ import {render} from 'react-dom';
 
 import {Language} from '../../services/Language.js';
 import {LoaderSpinner} from '../LoaderSpinner.js';
-import {FrontPageArticle} from './FrontPageArticle.js';
+
+import {ArticleSummary} from '../Article/FrontPageArticle.js';
 
 class FrontPage extends React.Component {
 
@@ -46,7 +47,7 @@ class FrontPage extends React.Component {
         {
           this.state.frontPageArticles.map(function(frontPageArticle) {
             return (
-              <FrontPageArticle article={frontPageArticle} key={frontPageArticle.type} />
+              <ArticleSummary article={frontPageArticle} key={frontPageArticle.type} />
             );
           })
         }

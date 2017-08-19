@@ -23,7 +23,9 @@ class Article extends React.Component {
   componentWillReceiveProps(newProps) {
     if(newProps.match.params.articleURLName !== this.props.match.params.articleURLName) {
       this.props = newProps;
-      this.state.article = null;
+      this.setState({
+        article: null
+      });
       this.forceUpdate();
       this.loadArticle();
     }

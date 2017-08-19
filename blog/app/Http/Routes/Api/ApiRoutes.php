@@ -48,16 +48,13 @@ Route::group(['middleware' => 'checkLocale'], function()
     ));
   });
   
-  Route::get('/api/{language}/views/categories/{category}/page/{page}', function($languageCode, $categoryURLName, $page) {
+  Route::get('/api/categories/{category}/pages/{page}/{language}', function($categoryURLName, $page, $languageCode) {
     $languageFetcher = new \App\Services\Languages\LanguageFetcher();
     $language = $languageFetcher->getWithCode($languageCode);
     $categoryDataFetcher = new App\Services\Categories\CategoryDataFetcher();
-    return \Response::json(array(
-      "texts" => array(
-        "continueReading" => \Lang::get('views.category.continueReading', array(), $languageCode)
-      ),
-      "category" => $categoryDataFetcher->getData($categoryURLName, $language->id, intval($page))
-    ));
+    return \Response::json(
+      $categoryDataFetcher->getData($categoryURLName, $language->id, intval($page))
+    );
   });
   
   Route::get('/api/articles/{article}/{language}', function($articleURLName, $languageCode) {
