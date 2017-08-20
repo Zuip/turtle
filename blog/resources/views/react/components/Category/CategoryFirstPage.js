@@ -11,7 +11,7 @@ class CategoryFirstPage extends React.Component {
 
   render() {
 
-    this.props.match.page = 1;
+    this.props.match.params.page = 1;
 
     return (
       <Category match={this.props.match}/>

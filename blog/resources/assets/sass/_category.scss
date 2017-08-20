@@ -1,0 +1,20 @@
+.category {
+  
+  .pagination {
+    
+    float: right;
+    
+    a.page-link {
+      color: $theme-color;
+    }
+    
+    .active {
+      
+      a.page-link {
+        background-color: $theme-color;
+        border-color: #DDDDDD;
+        color: $theme-text-color-on-theme-color;
+      }
+    }
+  }
+}

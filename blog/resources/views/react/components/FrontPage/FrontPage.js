@@ -4,7 +4,7 @@ import {render} from 'react-dom';
 import {Language} from '../../services/Language.js';
 import {LoaderSpinner} from '../LoaderSpinner.js';
 
-import {ArticleSummary} from '../Article/FrontPageArticle.js';
+import {ArticleSummary} from '../Article/ArticleSummary.js';
 
 class FrontPage extends React.Component {
 

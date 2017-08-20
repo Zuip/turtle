@@ -4,7 +4,8 @@ import {render} from 'react-dom';
 import {Language} from '../../services/Language.js';
 import {LoaderSpinner} from '../LoaderSpinner.js';
 
-import {ArticleSummary} from '../Article/FrontPageArticle.js';
+import {ArticleSummary} from '../Article/ArticleSummary.js';
+import {Pagination} from './Pagination/Pagination.js';
 
 class Category extends React.Component {
 
@@ -20,9 +21,23 @@ class Category extends React.Component {
     this.loadCategory();
   }
 
-  componentWillReceiveProps(newProps) {
-    if(newProps.match.params.articleURLName !== this.props.match.params.articleURLName) {
-      this.props = newProps;
+  componentWillReceiveProps(props) {
+
+    let pageChanged = function(oldProps, newProps) {
+
+      if(newProps.categoryURLName !== oldProps.categoryURLName) {
+        return true;
+      }
+
+      if(newProps.match.params.page !== oldProps.match.params.page) {
+        return true;
+      }
+
+      return false;
+    }
+console.log("test")
+    if(pageChanged(this.props, props)) {
+      this.props = props;
       this.setState({
         category: null
       });
@@ -57,9 +72,14 @@ class Category extends React.Component {
     }
 
     return (
-      <div>
+      <div className="category">
         <h2>{this.state.category.name}</h2>
         <p>{this.state.category.description}</p>
+
+        <Pagination categoryURLName={this.props.match.params.categoryURLName}
+                    amountOfArticles={this.state.category.amountOfArticles}
+                    currentPage={this.props.match.params.page} />
+
         {
           this.state.category.articles.map(function(article) {
             return (
@@ -67,6 +87,10 @@ class Category extends React.Component {
             );
           })
         }
+
+        <Pagination categoryURLName={this.props.match.params.categoryURLName}
+                    amountOfArticles={this.state.category.amountOfArticles}
+                    currentPage={this.props.match.params.page} />
       </div>
     );
   }
