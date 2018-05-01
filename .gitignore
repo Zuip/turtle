@@ -2,3 +2,12 @@
 /blog/.env
 /nbproject/private/
 /blog/storage/framework/sessions
+/.sass-cache
+/node_modules
+/blog/public/assets/css/app.css
+/package-lock.json
+/blog/public/scripts/app.bundle.js
+/blog/public/scripts/app.bundle.js.map
+/nbproject/project.properties
+/nbproject/project.xml
+/blog/public/assets/css/app.css.map

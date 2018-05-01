@@ -18,8 +18,8 @@ class LanguageFetcher implements ILanguageFetcher {
   
   public function getWithCode($languageCode) {
     
-    $language = Language::where('code', $languageCode);
-
+    $language = Language::where('code', 'fi')->get();
+    
     if(count($language) !== 1) {
       throw new ModelNotFoundException("Language does not exist!");
     }

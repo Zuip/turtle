@@ -64,10 +64,10 @@ class CategoryDataFetcher {
   
   private function getCategoryPublishedArticlesCount($categoryId) {
     return Category::join('article', 'category.id', '=', 'article.category_id')
-    ->join('articletext', 'article.id', '=', 'articletext.article_id')
+    ->join('translated_article', 'article.id', '=', 'translated_article.article_id')
     ->select('article.*')
     ->where('category_id', $categoryId)
-    ->where('articletext.published', '1')
+    ->where('translated_article.published', '1')
     ->count();
   }
 }

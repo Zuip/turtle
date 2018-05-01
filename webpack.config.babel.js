@@ -4,7 +4,7 @@ module.exports = {
   entry: './blog/resources/views/react/app.js',
   devtool: 'source-map',
   output: {
-    filename: './public_html/scripts/app.bundle.js'
+    filename: './blog/public/scripts/app.bundle.js'
   },
   module: {
     loaders: [

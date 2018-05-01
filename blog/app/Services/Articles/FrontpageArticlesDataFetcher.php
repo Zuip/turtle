@@ -39,9 +39,9 @@ class FrontpageArticlesDataFetcher {
   
   private function getLatestArticle($languageId) {
     
-    $latestArticle = ArticleLanguageVersion::join('article', 'articletext.article_id', '=', 'article.id')
-                     ->where('articletext.language_id', $languageId)
-                     ->where('articletext.published', true)
+    $latestArticle = ArticleLanguageVersion::join('article', 'translated_article.article_id', '=', 'article.id')
+                     ->where('translated_article.language_id', $languageId)
+                     ->where('translated_article.published', true)
                      ->orderBy('article.timestamp', 'DESC')
                      ->first();
     
@@ -54,9 +54,9 @@ class FrontpageArticlesDataFetcher {
   
   private function getFirstArticle($languageId) {
     
-    $firstArticle = ArticleLanguageVersion::join('article', 'articletext.article_id', '=', 'article.id')
-                    ->where('articletext.language_id', $languageId)
-                    ->where('articletext.published', true)
+    $firstArticle = ArticleLanguageVersion::join('article', 'translated_article.article_id', '=', 'article.id')
+                    ->where('translated_article.language_id', $languageId)
+                    ->where('translated_article.published', true)
                     ->orderBy('article.timestamp')
                     ->first();
     

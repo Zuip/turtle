@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleLanguageVersion extends Model implements IArticleLanguageVersion {
 
 	// The database table used by the model
-	protected $table = 'articletext';
+	protected $table = 'translated_article';
 
 	// The attributes that are mass assignable
 	protected $fillable = ['id', 'text', 'topic', 'urlname', 'language_id', 'article_id', 'published'];

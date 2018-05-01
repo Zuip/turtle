@@ -4,7 +4,8 @@
   "description": "Zui.fi\r ------\r I have made this blog as a hobby. It combines my interest in travel with my interest in programming.",
   "main": "index.php",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"webpack": "webpack"
   },
   "repository": {
     "type": "git",
@@ -33,13 +34,19 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.1",
-    "babel-preset-env": "^1.6.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "bootstrap": "^4.0.0-beta",
+    "css-loader": "^0.28.11",
     "jquery": "^3.2.1",
+    "node-sass": "^4.9.0",
     "popper.js": "^1.11.1",
-    "webpack": "^3.4.1"
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^3.11.0",
+    "webpack-cli": "^2.1.2"
   }
 }
