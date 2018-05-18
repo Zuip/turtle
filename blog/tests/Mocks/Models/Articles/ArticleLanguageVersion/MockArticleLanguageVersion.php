@@ -9,7 +9,7 @@ class MockArticleLanguageVersion implements IArticleLanguageVersion {
   public $language_id;
   public $published;
   public $topic;
-  public $urlname;
+  public $url_name;
   public $text;
   
   public function __construct() {
@@ -40,7 +40,7 @@ class MockArticleLanguageVersion implements IArticleLanguageVersion {
   }
   
   public function setURLName($URLName) {
-    $this->urlname = $URLName;
+    $this->url_name = $URLName;
   }
   
   public function setText($text) {

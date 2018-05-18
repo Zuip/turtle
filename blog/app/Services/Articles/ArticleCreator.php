@@ -52,7 +52,7 @@ class ArticleCreator {
   public function createArticle() {
     
     // Check that the URL name is not already in use
-    if(ArticleLanguageVersion::where('urlname', $this->URLName)->first() != NULL) {
+    if(ArticleLanguageVersion::where('url_name', $this->URLName)->first() != NULL) {
       throw new \App\Exceptions\ModelNotFoundException('URL name already in use!');
     }
     
@@ -80,7 +80,7 @@ class ArticleCreator {
     
     $articleLanguageVersion = new ArticleLanguageVersion;
     $articleLanguageVersion->topic = $this->topic;
-    $articleLanguageVersion->urlname = $this->URLName;
+    $articleLanguageVersion->url_name = $this->URLName;
     $articleLanguageVersion->text = $this->text;
     $articleLanguageVersion->language_id = $language->id;
     $articleLanguageVersion->article_id = $article->id;

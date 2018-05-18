@@ -42,11 +42,11 @@ class ArticleLanguageVersionFetcher implements IArticleLanguageVersionFetcher {
   public function getWithURLName($URLName) {
     
     if($this->allowUnpublishedFlag) {
-      $articleLanguageVersion = ArticleLanguageVersion::where('urlname', $URLName)
+      $articleLanguageVersion = ArticleLanguageVersion::where('url_name', $URLName)
                                                       ->first();
     } else {
       $articleLanguageVersion = ArticleLanguageVersion::where('published', 1)
-                                                      ->where('urlname', $URLName)
+                                                      ->where('url_name', $URLName)
                                                       ->first();
     }
     

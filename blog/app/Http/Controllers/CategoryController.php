@@ -39,7 +39,7 @@ class CategoryController extends Controller {
       $categoryLanguage = new CategoryLanguageVersion;
       $categoryLanguage->name = $name;
       $categoryLanguage->description = $description;
-      $categoryLanguage->urlname = $URLName;
+      $categoryLanguage->url_name = $URLName;
       $categoryLanguage->published = false;
       $categoryLanguage->language_id = $language->id;
       $categoryLanguage->category_id = $category->id;
@@ -52,11 +52,11 @@ class CategoryController extends Controller {
   public function categoryPUT() {
     
     // Retrieve the needed parameters
-    if(\Input::has('id') && \Input::has('name') && \Input::has('description') && \Input::has('urlname') && \Input::has('language')) {
+    if(\Input::has('id') && \Input::has('name') && \Input::has('description') && \Input::has('urlName') && \Input::has('language')) {
       $id = \Input::get('id');
       $name = \Input::get('name');
       $description = \Input::get('description');
-      $URLName = \Input::get('urlname');
+      $URLName = \Input::get('urlName');
       $languageCode = \Input::get('language');
     } else {
       return \Response::json(array('error' => 'Missing PUT parameters'), 404);
@@ -72,13 +72,13 @@ class CategoryController extends Controller {
     );
     
     // Check that the URL name is not in use for other categories
-    if(CategoryLanguageVersion::where('urlname', $URLName)->where('category_id', '!=', $categoryLanguage->category_id)->count() > 0) {
+    if(CategoryLanguageVersion::where('url_name', $URLName)->where('category_id', '!=', $categoryLanguage->category_id)->count() > 0) {
       return \Response::json(array('error' => 'URL name is already in use.'));
     }
     
     $categoryLanguage->name = $name;
     $categoryLanguage->description = $description;
-    $categoryLanguage->urlname = $URLName;
+    $categoryLanguage->url_name = $URLName;
     $categoryLanguage->save();
     
     return \Response::json(array('success' => 'Editing a category language version succeeded!'));

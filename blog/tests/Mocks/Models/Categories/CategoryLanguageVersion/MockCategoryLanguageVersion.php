@@ -7,7 +7,7 @@ class MockCategoryLanguageVersion implements ICategoryLanguageVersion {
   public $id;
   public $name;
   public $description;
-  public $urlname;
+  public $url_name;
   public $published;
   public $language_id;
   public $category_id;
@@ -36,7 +36,7 @@ class MockCategoryLanguageVersion implements ICategoryLanguageVersion {
   }
   
   public function setURLName($URLName) {
-    $this->urlname = $URLName;
+    $this->url_name = $URLName;
   }
   
 }

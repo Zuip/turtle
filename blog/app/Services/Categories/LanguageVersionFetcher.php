@@ -1,5 +1,6 @@
 <?php namespace App\Services\Categories;
 
+use App\Models\Categories\Category;
 use App\Models\Categories\ICategory;
 use App\Models\Categories\CategoryLanguageVersion;
 use App\Models\ILanguage;
@@ -11,7 +12,7 @@ class LanguageVersionFetcher implements ILanguageVersionFetcher {
   
   public function findWithURLName($categoryURLName, ILanguage $language, $includeUnpublished = true) {
     
-    $categoryLanguageVersions = CategoryLanguageVersion::where('urlname', $categoryURLName)->get();
+    $categoryLanguageVersions = CategoryLanguageVersion::where('url_name', $categoryURLName)->get();
     
     if(count($categoryLanguageVersions) == 0) {
       throw new \App\Exceptions\ModelNotFoundException("Category does not exist!");

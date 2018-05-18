@@ -22,7 +22,7 @@ class Mock implements IArticleDataFetcher {
     $articleData = array();
     if($this->chosen("id"         )) { $articleData["id"]          = $articleLanguageVersion->article->id;           }
     if($this->chosen("topic"      )) { $articleData["topic"]       = $articleLanguageVersion->topic;                 }
-    if($this->chosen("URLName"    )) { $articleData["URLName"]     = $articleLanguageVersion->urlname;               }
+    if($this->chosen("URLName"    )) { $articleData["URLName"]     = $articleLanguageVersion->url_name;              }
     if($this->chosen("timestamp"  )) { $articleData["timestamp"]   = $articleLanguageVersion->article->timestamp;    }
     if($this->chosen("publishTime")) { $articleData["publishTime"] = $this->getPublishTime($articleLanguageVersion); }
     if($this->chosen("published"  )) { $articleData["published"]   = $articleLanguageVersion->published;             }

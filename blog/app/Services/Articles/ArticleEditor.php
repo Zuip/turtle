@@ -60,7 +60,7 @@ class ArticleEditor {
     
     // Edit article language version
     $articleLanguageVersion->topic = $this->topic;
-    $articleLanguageVersion->urlname = $this->URLName;
+    $articleLanguageVersion->url_name = $this->URLName;
     $articleLanguageVersion->text = $this->text;
     $articleLanguageVersion->published = $this->published == "1";
     

@@ -52,7 +52,7 @@ class CategoryHierarchyArrayCreator {
       'name' => $categoryLanguageVersion->name,
       'id' => $category->id,
       'description' => $categoryLanguageVersion->description,
-      'urlname' => $categoryLanguageVersion->urlname,
+      'urlName' => $categoryLanguageVersion->url_name,
       'languageVersionId' => $categoryLanguageVersion->id,
       'children' => $this->getCategories($category->id) // Recursive call to get the hierarchy of the children categories
     );

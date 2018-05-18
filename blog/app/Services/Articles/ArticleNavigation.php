@@ -46,7 +46,7 @@ class ArticleNavigation implements IArticleNavigation {
   private function getArticleUrlName($articleLanguageVersion) {
 
     if($articleLanguageVersion instanceof IArticleLanguageVersion) {
-      return $articleLanguageVersion->urlname;
+      return $articleLanguageVersion->url_name;
     }
     
     return null;

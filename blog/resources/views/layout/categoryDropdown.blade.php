@@ -7,7 +7,7 @@
       @foreach(\App\Models\Categories\Category::where('parent_id', $category->id)->orderBy('menu_weight')->get() as $subCategory)
         @if ($subCategory->languageVersions()->where('language_id', App\Services\Languages\LanguageService::getCurrentLocaleId())->first()->published)
           <li>
-            <a href="<% trans('views.category.linkBase') %>/<% $subCategory->languageVersions()->where('language_id', App\Services\Languages\LanguageService::getCurrentLocaleId())->first()->urlname %>">
+            <a href="<% trans('views.category.linkBase') %>/<% $subCategory->languageVersions()->where('language_id', App\Services\Languages\LanguageService::getCurrentLocaleId())->first()->url_name %>">
               <% $subCategory->languageVersions()->where('language_id', App\Services\Languages\LanguageService::getCurrentLocaleId())->first()->name %>
             </a>
           </li>

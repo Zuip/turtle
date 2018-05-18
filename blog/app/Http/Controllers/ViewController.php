@@ -125,7 +125,7 @@ class ViewController extends \App\Http\Controllers\Controller {
                 'category_id' => $categoryId,
                 'categoryName' => $categoryLanguage->name,
                 'categoryDescription' => $categoryLanguage->description,
-                'categoryURLName' => $categoryLanguage->urlname
+                'categoryURLName' => $categoryLanguage->url_name
     ]);
 	}
   

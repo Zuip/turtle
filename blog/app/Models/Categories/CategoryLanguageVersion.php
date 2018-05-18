@@ -8,7 +8,7 @@ class CategoryLanguageVersion extends Model {
 	protected $table = 'translated_category';
 
 	// The attributes that are mass assignable.
-	protected $fillable = ['id', 'name', 'description', 'urlname', 'published', 'language_id', 'category_id'];
+	protected $fillable = ['id', 'name', 'description', 'url_name', 'published', 'language_id', 'category_id'];
 
 	// The attributes excluded from the model's JSON form.
 	protected $hidden = [];

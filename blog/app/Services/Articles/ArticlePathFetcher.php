@@ -44,7 +44,7 @@ class ArticlePathFetcher implements IArticlePathFetcher {
     $categoryData = array(
       'id' => $currentCategory->id,
       'name' => $categoryLanguageVersion->name,
-      'URLName' => $categoryLanguageVersion->urlname
+      'URLName' => $categoryLanguageVersion->url_name
     );
 
     // If parent is root, return current category

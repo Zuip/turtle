@@ -28,7 +28,7 @@ class CategoryDataFetcher {
       "id"  => $categoryLanguageVersion->category->id,
       "description" => $categoryLanguageVersion->description,
       "name" => $categoryLanguageVersion->name,
-      "urlname" => $categoryLanguageVersion->urlname,
+      "urlName" => $categoryLanguageVersion->url_name,
       "published" => $categoryLanguageVersion->published,
       "amountOfArticles" => $this->getCategoryPublishedArticlesCount(
         $categoryLanguageVersion->category->id
