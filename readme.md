@@ -11,8 +11,10 @@ I have made this blog as a hobby. It combines my interest in travel with my inte
 - Font Awesome
 
 Create development environment
-1. clone repository https://github.com/Zuip/zuifi-public_html to the root directory of this repository
-2. run "npm install" in root directory of this repository
+1. run "npm install"
+2. run "composer install"
+3. run "npm run webpack"
+4. run "sass resources/assets/sass/app.scss:public/assets/css/app.css"
 
 ## Testing
 

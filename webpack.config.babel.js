@@ -1,10 +1,10 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './blog/resources/views/react/app.js',
+  entry: './resources/views/react/app.js',
   devtool: 'source-map',
   output: {
-    filename: './blog/public/scripts/app.bundle.js'
+    filename: './public/scripts/app.bundle.js'
   },
   module: {
     loaders: [
