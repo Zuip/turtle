@@ -3,6 +3,7 @@
 /nbproject/private/
 /blog/storage/framework/sessions
 /.sass-cache
+/.env
 /node_modules
 /blog/public/assets/css/app.css
 /package-lock.json
