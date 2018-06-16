@@ -66,14 +66,15 @@ Route::group(['middleware' => 'checkLocale'], function()
     $articleDataFetcher = new App\Services\Articles\ArticleDataFetcher();
     $articleDataFetcher->limitToAttributes(
       array(
-        "topic", "text", "path", "publishTime", "previousArticle", "nextArticle"
+        "topic", "summary", "text", "path", "publishTime", "previousArticle", "nextArticle"
       )
     );
     $articleData = $articleDataFetcher->getArticleData($articleLanguageVersion);
       
     return \Response::json(array(
       "topic"           => $articleData["topic"],
-      "text"            => str_replace("[summary]", "", $articleData["text"]),
+      "summary"         => $articleData["summary"],
+      "text"            => $articleData["text"],
       "publishTime"     => $articleData["publishTime"],
       "path"            => $articleData["path"],
       "previousArticle" => $articleData["previousArticle"],

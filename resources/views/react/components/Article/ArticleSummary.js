@@ -17,7 +17,7 @@ class ArticleSummary extends React.Component {
           <h2>{this.props.article.boxTopic}</h2>
           <h3>{this.props.article.topic}</h3>
           <h5>{this.props.article.publishTime}</h5>
-          <div dangerouslySetInnerHTML={{__html: this.props.article.textSummary}}></div>
+          <div dangerouslySetInnerHTML={{__html: this.props.article.summary}}></div>
           <p className="continue-reading">
             {Language.getTranslation("category.continueReading")}
             <i className="fa fa-chevron-right" aria-hidden="true"></i>

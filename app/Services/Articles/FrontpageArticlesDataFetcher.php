@@ -15,7 +15,7 @@ class FrontpageArticlesDataFetcher {
     $latestArticle = $this->getLatestArticle($language->id);
     $latestArticleDataFetcher = new ArticleDataFetcher();
     $latestArticleDataFetcher->limitToAttributes(array(
-      "topic", "URLName", "publishTime", "textSummary"
+      "topic", "URLName", "publishTime", "summary"
     ));
     $latestArticleData = $latestArticleDataFetcher->getArticleData($latestArticle);
     $latestArticleData['boxTopic'] = \Lang::get('views.frontPage.latestArticle', array(), $languageCode);
@@ -25,7 +25,7 @@ class FrontpageArticlesDataFetcher {
     $firstArticle = $this->getFirstArticle($language->id);
     $firstArticleDataFetcher = new ArticleDataFetcher();
     $firstArticleDataFetcher->limitToAttributes(array(
-      "topic", "URLName", "publishTime", "textSummary"
+      "topic", "URLName", "publishTime", "summary"
     ));
     $firstArticleData = $firstArticleDataFetcher->getArticleData($firstArticle);
     $firstArticleData['boxTopic'] = \Lang::get('views.frontPage.startFromBeginning', array(), $languageCode);

@@ -58,7 +58,7 @@ class CategoryDataFetcher {
     return $categoryArticlesDataFetcher->getData(
       $category,
       $languageId,
-      ['id', 'topic', 'textSummary', 'timestamp', 'publishTime', 'URLName', 'offset']
+      ['id', 'topic', 'summary', 'timestamp', 'publishTime', 'URLName', 'offset']
     );
   }
   

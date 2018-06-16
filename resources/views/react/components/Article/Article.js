@@ -60,6 +60,7 @@ class Article extends React.Component {
       <div className="article">
         <h3>{this.state.article.topic}</h3>
         <h5>{this.state.article.publishTime}, <ArticlePath pathArray={this.state.article.path} /></h5>
+        <div className="summary" dangerouslySetInnerHTML={{__html: this.state.article.summary}}></div>
         <div dangerouslySetInnerHTML={{__html: this.state.article.text}}></div>
         <ArticlePageChanger previousArticle={this.state.article.previousArticle} nextArticle={this.state.article.nextArticle} />
       </div>
