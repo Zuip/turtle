@@ -46,6 +46,13 @@
   }
   
   .previous-article-button {
+      
+    margin-left: 15px;
+    
+    @media only screen and (min-width: $max-mobile-mode-width)   {
+      margin-left: 0;
+    }
+      
     i {
       position: relative;
       top: 1px;
@@ -54,7 +61,14 @@
   }
   
   .next-article-button {
+
     float: right;
+    margin-right: 15px;
+    
+    @media only screen and (min-width: $max-mobile-mode-width)   {
+      margin-right: 0;
+    }
+    
     i {
       position: relative;
       top: 1px;
