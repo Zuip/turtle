@@ -9,11 +9,8 @@
   }
   
   h2 {
-    margin: 10px 0 20px 0;
-  }
-
-  h3 {
-    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 20px;
   }
 
   h5 {
@@ -29,7 +26,7 @@
     max-height: 650px;
   }
 
-  p.image-text {
+  p.caption {
     font-size: 0.9rem;
     color: $theme-dark-grey;
     text-align: center;
@@ -60,11 +57,16 @@
 .article-summary {
 
   border-top: 1px solid $theme-grey;
-  padding: 10px;
   cursor: pointer;
+  
+  @media only screen and (min-width: $max-mobile-mode-width)   {
+    padding: 10px;
+  }
 
   img {
-    max-width: 80%;
+    @media only screen and (min-width: $max-mobile-mode-width)   {
+      max-width: 90%;
+    }
   }
 
   .continue-reading {

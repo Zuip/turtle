@@ -19,6 +19,9 @@ $header-height: 70px;
 $footer-color: $theme-grey;
 $footer-height: 120px;
 
+$max-mobile-mode-width: 720px;
+$min-wide-mode-width: 1024px;
+
 #grid-container {
   
   display: grid;
@@ -26,11 +29,11 @@ $footer-height: 120px;
   grid-template-rows: [header-start] 70px [header-end] 1fr [footer-start] $footer-height [footer-end];
   min-height: 100vh;
   
-  @media only screen and (min-width: 720px)   {
+  @media only screen and (min-width: $max-mobile-mode-width)   {
     grid-template-columns: [page-start] 1fr [content-start] 6fr [content-end] 1fr [page-end];
   }
   
-  @media only screen and (min-width: 1024px)   {
+  @media only screen and (min-width: $min-wide-mode-width)   {
     grid-template-columns: [page-start] 1fr [content-start] 720px [content-end] 1fr [page-end];
   }
   

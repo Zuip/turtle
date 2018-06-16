@@ -4,11 +4,21 @@
   grid-column-end: content-end;
   grid-row-start: header-end;
   grid-row-end: footer-start;
-
-  padding: 15px;
-
+  
+  padding-top: 30px;
+  padding-bottom: 20px;
+  
   h1, h2, h3, h4, h5, p {
+      
     font-family: $theme-font-family;
+    
+    margin-left: 15px;
+    margin-right: 15px;
+    
+    @media only screen and (min-width: $max-mobile-mode-width)   {
+      margin-left: 0px;
+      margin-right: 0px;
+    }
   }
   
   a {
