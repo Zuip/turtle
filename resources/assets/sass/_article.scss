@@ -26,8 +26,13 @@
     max-height: 650px;
   }
 
+  .summary img {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  
   .summary p {
-      font-size: 1.3rem;
+    font-size: 1.3rem;
   }
   
   p.caption {
@@ -68,6 +73,10 @@
   }
 
   img {
+      
+    margin-top: 15px;
+    margin-bottom: 15px;
+      
     @media only screen and (min-width: $max-mobile-mode-width)   {
       max-width: 90%;
     }
