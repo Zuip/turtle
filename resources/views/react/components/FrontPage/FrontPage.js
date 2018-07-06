@@ -1,54 +1,66 @@
 import React from 'react';
 
-import ArticleSummary from '../Article/ArticleSummary.js';
-import Language from '../../services/Language.js';
-import LoaderSpinner from '../LoaderSpinner.js';
+import ArticleSummary from '../Article/ArticleSummary';
+import getArticles from '../../apiCalls/getArticles';
+import LoaderSpinner from '../LoaderSpinner';
+import LoadMoreArticlesButton from './LoadMoreArticlesButton';
+import store from '../../store/store';
 
 class FrontPage extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      frontPageArticles: []
+      articles: [],
+      articleBlockSize: 5,
+      allArticlesLoaded: false
     };
   }
 
-  loadFrontPageArticles() {
-    fetch(GlobalState.rootURL + '/api/frontpage/articles/' + GlobalState.language)
-    .then((response) => response.json())
-    .then((response) => {
+  loadNextArticles() {
+    getArticles({
+      language: 'fi',
+      offset: this.state.articles.length,
+      limit: this.state.articleBlockSize
+    }).then(articles => {
+
+      if(articles.length !== this.state.articleBlockSize) {
+        this.setState({ allArticlesLoaded: true });
+      }
+
       this.setState({
-        frontPageArticles: response.articles
+        articles: this.state.articles.concat(articles)
       });
-    })
-    .catch((error) => {
+
+    }).catch((error) => {
       console.error(error);
     });
   }
 
   componentDidMount() {
-    Language.init(this);
-    this.loadFrontPageArticles();
+    this.loadNextArticles();
   }
 
   render() {
 
-    if(!Language.initialized || this.state.frontPageArticles.length === 0) {
+    if(this.state.articles.length === 0) {
       return (
         <LoaderSpinner />
       );
     }
 
     return (
-      <div>
-        <p>{Language.getTranslation("frontPage.introduction")}</p>
+      <div className="frontpage">
+        <h2>{store.getState().translations.frontPage.newestArticles}</h2>
         {
-          this.state.frontPageArticles.map(function(frontPageArticle) {
+          this.state.articles.map(function(article) {
             return (
-              <ArticleSummary article={frontPageArticle} key={frontPageArticle.type} />
+              <ArticleSummary article={article} key={article.URLName} />
             );
           })
         }
+        <LoadMoreArticlesButton allArticlesLoaded={this.state.allArticlesLoaded}
+                                loadNextArticles={this.loadNextArticles.bind(this)} />
       </div>
     );
   }

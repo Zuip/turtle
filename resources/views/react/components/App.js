@@ -9,6 +9,7 @@ import Footer from './Footer/Footer';
 import FrontPage from './FrontPage/FrontPage';
 import Header from './Header/Header';
 import NotFoundPage from './NotFoundPage';
+import Slogan from './FrontPage/Slogan';
 
 class App extends React.Component {
 
@@ -18,6 +19,9 @@ class App extends React.Component {
         <div id="grid-container">
           <div id="navigation-header-color-bar"></div>
           <Header />
+          <Switch>
+            <Route exact component={Slogan} path="/" />
+          </Switch>
           <div id="navigation-content">
             <Switch>
               <Route exact component={FrontPage} path="/" />

@@ -1,13 +1,13 @@
 .article {
-  
+
   a {
     color: $theme-color;
   }
-  
+
   a:hover {
     color: $theme-hover-color;
   }
-  
+
   h2 {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -30,45 +30,45 @@
     margin-top: 15px;
     margin-bottom: 15px;
   }
-  
+
   .summary p {
     font-size: 1.3rem;
   }
-  
+
   p.caption {
     font-size: 0.9rem;
     color: $theme-dark-grey;
     text-align: center;
   }
-  
+
   .article-path {
     margin-left: 5px;
   }
-  
+
   .previous-article-button {
-      
+
     margin-left: 15px;
-    
+
     @media only screen and (min-width: $max-mobile-mode-width)   {
       margin-left: 0;
     }
-      
+
     i {
       position: relative;
       top: 1px;
       margin-right: 5px;
     }
   }
-  
+
   .next-article-button {
 
     float: right;
     margin-right: 15px;
-    
+
     @media only screen and (min-width: $max-mobile-mode-width)   {
       margin-right: 0;
     }
-    
+
     i {
       position: relative;
       top: 1px;
@@ -81,16 +81,17 @@
 
   border-top: 1px solid $theme-grey;
   cursor: pointer;
+  padding: 30px 0;
   
   @media only screen and (min-width: $max-mobile-mode-width)   {
-    padding: 10px;
+    padding: 30px 10px;
   }
 
   img {
-      
+
     margin-top: 15px;
     margin-bottom: 15px;
-      
+
     @media only screen and (min-width: $max-mobile-mode-width)   {
       max-width: 90%;
     }

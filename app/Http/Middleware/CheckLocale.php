@@ -3,15 +3,37 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use \App\Services\Languages\LanguageService;
+use \Illuminate\Http\Request;
 
 class CheckLocale {
   
-  public function handle($request, Closure $next) {
+  public function handle(Request $request, Closure $next) {
     
-    if (!\App\Services\Languages\LanguageService::localeExists($request->language)) {
-      return \Response::json(array("error" => "Locale does not exist"), 404);
+    $language = $this->getLanguageFromRequest($request);
+
+    if (!LanguageService::localeExists($language)) {
+      return \Response::json(
+        [ "error" => "Locale does not exist" ],
+        404
+      );
     }
 
     return $next($request);
+  }
+  
+  private function getLanguageFromRequest(Request $request) {
+    
+    if(isset($request->language)) {
+      return $request->language;
+    }
+    
+    $a = \Illuminate\Support\Facades\Input::all();
+    
+    if($request->has('language')) {
+      return $request->input('language');
+    }
+    
+    return null;
   }
 }

@@ -20,4 +20,8 @@ class ArticleLanguageVersion extends Model implements IArticleLanguageVersion {
   public function article() {
     return $this->belongsTo('\\App\\Models\\Articles\\Article', 'article_id');
   }
+  
+  public function language() {
+    return $this->belongsTo('\\App\\Models\\Language', 'language_id');
+  }
 }

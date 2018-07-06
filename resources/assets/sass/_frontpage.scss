@@ -1,0 +1,47 @@
+.frontpage {
+
+  h2 {
+    text-transform: uppercase;
+  }
+
+  .load-more-articles {
+
+    padding: 15px;
+
+    button {
+      color: $theme-text-color-on-theme-color;
+      cursor: pointer;
+      background-color: $theme-color;
+    }
+
+    button:hover {
+      background-color: $theme-hover-color;
+    }
+  }
+}
+
+#frontpage-slogan {
+
+  background-color: $footer-color;
+  background: url("/images/frontpage/slogan_background.png") no-repeat center center;
+  background-size: auto 100%;
+  color: $theme-text-color-on-theme-color;
+  grid-column-start: page-start;
+  grid-column-end: page-end;
+  grid-row-start: header-end;
+  grid-row-end: info-end;
+  height: 500px;
+  text-align: center;
+  text-shadow: -2px 0 $theme-hover-color, 0 2px $theme-hover-color, 2px 0 $theme-hover-color, 0 -2px $theme-hover-color;
+
+  @media screen and (min-width: 1071px) {
+    background-size: 100% auto;
+  }
+
+  h1 {
+    margin: 0 20px;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+}

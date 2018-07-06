@@ -57,6 +57,8 @@ Route::group(['middleware' => 'checkLocale'], function()
     );
   });
   
+  Route::get('/api/articles', 'GetArticlesController@get');
+  
   Route::get('/api/articles/{article}/{language}', function($articleURLName, $languageCode) {
  
     $articleLanguageVersionFetcher = new \App\Services\Articles\ArticleLanguageVersionFetcher();
