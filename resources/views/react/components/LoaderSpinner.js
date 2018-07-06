@@ -1,7 +1,7 @@
 import React from 'react';
-import {render} from 'react-dom';
 
 class LoaderSpinner extends React.Component {
+
   render() {
 
     let imgStyle = {
@@ -20,4 +20,4 @@ class LoaderSpinner extends React.Component {
   }
 }
 
-export {LoaderSpinner};
+export default LoaderSpinner;

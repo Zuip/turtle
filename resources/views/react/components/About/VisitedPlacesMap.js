@@ -1,5 +1,4 @@
 import React from 'react';
-import {render} from 'react-dom';
 
 class VisitedPlacesMap extends React.Component {
 
@@ -45,4 +44,4 @@ class VisitedPlacesMap extends React.Component {
   }
 }
 
-export {VisitedPlacesMap};
+export default VisitedPlacesMap;

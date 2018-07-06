@@ -1,6 +1,5 @@
 import React from 'react';
-import {render} from 'react-dom';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class CategoryPageLink extends React.Component {
 
@@ -47,4 +46,4 @@ class CategoryPageLink extends React.Component {
   }
 }
 
-export {CategoryPageLink};
+export default CategoryPageLink;

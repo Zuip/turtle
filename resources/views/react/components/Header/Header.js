@@ -1,6 +1,7 @@
 import React from 'react';
-import {render} from 'react-dom';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import store from '../../store/store';
 
 class Header extends React.Component {
 
@@ -9,16 +10,12 @@ class Header extends React.Component {
       <div id="navigation-header-content">
         <Link to={'/'}>
           <div id="site-name" className="header-element">
-            <h1>Zui.fi</h1>
+            <h1>{store.getState().translations.website.name}</h1>
           </div>
         </Link>
-        <div className="header-element">
-          <h3>Matkat <i className="fa fa-angle-down" aria-hidden="true"></i></h3>
-          <div id="header-travels-menu"></div>
-        </div>
         <Link to={'/about'}>
           <div id="header-about-link" className="header-element">
-            <h3>Kirjoittaja</h3>
+            <h3>{store.getState().translations.header.about}</h3>
           </div>
         </Link>
       </div>
@@ -26,4 +23,4 @@ class Header extends React.Component {
   }
 }
 
-export {Header};
+export default Header;

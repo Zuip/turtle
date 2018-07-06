@@ -123,7 +123,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b-VSBFUZVEUigMBiGITuacfH9KHHeg"></script>
 
     <!-- Own JavaScripts -->
-    <script src="/scripts/app.bundle.js"></script>
+    <script src="/scripts/app.js"></script>
     
     <?php /*
     

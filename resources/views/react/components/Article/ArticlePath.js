@@ -1,8 +1,7 @@
 import React from 'react';
-import {render} from 'react-dom';
 import {Link} from 'react-router-dom';
 
-import {Language} from '../../services/Language.js';
+import Language from '../../services/Language.js';
 
 class ArticlePath extends React.Component {
 
@@ -26,4 +25,4 @@ class ArticlePath extends React.Component {
   }
 }
 
-export {ArticlePath};
+export default ArticlePath;

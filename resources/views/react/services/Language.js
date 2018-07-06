@@ -1,4 +1,4 @@
-let Language = {
+export default {
 
   translations: {},
   code: 'fi',
@@ -48,5 +48,3 @@ let Language = {
     return translation;
   }
 };
-
-export {Language};

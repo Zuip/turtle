@@ -1,7 +1,6 @@
 import React from 'react';
-import {render} from 'react-dom';
 
-import {Category} from './Category.js';
+import Category from './Category.js';
 
 class CategoryFirstPage extends React.Component {
 
@@ -19,4 +18,4 @@ class CategoryFirstPage extends React.Component {
   }
 }
 
-export {CategoryFirstPage};
+export default CategoryFirstPage;

@@ -1,8 +1,7 @@
 import React from 'react';
-import {render} from 'react-dom';
 
-import {Language} from '../services/Language.js';
-import {LoaderSpinner} from './LoaderSpinner.js';
+import Language from '../services/Language.js';
+import LoaderSpinner from './LoaderSpinner.js';
 
 class NotFoundPage extends React.Component {
 
@@ -26,4 +25,4 @@ class NotFoundPage extends React.Component {
   }
 }
 
-export {NotFoundPage};
+export default NotFoundPage;

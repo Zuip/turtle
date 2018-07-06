@@ -1,11 +1,9 @@
 import React from 'react';
-import {render} from 'react-dom';
 
-import {Language} from '../../services/Language.js';
-import {LoaderSpinner} from '../LoaderSpinner.js';
-
-import {ArticleSummary} from '../Article/ArticleSummary.js';
-import {Pagination} from './Pagination/Pagination.js';
+import ArticleSummary from '../Article/ArticleSummary.js';
+import Language from '../../services/Language.js';
+import LoaderSpinner from '../LoaderSpinner.js';
+import Pagination from './Pagination/Pagination.js';
 
 class Category extends React.Component {
 
@@ -35,7 +33,7 @@ class Category extends React.Component {
 
       return false;
     }
-console.log("test")
+
     if(pageChanged(this.props, props)) {
       this.props = props;
       this.setState({
@@ -96,4 +94,4 @@ console.log("test")
   }
 }
 
-export {Category};
+export default Category;

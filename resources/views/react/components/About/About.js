@@ -1,9 +1,8 @@
 import React from 'react';
-import {render} from 'react-dom';
 
-import {Language} from '../../services/Language.js';
-import {VisitedPlacesMap} from './VisitedPlacesMap.js';
-import {LoaderSpinner} from '../LoaderSpinner.js';
+import Language from '../../services/Language.js';
+import VisitedPlacesMap from './VisitedPlacesMap.js';
+import LoaderSpinner from '../LoaderSpinner.js';
 
 class About extends React.Component {
 
@@ -32,4 +31,4 @@ class About extends React.Component {
   }
 }
 
-export {About};
+export default About;

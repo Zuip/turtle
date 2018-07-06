@@ -1,9 +1,8 @@
 import React from 'react';
-import {render} from 'react-dom';
 
-import {CategoryPageLink} from './CategoryPageLink.js';
-import {CategoryPreviousPageLink} from './CategoryPreviousPageLink.js';
-import {CategoryNextPageLink} from './CategoryNextPageLink.js';
+import CategoryPageLink from './CategoryPageLink.js';
+import CategoryPreviousPageLink from './CategoryPreviousPageLink.js';
+import CategoryNextPageLink from './CategoryNextPageLink.js';
 
 class Pagination extends React.Component {
 
@@ -79,4 +78,4 @@ class Pagination extends React.Component {
   }
 }
 
-export {Pagination};
+export default Pagination;

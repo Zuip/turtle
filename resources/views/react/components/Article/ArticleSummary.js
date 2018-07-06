@@ -1,8 +1,7 @@
 import React from 'react';
-import {render} from 'react-dom';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import {Language} from '../../services/Language.js';
+import Language from '../../services/Language.js';
 
 class ArticleSummary extends React.Component {
 
@@ -28,4 +27,4 @@ class ArticleSummary extends React.Component {
   }
 }
 
-export {ArticleSummary};
+export default ArticleSummary;

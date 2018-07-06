@@ -1,10 +1,9 @@
 import React from 'react';
-import {render} from 'react-dom';
 
-import {Language} from '../../services/Language.js';
-import {LoaderSpinner} from '../LoaderSpinner.js';
-import {ArticlePath} from './ArticlePath.js';
-import {ArticlePageChanger} from './ArticlePageChanger.js';
+import Language from '../../services/Language.js';
+import LoaderSpinner from '../LoaderSpinner.js';
+import ArticlePath from './ArticlePath.js';
+import ArticlePageChanger from './ArticlePageChanger.js';
 
 class Article extends React.Component {
 
@@ -68,4 +67,4 @@ class Article extends React.Component {
   }
 }
 
-export {Article};
+export default Article;

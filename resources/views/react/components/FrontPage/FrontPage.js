@@ -1,10 +1,8 @@
 import React from 'react';
-import {render} from 'react-dom';
 
-import {Language} from '../../services/Language.js';
-import {LoaderSpinner} from '../LoaderSpinner.js';
-
-import {ArticleSummary} from '../Article/ArticleSummary.js';
+import ArticleSummary from '../Article/ArticleSummary.js';
+import Language from '../../services/Language.js';
+import LoaderSpinner from '../LoaderSpinner.js';
 
 class FrontPage extends React.Component {
 
@@ -56,4 +54,4 @@ class FrontPage extends React.Component {
   }
 }
 
-export {FrontPage};
+export default FrontPage;
