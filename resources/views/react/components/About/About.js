@@ -1,33 +1,36 @@
 import React from 'react';
 
-import Language from '../../services/Language.js';
-import VisitedPlacesMap from './VisitedPlacesMap.js';
-import LoaderSpinner from '../LoaderSpinner.js';
+import store from '../../store/store';
 
 class About extends React.Component {
-
-  componentDidMount() {
-    Language.init(this);
-  }
-
   render() {
-    if(Language.initialized) {
-      return (
-        <div>
-          <h1>{Language.getTranslation("about.topic")}</h1>
-          <p>{Language.getTranslation("about.aboutWriter")}</p>
-          <h3>{Language.getTranslation("about.contact")}</h3>
-          <p>{Language.getTranslation("about.contactInfo")}</p>
-          <p>{Language.getTranslation("about.contactEmail")}</p>
-          <h3>{Language.getTranslation("about.placesVisited")}</h3>
-          <VisitedPlacesMap />
-        </div>
-      );
-    } else {
-      return (
-        <LoaderSpinner />
-      );
-    }
+    return (
+      <div>
+
+        <h1>{store.getState().translations.about.topic}</h1>
+
+        <h2>{store.getState().translations.about.whatIsTurtleTravel.topic}</h2>
+        <p>{store.getState().translations.about.whatIsTurtleTravel.text}</p>
+
+        <h2>{store.getState().translations.about.whatDoWeMeanWithAuthenticity.topic}</h2>
+        {
+          store.getState().translations.about.whatDoWeMeanWithAuthenticity.text.map(paragraph => {
+            return <p>{paragraph}</p>
+          })
+        }
+
+        <h2>{store.getState().translations.about.whatIsOurGoal.topic}</h2>
+        <p>
+          {store.getState().translations.about.whatIsOurGoal.text}
+          {
+            store.getState().translations.about.whatIsOurGoal.goals.map(goal => {
+              return <span><br />- {goal}</span>
+            })
+          }
+        </p>
+
+      </div>
+    );
   }
 }
 
