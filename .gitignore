@@ -2,6 +2,7 @@
 /.sass-cache
 /nbproject
 /node_modules
+/npm-debug.log
 /public/articles/images
 /public/assets/css/app.css
 /public/assets/css/app.css.map
