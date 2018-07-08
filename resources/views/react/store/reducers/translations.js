@@ -1,4 +1,4 @@
-import fi from '../../translations/fi.js';
+import fi from '../../translations/fi/fi.js';
 import {SET_LANGUAGE} from '../actions';
 
 export default function(state = fi, action) {

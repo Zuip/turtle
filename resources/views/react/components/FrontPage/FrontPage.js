@@ -1,10 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import ArticleSummary from '../Article/ArticleSummary';
 import getArticles from '../../apiCalls/getArticles';
 import LoaderSpinner from '../LoaderSpinner';
 import LoadMoreArticlesButton from './LoadMoreArticlesButton';
-import store from '../../store/store';
 
 class FrontPage extends React.Component {
 
@@ -19,7 +19,7 @@ class FrontPage extends React.Component {
 
   loadNextArticles() {
     getArticles({
-      language: 'fi',
+      language: this.props.translations.languageCode,
       offset: this.state.articles.length,
       limit: this.state.articleBlockSize
     }).then(articles => {
@@ -41,6 +41,19 @@ class FrontPage extends React.Component {
     this.loadNextArticles();
   }
 
+  componentDidUpdate(previousProps) {
+    
+    if(previousProps.translations.languageCode !== this.props.translations.languageCode) {
+
+      this.setState({
+        articles: [],
+        allArticlesLoaded: false
+      });
+
+      this.loadNextArticles();
+    }
+  }
+
   render() {
 
     if(this.state.articles.length === 0) {
@@ -51,7 +64,7 @@ class FrontPage extends React.Component {
 
     return (
       <div className="frontpage">
-        <h2>{store.getState().translations.frontPage.newestArticles}</h2>
+        <h2>{this.props.translations.frontPage.latestArticles}</h2>
         {
           this.state.articles.map(function(article) {
             return (
@@ -66,4 +79,6 @@ class FrontPage extends React.Component {
   }
 }
 
-export default FrontPage;
+export default connect(
+  state => ({ translations: state.translations })
+)(FrontPage);

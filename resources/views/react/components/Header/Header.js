@@ -1,8 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import LanguageDropdown from './LanguageDropdown';
-import store from '../../store/store';
 
 class Header extends React.Component {
 
@@ -15,7 +15,7 @@ class Header extends React.Component {
       <div id="navigation-header-content">
         <Link to={'/'}>
           <div id="site-name" className="header-element header-link">
-            <h1>{store.getState().translations.website.name}</h1>
+            <h1>{this.props.translations.website.name}</h1>
           </div>
         </Link>
         <Link to={'/cities'}>
@@ -25,7 +25,7 @@ class Header extends React.Component {
         </Link>
         <Link to={'/about'}>
           <div id="header-about-link" className="header-element header-link">
-            <h3>{store.getState().translations.header.about}</h3>
+            <h3>{this.props.translations.header.about}</h3>
           </div>
         </Link>
         <div className="header-element header-right">
@@ -37,4 +37,6 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default connect(
+  state => ({ translations: state.translations })
+)(Header);
