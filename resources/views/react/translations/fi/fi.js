@@ -5,13 +5,17 @@ export default {
   article: {
     continueReading: 'Jatka lukemista'
   },
+  cities: {
+    cities: 'Kaupungit'
+  },
   frontPage: {
     loadMoreArticles: 'Lataa lisää artikkeleita',
     latestArticles: 'Uusimmat artikkelit',
     slogan: 'Turtle.travel on työkalu autenttisempien matkakohteiden löytämiseen'
   },
   header: {
-    about: 'Tietoa'
+    about: 'Tietoa',
+    login: 'Kirjaudu'
   },
   languageCode: 'fi',
   website: {

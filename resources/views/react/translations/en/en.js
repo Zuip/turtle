@@ -5,13 +5,17 @@ export default {
   article: {
     continueReading: 'Continue reading'
   },
+  cities: {
+    cities: 'Cities'
+  },
   frontPage: {
     loadMoreArticles: 'Load more articles',
     latestArticles: 'Latest articles',
     slogan: 'Turtle.travel is a tool for finding more authentic travel destinations'
   },
   header: {
-    about: 'About'
+    about: 'About',
+    login: 'Login'
   },
   languageCode: 'en',
   website: {

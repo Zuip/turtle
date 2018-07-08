@@ -1,0 +1,161 @@
+#navigation-header-content {
+
+  grid-column-start: page-start;
+  grid-column-end: page-end;
+  grid-row-start: header-start;
+  grid-row-end: header-end;
+
+  background-color: $theme-color;
+
+  .header-element {
+
+    line-height: $header-height;
+    cursor: pointer;
+    padding: 0 15px;
+
+    button.header-button {
+      color: $theme-color;
+      cursor: pointer;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-family: $header-element-font-family;
+      line-height: 50px;
+      color: $theme-text-color-on-theme-color;
+      margin: 0;
+      padding: 0;
+    }
+
+    i.fa-angle-down {
+      margin-left: 3px;
+    }
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  .header-element.header-link:hover {
+    background-color: $theme-hover-color;
+  }
+
+  .header-element.header-button {
+    cursor: default;
+    padding: 15px;
+  }
+
+  .mobile-hidden {
+    display: none;
+  }
+
+  @import "dropdown";
+
+  .mobile-header-content {
+
+    #site-name {
+
+      float: left;
+
+      h1 {
+        font-size: 36px;
+        font-family: $header-logo-font-family;
+        line-height: $header-height;
+        color: $theme-text-color-on-theme-color;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  .mobile-hidden {
+    display: none;
+  }
+
+  .mobile-language-select {
+
+    padding: 8px 15px 0 15px;
+
+    .btn-group {
+
+      width: 100%;
+
+      button {
+        background-color: $theme-text-color-on-theme-color;
+        color: $theme-color;
+        text-transform: uppercase;
+        width: 100%;
+      }
+
+      button:disabled {
+        color: $theme-text-color-on-theme-color;
+        background-color: $theme-hover-color;
+        opacity: 1;
+      }
+    }
+  }
+
+  .mobile-menu-toggler {
+
+    color: $theme-hover-color;
+    float: right;
+    font-size: 40px;
+    line-height: $header-height;
+    margin: 0 20px;
+
+    i {
+      cursor: pointer;
+    }
+  }
+
+  @media only screen and (min-width: $max-mobile-mode-width) {
+
+    .header-element {
+
+      float:left;
+      margin-right: 10px;
+
+      button.header-button {
+        position: relative;
+        top: 16px;
+      }
+
+      h3 {
+        line-height: $header-height;
+      }
+    }
+
+    .header-element.header-button {
+      padding: 0 10px;
+    }
+
+    .header-element.header-right, .dropdown.header-right {
+      float: right;
+    }
+
+    .mobile-header-content {
+
+      .clearfix {
+        display: none;
+      }
+
+      #site-name {
+        margin-right: 20px;
+      }
+    }
+
+    .mobile-hidden {
+      display: initial;
+    }
+
+    .mobile-language-select {
+      display: none;
+    }
+
+    .mobile-menu-toggler {
+      display: none;
+    }
+  }
+}
+
+@import "infobox";

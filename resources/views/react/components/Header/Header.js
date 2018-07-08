@@ -1,42 +1,51 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
+import AboutLink from './AboutLink';
+import CitiesLink from './CitiesLink';
 import LanguageDropdown from './LanguageDropdown';
+import LoginButton from './LoginButton';
+import Logo from './Logo';
+import MobileLanguageSelect from './MobileLanguageSelect';
 
 class Header extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      mobileSubMenuHidden: true
+    }
+  }
+
+  toggleMobileSubMenuHidden() {
+    this.setState({
+      mobileSubMenuHidden: !this.state.mobileSubMenuHidden
+    });
+  }
+
+  getMobileSubMenuHiddenClass() {
+    return this.state.mobileSubMenuHidden ? " mobile-hidden" : "";
   }
 
   render() {
     return (
       <div id="navigation-header-content">
-        <Link to={'/'}>
-          <div id="site-name" className="header-element header-link">
-            <h1>{this.props.translations.website.name}</h1>
+        <div className="mobile-header-content">
+          <Logo />
+          <div className="mobile-menu-toggler">
+            <i className="fas fa-bars" onClick={this.toggleMobileSubMenuHidden.bind(this)}></i>
           </div>
-        </Link>
-        <Link to={'/cities'}>
-          <div className="header-element header-link">
-            <h3>Kaupungit</h3>
-          </div>
-        </Link>
-        <Link to={'/about'}>
-          <div id="header-about-link" className="header-element header-link">
-            <h3>{this.props.translations.header.about}</h3>
-          </div>
-        </Link>
-        <div className="header-element header-right">
-          <button className="form-control header-button">Kirjaudu</button>
+          <div className="clearfix"></div>
         </div>
-        <LanguageDropdown />
+        <div className={"mobile-header-submenu" + this.getMobileSubMenuHiddenClass()}>
+          <CitiesLink />
+          <AboutLink />
+          <MobileLanguageSelect />
+          <LoginButton />
+          <LanguageDropdown />
+        </div>
       </div>
     );
   }
 }
 
-export default connect(
-  state => ({ translations: state.translations })
-)(Header);
+export default Header;
