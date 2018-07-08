@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import ArticleSummary from '../Article/ArticleSummary';
 import getArticles from '../../apiCalls/getArticles';
-import LoaderSpinner from '../LoaderSpinner';
 import LoadMoreArticlesButton from './LoadMoreArticlesButton';
+import pageSpinner from '../../services/pageSpinner';
 
 class FrontPage extends React.Component {
 
@@ -18,6 +18,9 @@ class FrontPage extends React.Component {
   }
 
   loadNextArticles() {
+
+    pageSpinner.start('Frontpage articles');
+
     getArticles({
       language: this.props.translations.languageCode,
       offset: this.state.articles.length,
@@ -32,6 +35,8 @@ class FrontPage extends React.Component {
         articles: this.state.articles.concat(articles)
       });
 
+      pageSpinner.finish('Frontpage articles');
+
     }).catch((error) => {
       console.error(error);
     });
@@ -42,7 +47,7 @@ class FrontPage extends React.Component {
   }
 
   componentDidUpdate(previousProps) {
-    
+
     if(previousProps.translations.languageCode !== this.props.translations.languageCode) {
 
       this.setState({
@@ -55,12 +60,6 @@ class FrontPage extends React.Component {
   }
 
   render() {
-
-    if(this.state.articles.length === 0) {
-      return (
-        <LoaderSpinner />
-      );
-    }
 
     return (
       <div className="frontpage">

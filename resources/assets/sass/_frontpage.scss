@@ -26,10 +26,6 @@
   background: url("/images/frontpage/slogan_background.png") no-repeat center center;
   background-size: auto 100%;
   color: $theme-text-color-on-theme-color;
-  grid-column-start: page-start;
-  grid-column-end: page-end;
-  grid-row-start: header-end;
-  grid-row-end: info-end;
   height: 500px;
   text-align: center;
   text-shadow: -2px 0 $theme-hover-color, 0 2px $theme-hover-color, 2px 0 $theme-hover-color, 0 -2px $theme-hover-color;

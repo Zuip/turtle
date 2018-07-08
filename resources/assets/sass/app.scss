@@ -38,8 +38,10 @@ $min-wide-mode-width: 1024px;
   }
 
   @import "header";
-  @import "frontpage";
+  @import "infobox";
   @import "content";
+  @import "frontpage";
+  @import "overlay";
   @import "footer";
 }
 

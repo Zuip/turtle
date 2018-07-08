@@ -6,7 +6,7 @@ import store from '../../store/store';
 class Slogan extends React.Component {
   render() {
     return (
-      <div id="frontpage-slogan">
+      <div id="frontpage-slogan" className="info-box">
         <h1>{this.props.translations.frontPage.slogan}</h1>
       </div>
     );
