@@ -53,9 +53,9 @@ class FrontPage extends React.Component {
       this.setState({
         articles: [],
         allArticlesLoaded: false
+      }, () => {
+        this.loadNextArticles();
       });
-
-      this.loadNextArticles();
     }
   }
 
