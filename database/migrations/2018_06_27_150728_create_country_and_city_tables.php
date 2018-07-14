@@ -48,9 +48,9 @@ class CreateCountryAndCityTables extends Migration
      */
     public function down()
     {
-        // Schema::drop('translated_city');
-        // Schema::drop('city');
-        // Schema::drop('translated_country');
-        // Schema::drop('country');
+        Schema::drop('translated_city');
+        Schema::drop('city');
+        Schema::drop('translated_country');
+        Schema::drop('country');
     }
 }

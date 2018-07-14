@@ -25,6 +25,8 @@ class AddCityColumnToArticle extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('article', function($table) {
+           $table->dropColumn('city_id');
+       });
     }
 }
