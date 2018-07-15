@@ -1,28 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-import Language from '../services/Language.js';
 import LoaderSpinner from './LoaderSpinner.js';
 
 class NotFoundPage extends React.Component {
 
-  componentDidMount() {
-    Language.init(this);
-  }
-
   render() {
-    if(Language.initialized) {
-      return (
-        <div>
-          <h2>{Language.getTranslation("404.topic")}</h2>
-          <p>{Language.getTranslation("404.text")}</p>
-        </div>
-      );
-    } else {
-      return (
-        <LoaderSpinner />
-      );
-    }
+    return (
+      <div>
+        <h2>{this.props.translations.notFound.notFound}</h2>
+        <p>{this.props.translations.notFound.resourceDoesNotExist}</p>
+      </div>
+    );
   }
 }
 
-export default NotFoundPage;
+export default connect(
+  state => ({ translations: state.translations })
+)(NotFoundPage);

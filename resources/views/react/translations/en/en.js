@@ -3,7 +3,9 @@ import about from './about';
 export default {
   about,
   article: {
-    continueReading: 'Continue reading'
+    continueReading: 'Continue reading',
+    next: 'Next',
+    previous: 'Previous'
   },
   cities: {
     cities: 'Cities'
@@ -15,9 +17,16 @@ export default {
   },
   header: {
     about: 'About',
-    login: 'Login'
+    login: 'Login',
+    logout: 'Logout'
   },
   languageCode: 'en',
+  login: {
+    login: 'Login',
+    loginSucceeded: 'Kirjautuminen onnistui!',
+    username: 'Username',
+    password: 'Password'
+  },
   website: {
     name: 'Turtle.travel'
   }

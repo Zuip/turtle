@@ -1,8 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import Language from '../../services/Language.js';
-
 class ArticlePath extends React.Component {
 
   constructor(props) {
@@ -12,7 +10,6 @@ class ArticlePath extends React.Component {
   render() {
     return (
       <span className="article-path">
-        / {Language.getTranslation("trips.topic")}
         {
           this.props.pathArray.map(function(content) {
             return (

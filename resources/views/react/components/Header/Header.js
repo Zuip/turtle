@@ -6,24 +6,41 @@ import LanguageDropdown from './LanguageDropdown';
 import LoginButton from './LoginButton';
 import Logo from './Logo';
 import MobileLanguageSelect from './MobileLanguageSelect';
+import MobileLogoutButton from './MobileLogoutButton';
+import MobileUser from './MobileUser';
+import MobileUserMenuToggler from './MobileUserMenuToggler';
+import UserDropdown from './UserDropdown';
 
 class Header extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      mobileSubMenuHidden: true
+      mobileLinksMenuHidden: true,
+      mobileUserMenuHidden: true
     }
   }
 
-  toggleMobileSubMenuHidden() {
+  toggleMobileLinksMenuHidden() {
     this.setState({
-      mobileSubMenuHidden: !this.state.mobileSubMenuHidden
+      mobileLinksMenuHidden: !this.state.mobileLinksMenuHidden,
+      mobileUserMenuHidden: true
     });
   }
 
-  getMobileSubMenuHiddenClass() {
-    return this.state.mobileSubMenuHidden ? " mobile-hidden" : "";
+  toggleMobileUserMenuHidden() {
+    this.setState({
+      mobileLinksMenuHidden: true,
+      mobileUserMenuHidden: !this.state.mobileUserMenuHidden
+    });
+  }
+
+  getMobileLinksMenuHiddenClass() {
+    return this.state.mobileLinksMenuHidden ? " mobile-hidden" : "";
+  }
+
+  getMobileUserMenuHiddenClass() {
+    return this.state.mobileUserMenuHidden ? " mobile-hidden" : "";
   }
 
   render() {
@@ -32,16 +49,22 @@ class Header extends React.Component {
         <div className="mobile-header-content">
           <Logo />
           <div className="mobile-menu-toggler">
-            <i className="fas fa-bars" onClick={this.toggleMobileSubMenuHidden.bind(this)}></i>
+            <i className="fas fa-bars" onClick={this.toggleMobileLinksMenuHidden.bind(this)}></i>
           </div>
+          <MobileUserMenuToggler toggleMenu={this.toggleMobileUserMenuHidden.bind(this)} />
           <div className="clearfix"></div>
         </div>
-        <div className={"mobile-header-submenu" + this.getMobileSubMenuHiddenClass()}>
+        <div className={"mobile-header-submenu" + this.getMobileLinksMenuHiddenClass()}>
           <CitiesLink />
           <AboutLink />
           <MobileLanguageSelect />
           <LoginButton />
+          <UserDropdown />
           <LanguageDropdown />
+        </div>
+        <div className={"mobile-header-submenu" + this.getMobileUserMenuHiddenClass()}>
+          <MobileUser />
+          <MobileLogoutButton />
         </div>
       </div>
     );

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ArticleSummary from '../Article/ArticleSummary.js';
-import Language from '../../services/Language.js';
-import LoaderSpinner from '../LoaderSpinner.js';
-import Pagination from './Pagination/Pagination.js';
+import ArticleSummary from '../Article/ArticleSummary';
+import getCategory from '../../apiCalls/getCategory';
+import LoaderSpinner from '../LoaderSpinner';
+import Pagination from './Pagination/Pagination';
 
 class Category extends React.Component {
 
@@ -15,7 +15,6 @@ class Category extends React.Component {
   }
 
   componentDidMount() {
-    Language.init(this);
     this.loadCategory();
   }
 
@@ -44,26 +43,23 @@ class Category extends React.Component {
   }
 
   loadCategory() {
-    fetch(
-      GlobalState.rootURL + '/api'
-      + '/categories/' + this.props.match.params.categoryURLName
-      + '/pages/' + this.props.match.params.page
-      + '/' + GlobalState.language
-    )
-    .then((response) => response.json())
-    .then((response) => {
+    getCategory(
+      this.props.match.params.categoryURLName,
+      this.props.match.params.page
+    ).then(
+      response => response.json()
+    ).then(response => {
       this.setState({
         category: response
       });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    }).catch(
+      error => console.error(error)
+    );
   }
 
   render() {
 
-    if(!Language.initialized || this.state.category === null) {
+    if(this.state.category === null) {
       return (
         <LoaderSpinner />
       );

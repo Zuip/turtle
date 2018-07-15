@@ -4,6 +4,7 @@
   height: 100%;
 
   .dropdown-toggle {
+
     background-color: $theme-color;
     border: 0;
     color: $theme-text-color-on-theme-color;
@@ -12,7 +13,17 @@
     line-height: $header-height;
     margin: 0;
     padding: 0 15px;
-    text-transform: uppercase;
+
+    i.fa-user-circle {
+      font-size: 28px;
+      margin-right: 9px;
+      position: relative;
+      top: 4px;
+    }
+
+    .dropdown-toggle-text {
+      margin-right: 3px;
+    }
   }
 
   .dropdown-toggle:focus {
@@ -33,11 +44,14 @@
     button {
       color: $theme-text-color-on-theme-color;
       cursor: pointer;
-      text-transform: uppercase;
     }
 
     button:hover {
       background-color: $theme-color;
+    }
+
+    .fa-power-off {
+      margin-right: 7px;
     }
   }
 }

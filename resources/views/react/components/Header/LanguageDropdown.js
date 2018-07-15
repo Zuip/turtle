@@ -19,14 +19,16 @@ class LanguageDropdown extends React.Component {
     return (
       <div className="dropdown header-right">
         <button className="dropdown-toggle" id="language-dropdown-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {this.props.selectedLanguage}
+          <span className="dropdown-toggle-text text-uppercase">
+            {this.props.selectedLanguage}
+          </span>
         </button>
-        <div className="dropdown-menu" aria-labelledby="language-dropdown-menu">
+        <div className="dropdown-menu dropdown-menu-right" aria-labelledby="language-dropdown-menu">
           {
             this.state.availableLanguages.map(availableLanguage => {
               return (
 
-                <button className="dropdown-item"
+                <button className="dropdown-item text-uppercase"
                         type="button"
                         key={availableLanguage}
                         onClick={() => setLanguage(availableLanguage)}>

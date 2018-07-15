@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Language from '../../services/Language.js';
-import LoaderSpinner from '../LoaderSpinner.js';
 import ArticlePath from './ArticlePath.js';
 import ArticlePageChanger from './ArticlePageChanger.js';
+import getArticle from '../../apiCalls/getArticle';
+import pageSpinner from '../../services/pageSpinner';
 
 class Article extends React.Component {
 
@@ -15,7 +15,6 @@ class Article extends React.Component {
   }
 
   componentDidMount() {
-    Language.init(this);
     this.loadArticle();
   }
 
@@ -31,28 +30,28 @@ class Article extends React.Component {
   }
 
   loadArticle() {
-    fetch(
-      GlobalState.rootURL + '/api/articles'
-      + '/' + this.props.match.params.articleURLName
-      + '/' + GlobalState.language
-    )
-    .then((response) => response.json())
-    .then((response) => {
+
+    pageSpinner.start('article');
+
+    getArticle(
+      this.props.match.params.articleURLName
+    ).then(response => {
+
       this.setState({
         article: response
       });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+
+      pageSpinner.finish('article');
+
+    }).catch(
+      error => console.error(error)
+    );
   }
 
   render() {
 
-    if(!Language.initialized || this.state.article === null) {
-      return (
-        <LoaderSpinner />
-      );
+    if(this.state.article === null) {
+      return null;
     }
 
     return (

@@ -22,6 +22,8 @@ $footer-height: 120px;
 $max-mobile-mode-width: 720px;
 $min-wide-mode-width: 1024px;
 
+@import "buttons";
+
 #grid-container {
 
   display: grid;
@@ -43,6 +45,21 @@ $min-wide-mode-width: 1024px;
   @import "frontpage";
   @import "overlay";
   @import "footer";
+}
+
+.mobile-hidden {
+  display: none;
+}
+
+@media only screen and (min-width: $max-mobile-mode-width) {
+
+  .mobile-hidden {
+    display: initial;
+  }
+
+  .only-in-mobile {
+    display: none;
+  }
 }
 
 .clearfix:after {

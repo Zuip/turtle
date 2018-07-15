@@ -15,14 +15,14 @@ class LoadMoreArticlesButton extends React.Component {
     }
 
     return (
-      <div className="load-more-articles">
-        <button className="form-control"
+      <p>
+        <button className="btn btn-primary load-more-articles-button"
                 onClick={this.props.loadNextArticles}>
 
           {store.getState().translations.frontPage.loadMoreArticles}
 
         </button>
-      </div>
+      </p>
     );
   }
 }

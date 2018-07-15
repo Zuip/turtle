@@ -11,7 +11,11 @@ export default function(params) {
   }
 
   return fetch(
-    GlobalState.rootURL + '/api/articles' + query
+    '/api/articles' + query,
+    {
+      method: 'GET',
+      credentials: 'same-origin'
+    }
   ).then(
     response => response.json()
   );

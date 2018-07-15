@@ -1,7 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import Language from '../../services/Language.js';
 
 class ArticlePageChanger extends React.Component {
 
@@ -21,7 +20,7 @@ class ArticlePageChanger extends React.Component {
             role="button">
 
         <i className="fa fa-chevron-left" aria-hidden="true"></i>
-        {Language.getTranslation("article.previousPage")}
+        {this.props.translations.article.previous}
       </Link>
     );
   }
@@ -37,7 +36,7 @@ class ArticlePageChanger extends React.Component {
             className="btn btn-primary next-article-button"
             role="button">
 
-        {Language.getTranslation("article.nextPage")}
+        {this.props.translations.article.next}
         <i className="fa fa-chevron-right" aria-hidden="true"></i>
       </Link>
     );
@@ -53,4 +52,6 @@ class ArticlePageChanger extends React.Component {
   }
 }
 
-export default ArticlePageChanger;
+export default connect(
+  state => ({ translations: state.translations })
+)(ArticlePageChanger);

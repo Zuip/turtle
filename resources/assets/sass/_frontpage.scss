@@ -4,19 +4,9 @@
     text-transform: uppercase;
   }
 
-  .load-more-articles {
-
-    padding: 15px;
-
-    button {
-      color: $theme-text-color-on-theme-color;
-      cursor: pointer;
-      background-color: $theme-color;
-    }
-
-    button:hover {
-      background-color: $theme-hover-color;
-    }
+  .load-more-articles-button {
+    padding: 15px 0;
+    width: 100%;
   }
 }
 

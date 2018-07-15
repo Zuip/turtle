@@ -1,10 +1,14 @@
 <?php namespace App\Http\Controllers;
 
 use App\Services\Articles\ArticleCreator;
-use App\Services\Articles\ArticleEditor;
 use App\Services\Articles\ArticleFetcher;
+use App\Services\Articles\ArticlePathFetcher;
+use \App\Services\Articles\ArticleLanguageVersionFetcher;
 use App\Services\Categories\CategoryFetcher;
+use App\Services\Categories\LanguageVersionFetcher;
 use App\Services\Languages\LanguageFetcher;
+use Illuminate\Http\Request;
+use Response;
 
 class ArticleController extends Controller {
 
@@ -37,32 +41,25 @@ class ArticleController extends Controller {
     );
   }
   
-  public function editArticle($articleId, $languageCode) {
+  public function get(Request $request, $urlName) {
     
-    // Find article model
+    $articleLanguageVersionFetcher = new ArticleLanguageVersionFetcher();
+    $translatedArticle = $articleLanguageVersionFetcher->getWithURLName($urlName);
+    
     $articleFetcher = new ArticleFetcher();
-    $article = $articleFetcher->getWithId($articleId);
+    $article = $articleFetcher->getWithId($translatedArticle["article_id"]);
     
-    // Find language model
-    $languageFetcher = new LanguageFetcher();
-    $language = $languageFetcher->getWithCode($languageCode);
+    $articlePathFetcher = new ArticlePathFetcher();
+    $articlePathFetcher->setCategoryLanguageVersionFetcher(new LanguageVersionFetcher());
+    $articlePathFetcher->setLanguageFetcher(new LanguageFetcher());
     
-    // Edit article with post data
-    $articleEditor = new ArticleEditor();
-    $articleEditor->setArticle($article);
-    $articleEditor->setLanguage($language);
-    $articleEditor->setTopic(\Input::get('topic'));
-    $articleEditor->setText(\Input::get('text'));
-    $articleEditor->setURLName(\Input::get('URLName'));
-    $articleEditor->setPublished(\Input::get('published'));
-    $articleEditor->setPublishTime(\Input::get('publishTime'));
-    
-    $articleEditor->editArticle();
-    
-    return \Response::json(
-      array(
-        "success" => true
-      )
-    );
+    return Response::json([
+      "languageId" => $translatedArticle["language_id"],
+      "topic" =>  $translatedArticle["topic"],
+      "summary" => $translatedArticle["summary"],
+      "text" => $translatedArticle["text"],
+      "path" => $articlePathFetcher->getArticlePath($translatedArticle),
+      "publishTime" => $article["timestamp"]
+    ]);
   }
 }

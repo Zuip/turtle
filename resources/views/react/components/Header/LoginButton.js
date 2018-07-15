@@ -9,16 +9,24 @@ class LoginButton extends React.Component {
   }
 
   render() {
+
+    if(this.props.user) {
+      return null;
+    }
+
     return (
-      <div className="header-element header-right header-button">
-        <button className="form-control header-button">
+      <div className="header-element header-right">
+        <Link to={'/login'} className="btn btn-light header-login-button">
           {this.props.translations.header.login}
-        </button>
+        </Link>
       </div>
     );
   }
 }
 
 export default connect(
-  state => ({ translations: state.translations })
+  state => ({
+    translations: state.translations,
+    user: state.user
+  })
 )(LoginButton);

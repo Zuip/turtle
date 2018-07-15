@@ -1,0 +1,20 @@
+.btn-primary {
+  background-color: $theme-color;
+  border: 0;
+  color: $theme-text-color-on-theme-color;
+}
+
+.btn-primary:hover {
+  background-color: $theme-hover-color;
+}
+
+.btn-light {
+  background-color: $theme-text-color-on-theme-color;
+  border: 0;
+  color: $theme-color;
+}
+
+.btn-light:hover {
+  background-color: $theme-text-color-on-theme-color;
+  color: $theme-hover-color;
+}

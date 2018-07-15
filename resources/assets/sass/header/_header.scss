@@ -9,14 +9,7 @@
 
   .header-element {
 
-    line-height: $header-height;
-    cursor: pointer;
     padding: 0 15px;
-
-    button.header-button {
-      color: $theme-color;
-      cursor: pointer;
-    }
 
     h3 {
       font-size: 18px;
@@ -30,6 +23,21 @@
     i.fa-angle-down {
       margin-left: 3px;
     }
+
+    i.fa-user-circle {
+      font-size: 28px;
+      margin-right: 9px;
+      position: relative;
+      top: 4px;
+    }
+
+    .btn {
+      width: 100%;
+    }
+
+    .header-login-button, .header-logout-button {
+      margin: 3px 0 18px 0;
+    }
   }
 
   a:hover {
@@ -42,11 +50,6 @@
 
   .header-element.header-button {
     cursor: default;
-    padding: 15px;
-  }
-
-  .mobile-hidden {
-    display: none;
   }
 
   @import "dropdown";
@@ -68,13 +71,9 @@
     }
   }
 
-  .mobile-hidden {
-    display: none;
-  }
-
   .mobile-language-select {
 
-    padding: 8px 15px 0 15px;
+    padding: 10px 15px 15px 15px;
 
     .btn-group {
 
@@ -101,11 +100,15 @@
     float: right;
     font-size: 40px;
     line-height: $header-height;
-    margin: 0 20px;
+    margin: 0 14px;
 
     i {
       cursor: pointer;
     }
+  }
+
+  .mobile-menu-toggler:first-of-type {
+    margin: 0 25px 0 14px;
   }
 
   @media only screen and (min-width: $max-mobile-mode-width) {
@@ -113,6 +116,7 @@
     .header-element {
 
       float:left;
+      line-height: $header-height;
       margin-right: 10px;
 
       button.header-button {
@@ -122,6 +126,14 @@
 
       h3 {
         line-height: $header-height;
+      }
+
+      .btn {
+        width: initial;
+      }
+
+      .header-login-button, .header-logout-button {
+        margin: 0;
       }
     }
 
@@ -142,10 +154,6 @@
       #site-name {
         margin-right: 20px;
       }
-    }
-
-    .mobile-hidden {
-      display: initial;
     }
 
     .mobile-language-select {
