@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import postLogout from '../../apiCalls/postLogout';
 import setCurrentUser from '../../services/setCurrentUser';
@@ -31,6 +32,14 @@ class UserDropdown extends React.Component {
           <span className="dropdown-toggle-text">{this.props.user.name}</span>
         </button>
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="language-dropdown-menu">
+          <Link to="/profile" className="dropdown-item">
+            <i className="fas fa-user-circle"></i>
+            {this.props.translations.header.profile}
+          </Link>
+          <a href="/admin" className="dropdown-item">
+            <i className="fas fa-cog"></i>
+            {this.props.translations.header.admin}
+          </a>
           <button className="dropdown-item"
                   type="button"
                   onClick={this.logout.bind(this)}>

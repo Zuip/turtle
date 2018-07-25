@@ -17,8 +17,10 @@ export default {
   },
   header: {
     about: 'Tietoa',
+    admin: 'Asetukset',
     login: 'Kirjaudu',
-    logout: 'Kirjaudu ulos'
+    logout: 'Kirjaudu ulos',
+    profile: 'Profiili'
   },
   languageCode: 'fi',
   login: {

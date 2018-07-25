@@ -17,8 +17,10 @@ export default {
   },
   header: {
     about: 'About',
+    admin: 'Admin',
     login: 'Login',
-    logout: 'Logout'
+    logout: 'Logout',
+    profile: 'Profile'
   },
   languageCode: 'en',
   login: {

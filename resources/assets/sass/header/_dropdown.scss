@@ -41,16 +41,17 @@
     border-radius: 0;
     margin: 0;
 
-    button {
+    a, a > div, button {
+      background-color: $theme-hover-color;
       color: $theme-text-color-on-theme-color;
       cursor: pointer;
     }
 
-    button:hover {
+    a:hover, a > div:hover, button:hover {
       background-color: $theme-color;
     }
 
-    .fa-power-off {
+    i {
       margin-right: 7px;
     }
   }
