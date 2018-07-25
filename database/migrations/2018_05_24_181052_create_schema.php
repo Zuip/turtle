@@ -21,48 +21,16 @@ class CreateSchema extends Migration
         DB::table('language')->insert([ 'name' => 'suomi',   'code' => 'fi' ]);
         DB::table('language')->insert([ 'name' => 'english', 'code' => 'en' ]);
         
-        Schema::create('user_account', function (Blueprint $table) {
-            $table->increments('id');
-            $table->text('name');
-            $table->text('password');
-            $table->timestamp('registered')->useCurrent();
-            $table->integer('login_attempts')->default(0);
-        });
-        
-        Schema::create('category', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('parent_id')->nullable();
-            $table->integer('menu_weight');
-            $table->boolean('removed')->default(false);
-            $table->foreign('parent_id')->references('id')->on('category');
-        });
-        
-        Schema::create('translated_category', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('category_id');
-            $table->integer('language_id');
-            $table->text('name');
-            $table->text('description')->nullable();
-            $table->text('url_name');
-            $table->boolean('published');
-            $table->foreign('category_id')->references('id')->on('category');
-            $table->foreign('language_id')->references('id')->on('language');
-        });
-        
         Schema::create('article', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category_id');
             $table->timestamp('timestamp')->useCurrent();
-            $table->foreign('category_id')->references('id')->on('category');
         });
         
         Schema::create('translated_article', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('article_id');
             $table->integer('language_id');
-            $table->text('topic');
             $table->text('summary');
-            $table->text('url_name');
             $table->text('text');
             $table->boolean('published');
             $table->foreign('article_id')->references('id')->on('article');
@@ -74,13 +42,62 @@ class CreateSchema extends Migration
             $table->integer('article_id');
             $table->integer('user_id');
             $table->foreign('article_id')->references('id')->on('article');
-            $table->foreign('user_id')->references('id')->on('user_account');
         });
 
-        Schema::create('visited_place', function (Blueprint $table) {
+        Schema::create('country', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('lat');
-            $table->text('lng');
+        });
+        
+        Schema::create('translated_country', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('country_id');
+            $table->integer('language_id');
+            $table->text('name');
+            $table->text('url_name');
+            $table->foreign('country_id')->references('id')->on('country');
+            $table->foreign('language_id')->references('id')->on('language');
+        });
+        
+        Schema::create('city', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('country_id');
+            $table->foreign('country_id')->references('id')->on('country');
+        });
+        
+        Schema::create('translated_city', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('city_id');
+            $table->integer('language_id');
+            $table->text('name');
+            $table->text('url_name');
+            $table->foreign('city_id')->references('id')->on('city');
+            $table->foreign('language_id')->references('id')->on('language');
+        });
+        
+        Schema::create('trip', function (Blueprint $table) {
+            $table->increments('id');
+        });
+        
+        Schema::create('translated_trip', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('language_id');
+            $table->integer('trip_id');
+            $table->text('name');
+            $table->text('url_name');
+            $table->foreign('language_id')->references('id')->on('language');
+            $table->foreign('trip_id')->references('id')->on('trip');
+        });
+        
+        Schema::create('city_visit', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('article_id')->nullable();
+            $table->integer('city_id');
+            $table->integer('trip_id');
+            $table->text('visit_start')->nullable();
+            $table->text('visit_end')->nullable();
+            $table->foreign('article_id')->references('id')->on('article');
+            $table->foreign('city_id')->references('id')->on('city');
+            $table->foreign('trip_id')->references('id')->on('trip');
         });
     }
 
@@ -91,13 +108,16 @@ class CreateSchema extends Migration
      */
     public function down()
     {
-        Schema::drop('visited_place');
+        Schema::drop('translated_trip');
+        Schema::drop('city_visit');
+        Schema::drop('trip');
+        Schema::drop('translated_city');
+        Schema::drop('city');
+        Schema::drop('translated_country');
+        Schema::drop('country');
         Schema::drop('article_user');
         Schema::drop('translated_article');
         Schema::drop('article');
-        Schema::drop('translated_category');
-        Schema::drop('category');
-        Schema::drop('user_account');
         Schema::drop('language');
     }
 }
