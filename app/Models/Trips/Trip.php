@@ -1,11 +1,11 @@
-<?php namespace App\Models\Cities;
+<?php namespace App\Models\Trips;
 
 use Illuminate\Database\Eloquent\Model;
 
-class City extends Model {
+class Trip extends Model {
 
 	// The database table used by the model
-	protected $table = 'city';
+	protected $table = 'trip';
 
 	// The attributes that are mass assignable
 	protected $fillable = ['id'];
@@ -17,14 +17,6 @@ class City extends Model {
   public $timestamps = false;
   
   public function languageVersions() {
-    return $this->hasMany('\\App\\Models\\Cities\\TranslatedCity', 'city_id');
-  }
-  
-  public function country() {
-    return $this->belongsTo('\\App\\Models\\Cities\\Country', 'country_id');
-  }
-
-  public function languageVersion($language) {
-
+    return $this->hasMany('\\App\\Models\\Trips\\TranslatedTrip', 'trip_id');
   }
 }

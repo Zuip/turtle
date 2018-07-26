@@ -3,5 +3,4 @@
 interface IArticle {
   public function languageVersions();
   public function writer();
-  public function category();
 }

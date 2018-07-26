@@ -29,6 +29,10 @@ export default {
     username: 'Username',
     password: 'Password'
   },
+  notFound: {
+    notFound: 'Page was not found',
+    resourceDoesNotExist: 'The link you used is expired or the resource related to it does not exist'
+  },
   website: {
     name: 'Turtle.travel'
   }

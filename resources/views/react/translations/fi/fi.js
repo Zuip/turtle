@@ -29,6 +29,10 @@ export default {
     username: 'Käyttäjätunnus',
     password: 'Salasana'
   },
+  notFound: {
+    notFound: 'Sivua ei löytynyt',
+    resourceDoesNotExist: 'Käyttämäsi linkki on virheellinen tai se on vanhentunut'
+  },
   website: {
     name: 'Turtle.travel'
   }

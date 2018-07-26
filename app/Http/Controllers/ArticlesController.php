@@ -5,7 +5,7 @@ use App\Services\Articles\ArticleDataFetcher;
 use App\Services\Articles\LanguageVersionsFetcher;
 use Illuminate\Http\Request;
 
-class GetArticlesController extends Controller {
+class ArticlesController extends Controller {
   
   private $defaultResults;
   private $maxResults;
@@ -43,7 +43,7 @@ class GetArticlesController extends Controller {
       
       $articleDataFetcher = new ArticleDataFetcher();
       $articleDataFetcher->limitToAttributes([
-        "topic", "URLName", "publishTime", "summary"
+        "publishTime", "summary", "city"
       ]);
       
       $arrayFormArticles[] = $articleDataFetcher->getArticleData(

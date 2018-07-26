@@ -3,7 +3,7 @@
 use App\Models\Articles\IArticleLanguageVersion;
 use App\Services\Articles\ArticleNavigation;
 use App\Services\Articles\ArticlePathFetcher;
-use App\Services\Categories\LanguageVersionFetcher;
+use App\Services\Cities\CityDataFetcher;
 use App\Services\Languages\LanguageFetcher;
 
 class ArticleDataFetcher implements IArticleDataFetcher {
@@ -12,7 +12,7 @@ class ArticleDataFetcher implements IArticleDataFetcher {
   
   public function __construct() {
     $this->limitToAttributes = array(
-      "id", "topic", "URLName", "text", "published"
+      "id", "summary", "published"
     );
   }
   
@@ -24,14 +24,16 @@ class ArticleDataFetcher implements IArticleDataFetcher {
 
     $articleData = array();
     if($this->chosen("id"         )) { $articleData["id"]          = $articleLanguageVersion->article->id;           }
-    if($this->chosen("topic"      )) { $articleData["topic"]       = $articleLanguageVersion->topic;                 }
-    if($this->chosen("URLName"    )) { $articleData["URLName"]     = $articleLanguageVersion->url_name;              }
     if($this->chosen("timestamp"  )) { $articleData["timestamp"]   = $articleLanguageVersion->article->timestamp;    }
     if($this->chosen("publishTime")) { $articleData["publishTime"] = $this->getPublishTime($articleLanguageVersion); }
     if($this->chosen("published"  )) { $articleData["published"]   = $articleLanguageVersion->published;             }
-    if($this->chosen("text"       )) { $articleData["text"]        = $articleLanguageVersion->text;                  }
     if($this->chosen("summary"    )) { $articleData["summary"]     = $articleLanguageVersion->summary;               }
-    if($this->chosen("path"       )) { $articleData["path"]        = $this->getArticlePath($articleLanguageVersion); }
+    if($this->chosen("city")) {
+      $cityDataFetcher = new CityDataFetcher();
+      $articleData["city"] = $cityDataFetcher->getWithArticleLanguageVersion(
+        $articleLanguageVersion
+      );
+    }
     
     if($this->chosen("previousArticle") || $this->chosen("nextArticle")) {
       

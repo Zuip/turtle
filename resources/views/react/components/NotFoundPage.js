@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import LoaderSpinner from './LoaderSpinner.js';
-
 class NotFoundPage extends React.Component {
 
   render() {

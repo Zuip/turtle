@@ -12,7 +12,7 @@ class ArticleSummary extends React.Component {
     return (
       <Link to={'/articles/' + this.props.article.URLName}>
         <div className="article article-summary">
-          <h3>{this.props.article.topic}</h3>
+          <h3>{this.props.article.city.name}, {this.props.article.city.country.name}</h3>
           <h5>{this.props.article.publishTime}</h5>
           <div dangerouslySetInnerHTML={{__html: this.props.article.summary}}></div>
           <p className="continue-reading">
