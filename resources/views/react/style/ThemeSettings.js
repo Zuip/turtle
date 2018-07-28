@@ -4,5 +4,6 @@ export default {
   textColorOnThemeColor: '#FFFFFF',
   themeLightGrey: '#fbfbfb',
   themeGrey: '#f3f3f3',
+  themeSemiDarkGrey: '#bfbfbf',
   themeDarkGrey: '#959595'
 };

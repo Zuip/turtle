@@ -1,65 +1,47 @@
 <?php namespace App\Http\Controllers;
 
-use App\Services\Articles\ArticleCreator;
+use App\Models\Language;
 use App\Services\Articles\ArticleFetcher;
-use App\Services\Articles\ArticlePathFetcher;
-use \App\Services\Articles\ArticleLanguageVersionFetcher;
-use App\Services\Categories\CategoryFetcher;
-use App\Services\Categories\LanguageVersionFetcher;
-use App\Services\Languages\LanguageFetcher;
+use App\Services\Articles\ArticleLanguageVersionFetcher;
+use App\Services\Cities\CityDataFetcher;
+use App\Services\Trips\TripDataFetcher;
 use Illuminate\Http\Request;
 use Response;
 
 class ArticleController extends Controller {
-
-  public function createArticle($categoryId, $languageCode) {
-    
-    // Find category model
-    $categoryFetcher = new CategoryFetcher();
-    $category = $categoryFetcher->getWithId($categoryId);
-    
-    // Find language model
-    $languageFetcher = new LanguageFetcher();
-    $language = $languageFetcher->getWithCode($languageCode);
-    
-    // Create article with post data
-    $articleCreator = new ArticleCreator();
-    $articleCreator->setCategory($category);
-    $articleCreator->setLanguage($language);
-    $articleCreator->setTopic(\Input::get('topic'));
-    $articleCreator->setText(\Input::get('text'));
-    $articleCreator->setURLName(\Input::get('URLName'));
-    $articleCreator->setPublished(\Input::get('published'));
-    $articleCreator->setPublishTime(\Input::get('publishTime'));
-    
-    $articleCreator->createArticle();
-
-    return \Response::json(
-      array(
-        "articleId" => $articleCreator->getCreatedArticle()->id
-      )
-    );
-  }
   
   public function get(Request $request, $urlName) {
     
+    $language = Language::where('code', $request->input('language'))->first();
+
     $articleLanguageVersionFetcher = new ArticleLanguageVersionFetcher();
-    $translatedArticle = $articleLanguageVersionFetcher->getWithURLName($urlName);
+    $translatedArticle = $articleLanguageVersionFetcher->getWithUrlNamesAndLanguageId(
+      $request->route("tripUrlName"),
+      $request->route("countryUrlName"),
+      $request->route("cityUrlName"),
+      $language->id
+    );
     
     $articleFetcher = new ArticleFetcher();
     $article = $articleFetcher->getWithId($translatedArticle["article_id"]);
-    
-    $articlePathFetcher = new ArticlePathFetcher();
-    $articlePathFetcher->setCategoryLanguageVersionFetcher(new LanguageVersionFetcher());
-    $articlePathFetcher->setLanguageFetcher(new LanguageFetcher());
-    
+
+    $cityDataFetcher = new CityDataFetcher();
+    $city = $cityDataFetcher->getWithArticleLanguageVersion(
+      $translatedArticle
+    );
+
+    $tripDataFetcher = new TripDataFetcher();
+    $trip = $tripDataFetcher->getwithArticleLanguageVersion(
+      $translatedArticle
+    );
+
     return Response::json([
-      "languageId" => $translatedArticle["language_id"],
-      "topic" =>  $translatedArticle["topic"],
-      "summary" => $translatedArticle["summary"],
-      "text" => $translatedArticle["text"],
-      "path" => $articlePathFetcher->getArticlePath($translatedArticle),
-      "publishTime" => $article["timestamp"]
+      "languageId" => $translatedArticle->language_id,
+      "summary" => $translatedArticle->summary,
+      "text" => $translatedArticle->text,
+      "city" => $city,
+      "trip" => $trip,
+      "publishTime" => $article->timestamp
     ]);
   }
 }

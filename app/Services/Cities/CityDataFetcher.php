@@ -12,7 +12,7 @@ class CityDataFetcher {
 
   public function __construct() {
     $this->limitToAttributes = [
-      "id", "country", "name"
+      "id", "country", "urlName", "name"
     ];
   }
 
@@ -29,21 +29,25 @@ class CityDataFetcher {
       }
     }
 
-    $translatedCountry = null;
-    foreach($city->country->languageVersions as $languageVersion) {
-      if($languageVersion->language->id === $languageId) {
-        $translatedCountry = $languageVersion;
-        break;
-      }
-    }
-
     $cityData = [];
-    if($this->chosen("id")  ) { $cityData["id"]   = $city->id;             }
-    if($this->chosen("name")) { $cityData["name"] = $translatedCity->name; }
+    if($this->chosen("id")     ) { $cityData["id"]      = $city->id;                 }
+    if($this->chosen("name")   ) { $cityData["name"]    = $translatedCity->name;     }
+    if($this->chosen("urlName")) { $cityData["urlName"] = $translatedCity->url_name; }
+    
     if($this->chosen("country")) {
+
+      $translatedCountry = null;
+      foreach($city->country->languageVersions as $languageVersion) {
+        if($languageVersion->language->id === $languageId) {
+          $translatedCountry = $languageVersion;
+          break;
+        }
+      }
+
       $cityData["country"] = [
         "id" => $city->country->id,
-        "name" => $translatedCountry->name
+        "name" => $translatedCountry->name,
+        "urlName" => $translatedCountry->url_name
       ];
     }
 

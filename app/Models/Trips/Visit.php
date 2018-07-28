@@ -18,5 +18,9 @@ class Visit extends Model {
   
   public function city() {
     return $this->belongsTo('\\App\\Models\\Cities\\City', 'city_id');
+	}
+	
+	public function trip() {
+    return $this->belongsTo('\\App\\Models\\Trips\\Trip', 'trip_id');
   }
 }

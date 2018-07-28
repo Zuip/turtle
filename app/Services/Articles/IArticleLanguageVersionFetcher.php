@@ -3,8 +3,7 @@
 use App\Models\Articles\IArticle;
 
 interface IArticleLanguageVersionFetcher {
-  public function allowUnpublished($allowUnpublished);
   public function setThrowExceptionOnNotFound($throwExceptionOnNotFound);
   public function getWithArticleAndLanguageId(IArticle $article, $languageId);
-  public function getWithURLName($URLName);
+  public function getWithUrlNamesAndLanguageId($tripUrlName, $countryUrlName, $cityUrlName, $languageId);
 }

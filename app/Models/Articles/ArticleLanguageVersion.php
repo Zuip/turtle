@@ -16,7 +16,6 @@ class ArticleLanguageVersion extends Model implements IArticleLanguageVersion {
   // The attributes excluded from the model's JSON form
   protected $hidden = [];
   
-  // Returns base article of the language version
   public function article() {
     return $this->belongsTo('\\App\\Models\\Articles\\Article', 'article_id');
   }

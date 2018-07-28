@@ -5,16 +5,10 @@ use App\Models\Articles\ArticleLanguageVersion;
 
 class ArticleLanguageVersionFetcher implements IArticleLanguageVersionFetcher {
   
-  private $allowUnpublishedFlag;
   private $throwExceptionOnNotFound;
   
   public function __construct() {
-    $this->allowUnpublishedFlag = false;
     $this->throwExceptionOnNotFound = true;
-  }
-  
-  public function allowUnpublished($allowUnpublished) {
-    $this->allowUnpublishedFlag = $allowUnpublished;
   }
   
   public function setThrowExceptionOnNotFound($throwExceptionOnNotFound) {
@@ -23,33 +17,42 @@ class ArticleLanguageVersionFetcher implements IArticleLanguageVersionFetcher {
   
   public function getWithArticleAndLanguageId(IArticle $article, $languageId) {
     
-    if($this->allowUnpublishedFlag) {
-      $articleLanguageVersion = $article->languageVersions()
-                                        ->where('language_id', $languageId)
-                                        ->first();
-    } else {
-      $articleLanguageVersion = $article->languageVersions()
-                                        ->where('published', 1)
-                                        ->where('language_id', $languageId)
-                                        ->first();
-    }
+    $articleLanguageVersion = $article->languageVersions()
+                                      ->where('published', 1)
+                                      ->where('language_id', $languageId)
+                                      ->first();
     
     $this->validate($articleLanguageVersion);
     
     return $articleLanguageVersion;
   }
   
-  public function getWithURLName($URLName) {
+  public function getWithUrlNamesAndLanguageId($tripUrlName, $countryUrlName, $cityUrlName, $languageId) {
     
-    if($this->allowUnpublishedFlag) {
-      $articleLanguageVersion = ArticleLanguageVersion::where('url_name', $URLName)
-                                                      ->first();
-    } else {
-      $articleLanguageVersion = ArticleLanguageVersion::where('published', 1)
-                                                      ->where('url_name', $URLName)
-                                                      ->first();
-    }
-    
+    $articleLanguageVersion = ArticleLanguageVersion::where('published', 1)
+    ->where('language_id', $languageId)
+    ->whereHas('article', function($query) use ($tripUrlName, $countryUrlName, $cityUrlName, $languageId) {
+      $query->whereHas('visit', function($query) use ($tripUrlName, $countryUrlName, $cityUrlName, $languageId) {
+        $query->whereHas('trip', function($query) use ($tripUrlName, $languageId) {
+          $query->whereHas('languageVersions', function($query) use ($tripUrlName, $languageId) {
+            $query->where('url_name', $tripUrlName)
+            ->where('language_id', $languageId);
+          });
+        })->whereHas('city', function($query) use ($countryUrlName, $cityUrlName, $languageId) {
+          $query->whereHas('languageVersions', function($query) use ($cityUrlName, $languageId) {
+            $query->where('url_name', $cityUrlName)
+            ->where('language_id', $languageId);
+          })->whereHas('country', function($query) use ($countryUrlName, $languageId) {
+            $query->whereHas('languageVersions', function($query) use ($countryUrlName, $languageId) {
+              $query->where('url_name', $countryUrlName)
+              ->where('language_id', $languageId);
+            });
+          });;
+        });
+      });
+    })
+    ->first();
+
     $this->validate($articleLanguageVersion);
     
     return $articleLanguageVersion;

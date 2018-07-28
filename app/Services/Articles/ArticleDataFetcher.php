@@ -4,6 +4,7 @@ use App\Models\Articles\IArticleLanguageVersion;
 use App\Services\Articles\ArticleNavigation;
 use App\Services\Articles\ArticlePathFetcher;
 use App\Services\Cities\CityDataFetcher;
+use App\Services\Trips\TripDataFetcher;
 use App\Services\Languages\LanguageFetcher;
 
 class ArticleDataFetcher implements IArticleDataFetcher {
@@ -31,6 +32,14 @@ class ArticleDataFetcher implements IArticleDataFetcher {
     if($this->chosen("city")) {
       $cityDataFetcher = new CityDataFetcher();
       $articleData["city"] = $cityDataFetcher->getWithArticleLanguageVersion(
+        $articleLanguageVersion
+      );
+    }
+
+    if($this->chosen("trip")) {
+      $tripDataFetcher = new TripDataFetcher();
+      $tripDataFetcher->setLimitToAttributes(["urlName"]);
+      $articleData["trip"] = $tripDataFetcher->getWithArticleLanguageVersion(
         $articleLanguageVersion
       );
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import ArticlePath from './ArticlePath.js';
 import ArticlePageChanger from './ArticlePageChanger.js';
@@ -34,7 +35,10 @@ class Article extends React.Component {
     pageSpinner.start('article');
 
     getArticle(
-      this.props.match.params.articleURLName
+      this.props.match.params.tripURLName,
+      this.props.match.params.countryUrlName,
+      this.props.match.params.cityUrlName,
+      this.props.translations.languageCode
     ).then(response => {
 
       this.setState({
@@ -56,8 +60,8 @@ class Article extends React.Component {
 
     return (
       <div className="article">
-        <h3>{this.state.article.topic}</h3>
-        <h5>{this.state.article.publishTime}, <ArticlePath pathArray={this.state.article.path} /></h5>
+        <h3>{this.state.article.city.name}, {this.state.article.city.country.name}</h3>
+        <h5>{this.state.article.publishTime}, <ArticlePath article={this.state.article} /></h5>
         <div className="summary" dangerouslySetInnerHTML={{__html: this.state.article.summary}}></div>
         <div dangerouslySetInnerHTML={{__html: this.state.article.text}}></div>
         <ArticlePageChanger previousArticle={this.state.article.previousArticle} nextArticle={this.state.article.nextArticle} />
@@ -66,4 +70,6 @@ class Article extends React.Component {
   }
 }
 
-export default Article;
+export default connect(
+  state => ({ translations: state.translations })
+)(Article);

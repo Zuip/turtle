@@ -8,15 +8,21 @@ class ArticlePath extends React.Component {
   }
 
   render() {
+
     return (
       <span className="article-path">
-        {
-          this.props.pathArray.map(function(content) {
-            return (
-              <span key={content.URLName}> / <Link to={'/categories/' + content.URLName}>{content.name}</Link></span>
-            );
-          })
-        }
+          /&nbsp;
+          <Link to={'/trips/' + this.props.article.trip.urlName}>
+            {this.props.article.trip.name}
+          </Link>
+          &nbsp;/&nbsp;
+          <Link to={'/countries/' + this.props.article.city.country.urlName}>
+            {this.props.article.city.country.name}
+          </Link>
+          &nbsp;/&nbsp;
+          <Link to={'/cities/' + this.props.article.city.urlName}>
+            {this.props.article.city.name}
+          </Link>
       </span>
     );
   }

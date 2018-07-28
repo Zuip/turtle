@@ -36,14 +36,14 @@ class ArticlesController extends Controller {
   }
   
   private function getArrayFormArticles($articles) {
-    
+  
     $arrayFormArticles = [];
     
     foreach($articles as $article) {
       
       $articleDataFetcher = new ArticleDataFetcher();
       $articleDataFetcher->limitToAttributes([
-        "publishTime", "summary", "city"
+        "publishTime", "summary", "city", "trip"
       ]);
       
       $arrayFormArticles[] = $articleDataFetcher->getArticleData(

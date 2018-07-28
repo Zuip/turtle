@@ -8,9 +8,16 @@ class ArticleSummary extends React.Component {
     super(props);
   }
 
+  getArticleLink() {
+    return '/trips/' + this.props.article.trip.urlName
+         + '/' + this.props.article.city.country.urlName
+         + '/' + this.props.article.city.urlName
+         + '/article'
+  }
+
   render() {
     return (
-      <Link to={'/articles/' + this.props.article.URLName}>
+      <Link to={this.getArticleLink()}>
         <div className="article article-summary">
           <h3>{this.props.article.city.name}, {this.props.article.city.country.name}</h3>
           <h5>{this.props.article.publishTime}</h5>
