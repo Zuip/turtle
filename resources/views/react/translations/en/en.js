@@ -33,6 +33,9 @@ export default {
     notFound: 'Page was not found',
     resourceDoesNotExist: 'The link you used is expired or the resource related to it does not exist'
   },
+  profile: {
+    trips: 'Trips'
+  },
   website: {
     name: 'Turtle.travel'
   }

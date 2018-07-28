@@ -33,6 +33,9 @@ export default {
     notFound: 'Sivua ei löytynyt',
     resourceDoesNotExist: 'Käyttämäsi linkki on virheellinen tai se on vanhentunut'
   },
+  profile: {
+    trips: 'Matkat'
+  },
   website: {
     name: 'Turtle.travel'
   }

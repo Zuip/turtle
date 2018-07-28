@@ -18,5 +18,13 @@ class Trip extends Model {
   
   public function languageVersions() {
     return $this->hasMany('\\App\\Models\\Trips\\TranslatedTrip', 'trip_id');
+	}
+	
+	public function visits() {
+    return $this->hasMany('\\App\\Models\\Trips\\Visit', 'trip_id');
+	}
+	
+	public function users() {
+    return $this->hasMany('\\App\\Models\\Trips\\TripUser', 'trip_id');
   }
 }

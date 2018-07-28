@@ -16,7 +16,7 @@ class TranslatedTrip extends Model {
   // The attributes excluded from the model's JSON form
   protected $hidden = [];
   
-  public function trip() {
+  public function base() {
     return $this->belongsTo('\\App\\Models\\Trips\\Trip', 'trip_id');
   }
   

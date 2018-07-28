@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import getUser from '../../apiCalls/getUser';
 import NotFoundPage from '../NotFoundPage';
 import pageSpinner from '../../services/pageSpinner';
+import TripsTable from './TripsTable';
+import ProfileStyle from '../../style/components/Profile';
 
 class Profile extends React.Component {
 
@@ -73,7 +75,16 @@ class Profile extends React.Component {
 
     return (
       <div>
-        <h3>{this.state.user.name}</h3>
+        <h2 style={ProfileStyle.h2}>
+
+          <i className="fas fa-user-circle"
+             style={ProfileStyle.userCircleIcon}>
+          </i>
+
+          {this.state.user.name}
+          
+        </h2>
+        <TripsTable user={this.state.user} />
       </div>
     );
   }
