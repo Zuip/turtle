@@ -2,7 +2,7 @@ import ThemeSettings from '../ThemeSettings';
 
 export default {
   h2: {
-    marginBottom: '25px'
+    margin: '0'
   },
   userCircleIcon: {
     color: ThemeSettings.themeColor,

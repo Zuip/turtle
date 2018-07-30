@@ -1,18 +1,11 @@
-#navigation-footer-color-bar {
+#navigation-footer-content {
+  
   grid-column-start: page-start;
   grid-column-end: page-end;
   grid-row-start: footer-start;
   grid-row-end: footer-end;
   background-color: $footer-color;
-}
 
-#navigation-footer-content {
-  
-  grid-column-start: content-start;
-  grid-column-end: content-end;
-  grid-row-start: footer-start;
-  grid-row-end: footer-end;
-  
   p {
     font-family: $theme-font-family;
     line-height: $footer-height;

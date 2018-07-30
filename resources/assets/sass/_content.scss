@@ -1,24 +1,12 @@
 #navigation-content {
 
-  grid-column-start: content-start;
-  grid-column-end: content-end;
+  grid-column-start: page-start;
+  grid-column-end: page-end;
   grid-row-start: info-end;
   grid-row-end: footer-start;
 
-  padding-top: 30px;
-  padding-bottom: 20px;
-
   h1, h2, h3, h4, h5, p {
-
     font-family: $theme-font-family;
-
-    margin-left: 15px;
-    margin-right: 15px;
-
-    @media only screen and (min-width: $max-mobile-mode-width)   {
-      margin-left: 0px;
-      margin-right: 0px;
-    }
   }
 
   a {

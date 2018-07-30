@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import TwoColumnLayout from '../Layout/Grids/TwoColumnLayout';
+import FirstColumn from '../Layout/Grids/FirstColumn';
+import SecondColumn from '../Layout/Grids/SecondColumn';
+
 import getUser from '../../apiCalls/getUser';
 import NotFoundPage from '../NotFoundPage';
 import pageSpinner from '../../services/pageSpinner';
@@ -74,17 +78,28 @@ class Profile extends React.Component {
     }
 
     return (
+
       <div>
-        <h2 style={ProfileStyle.h2}>
 
-          <i className="fas fa-user-circle"
-             style={ProfileStyle.userCircleIcon}>
-          </i>
+        <TwoColumnLayout>
+          <FirstColumn>
+            <h2 style={ProfileStyle.h2}>
 
-          {this.state.user.name}
-          
-        </h2>
-        <TripsTable user={this.state.user} />
+              <i className="fas fa-user-circle"
+                style={ProfileStyle.userCircleIcon}>
+              </i>
+
+              {this.state.user.name}
+              
+            </h2>
+          </FirstColumn>
+        </TwoColumnLayout>
+
+        <TwoColumnLayout mobile={{ rightColumnIsOnTop: true }}>
+          <FirstColumn>
+            <TripsTable user={this.state.user} />
+          </FirstColumn>
+        </TwoColumnLayout>
       </div>
     );
   }

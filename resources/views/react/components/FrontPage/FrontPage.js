@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import ArticleLayout from '../Layout/Grids/ArticleLayout';
 import ArticleSummary from '../Article/ArticleSummary';
 import getArticles from '../../apiCalls/getArticles';
 import LoadMoreArticlesButton from './LoadMoreArticlesButton';
@@ -62,18 +63,20 @@ class FrontPage extends React.Component {
   render() {
 
     return (
-      <div className="frontpage">
-        <h2>{this.props.translations.frontPage.latestArticles}</h2>
-        {
-          this.state.articles.map(function(article) {
-            return (
-              <ArticleSummary article={article} key={article.URLName} />
-            );
-          })
-        }
-        <LoadMoreArticlesButton allArticlesLoaded={this.state.allArticlesLoaded}
-                                loadNextArticles={this.loadNextArticles.bind(this)} />
-      </div>
+      <ArticleLayout>
+        <div className="frontpage">
+          <h2>{this.props.translations.frontPage.latestArticles}</h2>
+          {
+            this.state.articles.map(function(article) {
+              return (
+                <ArticleSummary article={article} key={article.URLName} />
+              );
+            })
+          }
+          <LoadMoreArticlesButton allArticlesLoaded={this.state.allArticlesLoaded}
+                                  loadNextArticles={this.loadNextArticles.bind(this)} />
+        </div>
+      </ArticleLayout>
     );
   }
 }

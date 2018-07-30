@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import ArticleLayout from '../Layout/Grids/ArticleLayout';
 import ArticlePath from './ArticlePath.js';
 import ArticlePageChanger from './ArticlePageChanger.js';
 import getArticle from '../../apiCalls/getArticle';
@@ -59,13 +60,15 @@ class Article extends React.Component {
     }
 
     return (
-      <div className="article">
-        <h3>{this.state.article.city.name}, {this.state.article.city.country.name}</h3>
-        <h5>{this.state.article.publishTime}, <ArticlePath article={this.state.article} /></h5>
-        <div className="summary" dangerouslySetInnerHTML={{__html: this.state.article.summary}}></div>
-        <div dangerouslySetInnerHTML={{__html: this.state.article.text}}></div>
-        <ArticlePageChanger previousArticle={this.state.article.previousArticle} nextArticle={this.state.article.nextArticle} />
-      </div>
+      <ArticleLayout>
+        <div className="article">
+          <h3>{this.state.article.city.name}, {this.state.article.city.country.name}</h3>
+          <h5>{this.state.article.publishTime}, <ArticlePath article={this.state.article} /></h5>
+          <div className="summary" dangerouslySetInnerHTML={{__html: this.state.article.summary}}></div>
+          <div dangerouslySetInnerHTML={{__html: this.state.article.text}}></div>
+          <ArticlePageChanger previousArticle={this.state.article.previousArticle} nextArticle={this.state.article.nextArticle} />
+        </div>
+      </ArticleLayout>
     );
   }
 }

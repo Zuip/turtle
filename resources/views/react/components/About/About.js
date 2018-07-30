@@ -1,11 +1,12 @@
 import React from 'react';
 
+import ArticleLayout from '../Layout/Grids/ArticleLayout';
 import store from '../../store/store';
 
 class About extends React.Component {
   render() {
     return (
-      <div>
+      <ArticleLayout>
 
         <h1>{store.getState().translations.about.topic}</h1>
 
@@ -29,7 +30,7 @@ class About extends React.Component {
           }
         </p>
 
-      </div>
+      </ArticleLayout>
     );
   }
 }
