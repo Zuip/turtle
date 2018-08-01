@@ -36,13 +36,6 @@ class CreateSchema extends Migration
             $table->foreign('article_id')->references('id')->on('article');
             $table->foreign('language_id')->references('id')->on('language');
         });
-        
-        Schema::create('article_user', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('article_id');
-            $table->integer('user_id');
-            $table->foreign('article_id')->references('id')->on('article');
-        });
 
         Schema::create('country', function (Blueprint $table) {
             $table->increments('id');
@@ -106,6 +99,13 @@ class CreateSchema extends Migration
             $table->foreign('city_id')->references('id')->on('city');
             $table->foreign('trip_id')->references('id')->on('trip');
         });
+
+        Schema::create('city_visit_user', function (Blueprint $table) {
+          $table->increments('id');
+          $table->integer('city_visit_id');
+          $table->integer('user_id');
+          $table->foreign('city_visit_id')->references('id')->on('city_visit');
+      });
     }
 
     /**
@@ -117,6 +117,7 @@ class CreateSchema extends Migration
     {
         Schema::drop('translated_trip');
         Schema::drop('trip_user');
+        Schema::drop('city_visit_user');
         Schema::drop('city_visit');
         Schema::drop('trip');
         Schema::drop('translated_city');
