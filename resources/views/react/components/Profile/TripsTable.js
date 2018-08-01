@@ -55,6 +55,8 @@ class TripsTable extends React.Component {
     getUserTrips(
       this.props.user.id,
       this.props.translations.languageCode
+    ).then(
+      trips => trips.filter(trip => trip.visits.length)
     ).then(trips => {
       this.updateTripsTable(trips);
       pageSpinner.finish('article');

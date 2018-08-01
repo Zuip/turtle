@@ -67,9 +67,9 @@ class FrontPage extends React.Component {
         <div className="frontpage">
           <h2>{this.props.translations.frontPage.latestArticles}</h2>
           {
-            this.state.articles.map(function(article) {
+            this.state.articles.map((article, index) => {
               return (
-                <ArticleSummary article={article} key={article.URLName} />
+                <ArticleSummary article={article} key={'article_' + index} />
               );
             })
           }
