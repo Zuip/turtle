@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ArticleLayout from '../Layout/Grids/ArticleLayout';
+import pageSpinner from '../../services/pageSpinner';
 import postLogin from '../../apiCalls/postLogin';
 import setCurrentUser from '../../services/setCurrentUser';
 
@@ -16,6 +17,9 @@ class Login extends React.Component {
   }
 
   login() {
+
+    pageSpinner.start('Login');
+
     postLogin(
       this.state.username,
       this.state.password
@@ -27,6 +31,8 @@ class Login extends React.Component {
       });
 
       setCurrentUser(user);
+
+      pageSpinner.finish('Login');
       
     }).catch(
       error => console.log(error)
