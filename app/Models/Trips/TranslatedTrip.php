@@ -8,7 +8,7 @@ class TranslatedTrip extends Model {
   protected $table = 'translated_trip';
 
   // The attributes that are mass assignable
-  protected $fillable = ['id', 'name', 'url_name'];
+  protected $fillable = ['id', 'name', 'url_name', 'language'];
   
   // No default timestamps
   public $timestamps = false;
@@ -18,9 +18,5 @@ class TranslatedTrip extends Model {
   
   public function base() {
     return $this->belongsTo('\\App\\Models\\Trips\\Trip', 'trip_id');
-  }
-  
-  public function language() {
-    return $this->belongsTo('\\App\\Models\\Language', 'language_id');
   }
 }

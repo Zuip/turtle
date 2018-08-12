@@ -1,6 +1,6 @@
-export default function(userId, languageCode) {
+export default function(userId, language) {
   return fetch(
-    '/api/users/' + userId + '/trips?language=' + languageCode,
+    '/api/users/' + userId + '/trips?language=' + language,
     {
       method: 'GET',
       credentials: 'same-origin'

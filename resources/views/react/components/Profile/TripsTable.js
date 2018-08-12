@@ -54,7 +54,7 @@ class TripsTable extends React.Component {
 
     getUserTrips(
       this.props.user.id,
-      this.props.translations.languageCode
+      this.props.translations.language
     ).then(
       trips => trips.filter(trip => trip.visits.length)
     ).then(trips => {

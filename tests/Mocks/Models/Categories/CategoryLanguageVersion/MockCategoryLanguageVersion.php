@@ -9,11 +9,11 @@ class MockCategoryLanguageVersion implements ICategoryLanguageVersion {
   public $description;
   public $url_name;
   public $published;
-  public $language_id;
+  public $language;
   public $category_id;
   
   public function __construct() {
-    $this->language_id = 1;
+    $this->language = 'fi';
     $this->published = true;
   }
   

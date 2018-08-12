@@ -5,7 +5,7 @@ export default function(categoryURLName, page) {
     '/api'
     + '/categories/' + categoryURLName
     + '/pages/' + page
-    + '/' + store.translations.languageCode,
+    + '/' + store.translations.language,
     {
       method: 'GET',
       credentials: 'same-origin'

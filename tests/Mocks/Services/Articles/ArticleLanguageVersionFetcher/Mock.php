@@ -19,7 +19,7 @@ class Mock implements IArticleLanguageVersionFetcher {
     
   }
   
-  public function getWithArticleAndLanguageId(IArticle $article, $languageId) {
+  public function getWithArticleAndLanguage(IArticle $article, $language) {
     
     foreach($article->languageVersions() as $articleLanguageVersion) {
 
@@ -27,7 +27,7 @@ class Mock implements IArticleLanguageVersionFetcher {
         continue;
       }
 
-      if($articleLanguageVersion->language_id == $languageId) {
+      if($articleLanguageVersion->language == $language) {
         return $articleLanguageVersion;
       }
     }

@@ -28,7 +28,7 @@ class ArticlesController extends Controller {
     $languageVersionsFetcher = new LanguageVersionsFetcher();
     $languageVersionsFetcher->setLimit($limit);
     $languageVersionsFetcher->setOffset($offset);
-    $articles = $languageVersionsFetcher->getWithLanguageCode(
+    $articles = $languageVersionsFetcher->getWithLanguage(
       $request->input('language')
     );
     

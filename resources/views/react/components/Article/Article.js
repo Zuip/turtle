@@ -39,7 +39,7 @@ class Article extends React.Component {
       this.props.match.params.tripURLName,
       this.props.match.params.countryUrlName,
       this.props.match.params.cityUrlName,
-      this.props.translations.languageCode
+      this.props.translations.language
     ).then(response => {
 
       this.setState({

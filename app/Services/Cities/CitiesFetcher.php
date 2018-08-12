@@ -5,18 +5,18 @@ use App\Services\Cities\CitiesByCountryGrouper;
 
 class CitiesFetcher {
   
-  public function getWithLanguageCode($languageCode) {
+  public function getWithLanguage($language) {
     
     $cities = TranslatedCity::with([
       'base',
       'base.country',
-      'base.country.languageVersions' => function($query) use ($languageCode) {
-        $query->whereHas('language', function($query) use ($languageCode) {
-          $query->where('code', $languageCode);
+      'base.country.languageVersions' => function($query) use ($language) {
+        $query->whereHas('language', function($query) use ($language) {
+          $query->where('code', $language);
         });
       }
-    ])->whereHas('language', function($query) use ($languageCode) {
-      $query->where('code', $languageCode);
+    ])->whereHas('language', function($query) use ($language) {
+      $query->where('code', $language);
     })->get();
 
     $citiesByCountryGrouper = new CitiesByCountryGrouper();

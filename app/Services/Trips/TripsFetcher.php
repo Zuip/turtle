@@ -2,44 +2,54 @@
 
 use App\Models\Trips\TranslatedTrip;
 use App\Services\Cities\CitiesByCountryGrouper;
+use App\Services\Cities\CitiesDataFetcher;
 
 class TripsFetcher {
   
-  public function getWithUserIdAndLanguageCode($userId, $languageCode) {
-
+  public function getWithUserIdAndLanguage($userId, $language) {
+ 
     $trips = TranslatedTrip::with([
       'base',
-      'base.visits.city',
-      'base.visits.city.languageVersions' => function($query) use ($languageCode) {
-        $query->whereHas('language', function($query) use ($languageCode) {
-          $query->where('code', $languageCode);
-        });
-      },
-      'base.visits.city.country',
-      'base.visits.city.country.languageVersions' => function($query) use ($languageCode) {
-        $query->whereHas('language', function($query) use ($languageCode) {
-          $query->where('code', $languageCode);
-        });
-      }
-    ])->whereHas('base.users', function($query) use ($userId) {
+      'base.visits',
+    ])
+    ->whereHas('base.users', function($query) use ($userId) {
       $query->where('user_id', $userId);
-    })->whereHas('language', function($query) use ($languageCode) {
-      $query->where('code', $languageCode);
-    })->get();
+    })
+    ->where('language', $language)
+    ->get();
+    
+    $citiesDataFetcher = new CitiesDataFetcher();
+    $cities = $citiesDataFetcher->getWithIdsAndLanguage(
+      $this->getCityIds($trips),
+      $language
+    );
     
     $formattedTrips = [];
     foreach($trips as $trip) {
-      $formattedTrips[] = $this->getFormattedTrip($trip);
+      $formattedTrips[] = $this->getFormattedTrip($trip, $cities);
     }
 
     return $formattedTrips;
   }
 
-  private function getFormattedTrip($trip) {
+  private function getCityIds($trips) {
+
+    $cityIds = [];
+
+    foreach($trips as $trip) {
+      foreach($trip->base->visits as $visit) {
+        $cityIds[] = $visit->city_id;
+      }
+    }
+
+    return $cityIds;
+  }
+
+  private function getFormattedTrip($trip, $cities) {
 
     $formattedVisits = [];
     foreach($trip->base->visits as $visit) {
-      $formattedVisits[] = $this->getFormattedVisit($visit);
+      $formattedVisits[] = $this->getFormattedVisit($visit, $cities);
     }
 
     return [
@@ -50,7 +60,10 @@ class TripsFetcher {
     ];
   }
 
-  private function getFormattedVisit($visit) {
+  private function getFormattedVisit($visit, $cities) {
+
+    $city = $cities[$visit->city_id];
+
     return [
       "start" => $visit->visit_start,
       "end" => $visit->visit_end,
@@ -58,9 +71,9 @@ class TripsFetcher {
         "id" => $visit->article_id
       ],
       "city" => [
-        "name" => $visit->city->languageVersions[0]->name,
+        "name" => $city["name"],
         "country" => [
-          "name" => $visit->city->country->languageVersions[0]->name
+          "name" => $city["country"]["name"]
         ]
       ]
     ];

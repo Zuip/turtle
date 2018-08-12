@@ -20,7 +20,7 @@ class CitiesController extends Controller {
     }
     
     $citiesFetcher = new CitiesFetcher();
-    $cities = $citiesFetcher->getWithLanguageCode(
+    $cities = $citiesFetcher->getWithLanguage(
       $request->input('language')
     );
     

@@ -116,7 +116,7 @@ class CategoryArticlesDataFetcherTests extends TestCase {
   private function createMockArticle($id) {
     
     $articleLanguageVersion = new MockArticleLanguageVersion();
-    $articleLanguageVersion->setLanguageId(1);
+    $articleLanguageVersion->setLanguage('fi');
     
     $article = new MockArticle();
     $article->setId($id);

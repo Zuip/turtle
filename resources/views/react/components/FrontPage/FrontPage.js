@@ -23,7 +23,7 @@ class FrontPage extends React.Component {
     pageSpinner.start('Frontpage articles');
 
     getArticles({
-      language: this.props.translations.languageCode,
+      language: this.props.translations.language,
       offset: this.state.articles.length,
       limit: this.state.articleBlockSize
     }).then(articles => {
@@ -49,7 +49,7 @@ class FrontPage extends React.Component {
 
   componentDidUpdate(previousProps) {
 
-    if(previousProps.translations.languageCode !== this.props.translations.languageCode) {
+    if(previousProps.translations.language !== this.props.translations.language) {
 
       this.setState({
         articles: [],

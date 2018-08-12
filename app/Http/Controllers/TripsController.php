@@ -20,7 +20,7 @@ class TripsController extends Controller {
     }
     
     $tripsFetcher = new TripsFetcher();
-    $trips = $tripsFetcher->getWithUserIdAndLanguageCode(
+    $trips = $tripsFetcher->getWithUserIdAndLanguage(
       $request->route('userId'),
       $request->input('language')
     );

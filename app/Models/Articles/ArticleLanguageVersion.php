@@ -8,7 +8,7 @@ class ArticleLanguageVersion extends Model implements IArticleLanguageVersion {
   protected $table = 'translated_article';
 
   // The attributes that are mass assignable
-  protected $fillable = ['id', 'topic', 'summary', 'text', 'url_name', 'language_id', 'article_id', 'published'];
+  protected $fillable = ['id', 'topic', 'summary', 'text', 'url_name', 'language', 'article_id', 'published'];
   
   // No default timestamps
   public $timestamps = false;
@@ -18,9 +18,5 @@ class ArticleLanguageVersion extends Model implements IArticleLanguageVersion {
   
   public function article() {
     return $this->belongsTo('\\App\\Models\\Articles\\Article', 'article_id');
-  }
-  
-  public function language() {
-    return $this->belongsTo('\\App\\Models\\Language', 'language_id');
   }
 }

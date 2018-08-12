@@ -1,6 +1,5 @@
 <?php namespace Tests\Mocks\Services\Categories\LanguageVersionFetcher;
 
-use App\Models\ILanguage;
 use App\Models\Categories\ICategory;
 use App\Models\Categories\ICategoryLanguageVersion;
 use App\Services\Categories\ILanguageVersionFetcher;
@@ -17,14 +16,14 @@ class Mock implements ILanguageVersionFetcher {
    * Interface methods
    */
   
-  public function findWithURLName($categoryURLName, ILanguage $language, $includeUnpublished = true) { }
-  public function findWithCategoryId($categoryId, ILanguage $language, $includeUnpublished = true) { }
+  public function findWithURLName($categoryURLName, $language, $includeUnpublished = true) { }
+  public function findWithCategoryId($categoryId, $language, $includeUnpublished = true) { }
   
-  public function findWithCategory(ICategory $category, ILanguage $language, $includeUnpublished = true) {
+  public function findWithCategory(ICategory $category, $language, $includeUnpublished = true) {
     
     foreach($this->categoryLanguageVersions as $categoryLanguageVersion) {
       
-      if($categoryLanguageVersion->language_id !== $language->id) {
+      if($categoryLanguageVersion->language !== $language) {
         continue;
       }
       

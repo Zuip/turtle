@@ -2,59 +2,54 @@
 
 namespace App\Services\Cities;
 
-use App\Models\ILanguage;
+use App\Integrations\Cities\City;
 use App\Models\Articles\IArticleLanguageVersion;
 use App\Models\Cities\TranslatedCity;
 
 class CityDataFetcher {
-  
-  private $limitToAttributes;
-
-  public function __construct() {
-    $this->limitToAttributes = [
-      "id", "country", "urlName", "name"
-    ];
-  }
 
   public function getWithArticleLanguageVersion(IArticleLanguageVersion $articleLanguageVersion) {
     
-    $languageId = $articleLanguageVersion->language->id;
-    $city = $articleLanguageVersion->article->visit->city;
+    $language = $articleLanguageVersion->language;
+    $cityId = $articleLanguageVersion->article->visit->city_id;
 
-    $translatedCity = null;
-    foreach($city->languageVersions as $languageVersion) {
-      if($languageVersion->language->id === $languageId) {
-        $translatedCity = $languageVersion;
-        break;
-      }
-    }
+    $cityFetcher = new City();
+    $city = $cityFetcher->getWithIdAndLanguage($cityId, $language)->getData();
 
-    $cityData = [];
-    if($this->chosen("id")     ) { $cityData["id"]      = $city->id;                 }
-    if($this->chosen("name")   ) { $cityData["name"]    = $translatedCity->name;     }
-    if($this->chosen("urlName")) { $cityData["urlName"] = $translatedCity->url_name; }
-    
-    if($this->chosen("country")) {
-
-      $translatedCountry = null;
-      foreach($city->country->languageVersions as $languageVersion) {
-        if($languageVersion->language->id === $languageId) {
-          $translatedCountry = $languageVersion;
-          break;
-        }
-      }
-
-      $cityData["country"] = [
-        "id" => $city->country->id,
-        "name" => $translatedCountry->name,
-        "urlName" => $translatedCountry->url_name
-      ];
-    }
+    $cityData = [
+      "id" => $city["id"],
+      "name" => $city["name"],
+      "urlName" => $city["urlName"],
+      "country" => [
+        "id" => $city["country"]["id"],
+        "name" => $city["country"]["name"],
+        "urlName" => $city["country"]["urlName"]
+      ]
+    ];
 
     return $cityData;
   }
 
-  private function chosen($attribute) {
-    return in_array($attribute, $this->limitToAttributes);
+  public function getWithCountryUrlNameAndCityUrlNameAndLanguage($countryUrlName, $cityUrlName, $language) {
+
+    $cityFetcher = new City();
+    $city = $cityFetcher->getWithCountryUrlNameAndCityUrlNameAndLanguage(
+      $countryUrlName,
+      $cityUrlName,
+      $language
+    )->getData();
+
+    $cityData = [
+      "id" => $city["id"],
+      "name" => $city["name"],
+      "urlName" => $city["urlName"],
+      "country" => [
+        "id" => $city["country"]["id"],
+        "name" => $city["country"]["name"],
+        "urlName" => $city["country"]["urlName"]
+      ]
+    ];
+
+    return $cityData;
   }
 }

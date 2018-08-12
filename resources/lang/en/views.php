@@ -6,7 +6,7 @@
 
 return [
   'common' => [
-    'languageCode' => 'en',
+    'language' => 'en',
     'form' => [
       'add' => 'Add',
       'save' => 'Save',

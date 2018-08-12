@@ -6,14 +6,14 @@ use App\Models\Articles\IArticleLanguageVersion;
 class MockArticleLanguageVersion implements IArticleLanguageVersion {
   
   public $article;
-  public $language_id;
+  public $language;
   public $published;
   public $topic;
   public $url_name;
   public $text;
   
   public function __construct() {
-    $this->language_id = 1;
+    $this->language = 'fi';
     $this->published = true;
   }
   
@@ -31,8 +31,8 @@ class MockArticleLanguageVersion implements IArticleLanguageVersion {
     $this->article = $article;
   }
   
-  public function setLanguageId($languageId) {
-    $this->language_id = $languageId;
+  public function setLanguage($language) {
+    $this->language = $language;
   }
   
   public function setTopic($topic) {

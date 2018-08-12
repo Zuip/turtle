@@ -66,7 +66,7 @@ class ArticlePathFetcherTests extends TestCase {
     $mockArticle->setCategory($mockCategory3);
     
     $mockArticleLanguageVersion = new MockArticleLanguageVersion();
-    $mockArticleLanguageVersion->setLanguageId(1);
+    $mockArticleLanguageVersion->setLanguage('fi');
     $mockArticleLanguageVersion->setArticle($mockArticle);
     
     return $mockArticleLanguageVersion;

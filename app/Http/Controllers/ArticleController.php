@@ -12,14 +12,12 @@ class ArticleController extends Controller {
   
   public function get(Request $request, $urlName) {
     
-    $language = Language::where('code', $request->input('language'))->first();
-
     $articleLanguageVersionFetcher = new ArticleLanguageVersionFetcher();
-    $translatedArticle = $articleLanguageVersionFetcher->getWithUrlNamesAndLanguageId(
+    $translatedArticle = $articleLanguageVersionFetcher->getWithUrlNamesAndLanguage(
       $request->route("tripUrlName"),
       $request->route("countryUrlName"),
       $request->route("cityUrlName"),
-      $language->id
+      $request->input('language')
     );
     
     $articleFetcher = new ArticleFetcher();
@@ -36,7 +34,7 @@ class ArticleController extends Controller {
     );
 
     return Response::json([
-      "languageId" => $translatedArticle->language_id,
+      "language" => $translatedArticle->language,
       "summary" => $translatedArticle->summary,
       "text" => $translatedArticle->text,
       "city" => $city,

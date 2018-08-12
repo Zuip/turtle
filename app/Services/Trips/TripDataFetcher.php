@@ -20,12 +20,12 @@ class TripDataFetcher {
 
   public function getWithArticleLanguageVersion(IArticleLanguageVersion $articleLanguageVersion) {
     
-    $languageId = $articleLanguageVersion->language->id;
+    $language = $articleLanguageVersion->language;
     $trip = $articleLanguageVersion->article->visit->trip;
 
     $translatedTrip = null;
     foreach($trip->languageVersions as $languageVersion) {
-      if($languageVersion->language->id === $languageId) {
+      if($languageVersion->language === $language) {
         $translatedTrip = $languageVersion;
         break;
       }

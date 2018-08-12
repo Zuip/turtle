@@ -6,7 +6,7 @@
 
 return [
   'common' => [
-    'languageCode' => 'fi',
+    'language' => 'fi',
     'form' => [
       'add' => 'Lisää',
       'save' => 'Tallenna',

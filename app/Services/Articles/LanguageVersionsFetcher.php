@@ -1,7 +1,6 @@
 <?php namespace App\Services\Articles;
 
 use App\Models\Articles\ArticleLanguageVersion;
-use Illuminate\Support\Facades\DB;
 
 class LanguageVersionsFetcher {
   
@@ -21,13 +20,11 @@ class LanguageVersionsFetcher {
     $this->offset = $offset;
   }
   
-  public function getWithLanguageCode($languageCode) {
+  public function getWithLanguage($language) {
     
     $languageVersions = ArticleLanguageVersion::where('published', 1)
+    ->where('language', $language)
     ->join('article', 'article.id', '=', 'translated_article.article_id')
-    ->whereHas('language', function ($q) use($languageCode) {
-      $q->where('code', $languageCode);
-    })
     ->orderBy('article.timestamp', 'desc');
     
     if(isset($this->limit)) {

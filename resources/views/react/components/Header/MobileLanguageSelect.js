@@ -46,5 +46,5 @@ class MobileLanguageSelect extends React.Component {
 }
 
 export default connect(
-  state => ({ selectedLanguage: state.translations.languageCode })
+  state => ({ selectedLanguage: state.translations.language })
 )(MobileLanguageSelect);

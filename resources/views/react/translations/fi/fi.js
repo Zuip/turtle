@@ -22,7 +22,7 @@ export default {
     logout: 'Kirjaudu ulos',
     profile: 'Profiili'
   },
-  languageCode: 'fi',
+  language: 'fi',
   login: {
     login: 'Kirjaudu',
     loginSucceeded: 'Kirjautuminen onnistui!',
