@@ -11,7 +11,7 @@ export default function(params) {
   }
 
   return fetch(
-    '/api/articles' + query,
+    getUrlBase(params) + query,
     {
       method: 'GET',
       credentials: 'same-origin'
@@ -19,6 +19,15 @@ export default function(params) {
   ).then(
     response => response.json()
   );
+}
+
+function getUrlBase(params) {
+
+  if(typeof params.userId !== 'undefined') {
+    return '/api/users/' + params.userId + '/articles';
+  }
+
+  return '/api/articles'
 }
 
 function getLanguageQuery(params) {

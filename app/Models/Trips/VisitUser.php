@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Visit extends Model {
+class VisitUser extends Model {
 
 	// The database table used by the model
-	protected $table = 'city_visit';
+	protected $table = 'city_visit_user';
 
 	// The attributes that are mass assignable
 	protected $fillable = ['id'];
@@ -16,11 +16,7 @@ class Visit extends Model {
   // No default timestamps
   public $timestamps = false;
 	
-	public function trip() {
-    return $this->belongsTo('\\App\\Models\\Trips\\Trip', 'trip_id');
-  }
-
-  public function visitUsers() {
-    return $this->hasMany('\\App\\Models\\Trips\\VisitUser', 'city_visit_id');
+	public function visit() {
+    return $this->belongsTo('\\App\\Models\\Trips\\Visit', 'visit_id');
   }
 }

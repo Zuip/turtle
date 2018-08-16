@@ -10,6 +10,7 @@ import NotFoundPage from '../NotFoundPage';
 import pageSpinner from '../../services/pageSpinner';
 import TripsTable from './TripsTable';
 import ProfileStyle from '../../style/components/Profile';
+import UserArticles from './UserArticles';
 
 class Profile extends React.Component {
 
@@ -99,6 +100,9 @@ class Profile extends React.Component {
           <FirstColumn>
             <TripsTable user={this.state.user} />
           </FirstColumn>
+          <SecondColumn>
+            <UserArticles user={this.state.user} />
+          </SecondColumn>
         </TwoColumnLayout>
       </div>
     );

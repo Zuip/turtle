@@ -6,7 +6,7 @@ use App\Services\Articles\ArticleListParams;
 use App\Services\Articles\LanguageVersionsFetcher;
 use Illuminate\Http\Request;
 
-class ArticlesController extends Controller {
+class UserArticlesController extends Controller {
   
   public function get(Request $request) {
     
@@ -19,10 +19,13 @@ class ArticlesController extends Controller {
     $limit = $listParams->parseLimit(
       $request->input('limit')
     );
+
+    $userId = $request->route('userId');
     
     $languageVersionsFetcher = new LanguageVersionsFetcher();
     $languageVersionsFetcher->setLimit($limit);
     $languageVersionsFetcher->setOffset($offset);
+    $languageVersionsFetcher->setUserId($userId);
     $articles = $languageVersionsFetcher->getWithLanguage(
       $request->input('language')
     );
