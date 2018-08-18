@@ -1,71 +1,50 @@
 <?php namespace App\Services\Articles;
 
-use App\Models\Articles\IArticle;
-use App\Models\Articles\ArticleLanguageVersion;
-use App\Services\Cities\CityDataFetcher;
-
 class ArticleLanguageVersionFetcher implements IArticleLanguageVersionFetcher {
   
-  private $throwExceptionOnNotFound;
-  
+  private $cityUrlName;
+  private $countryUrlName;
+  private $language;
+  private $tripUrlName;
+
   public function __construct() {
-    $this->throwExceptionOnNotFound = true;
+    $this->cityUrlName = null;
+    $this->countryUrlName = null;
+    $this->language = null;
+    $this->tripUrlName = null;
   }
-  
-  public function setThrowExceptionOnNotFound($throwExceptionOnNotFound) {
-    $this->throwExceptionOnNotFound = $throwExceptionOnNotFound;
+
+  public function setCityUrlName($cityUrlName) {
+    $this->cityUrlName = $cityUrlName;
   }
-  
-  public function getWithArticleAndLanguage(IArticle $article, $language) {
+
+  public function setCountryUrlName($countryUrlName) {
+    $this->countryUrlName = $countryUrlName;
+  }
+
+  public function setLanguage($language) {
+    $this->language = $language;
+  }
+
+  public function setTripUrlName($tripUrlName) {
+    $this->tripUrlName = $tripUrlName;
+  }
+
+  public function get($cityVisitIndex = 0) {
     
-    $articleLanguageVersion = $article->languageVersions()
-                                      ->where('published', 1)
-                                      ->where('language', $language)
-                                      ->first();
-    
-    $this->validate($articleLanguageVersion);
+    $articleLanguageVersionsFetcher = new ArticleLanguageVersionsFetcher();
+    $articleLanguageVersionsFetcher->setTripUrlName($this->tripUrlName);
+    $articleLanguageVersionsFetcher->setCountryUrlName($this->countryUrlName);
+    $articleLanguageVersionsFetcher->setCityUrlName($this->cityUrlName);
+    $articleLanguageVersionsFetcher->setLanguage($this->language);
+    $articleLanguageVersions = $articleLanguageVersionsFetcher->get();
+
+    if(!isset($articleLanguageVersions[$cityVisitIndex - 1])) {
+      return null;
+    }
+
+    $articleLanguageVersion = $articleLanguageVersions[$cityVisitIndex - 1];
     
     return $articleLanguageVersion;
-  }
-  
-  public function getWithUrlNamesAndLanguage($tripUrlName, $countryUrlName, $cityUrlName, $language) {
-    
-    $cityDataFetcher = new CityDataFetcher();
-    $city = $cityDataFetcher->getWithCountryUrlNameAndCityUrlNameAndLanguage(
-      $countryUrlName,
-      $cityUrlName,
-      $language
-    );
-
-    $articleLanguageVersion = ArticleLanguageVersion::where('published', 1)
-    ->where('language', $language)
-    ->whereHas('article', function($query) use ($tripUrlName, $city, $language) {
-      $query->whereHas('visit', function($query) use ($tripUrlName, $city, $language) {
-        $query->whereHas('trip', function($query) use ($tripUrlName, $language) {
-          $query->whereHas('languageVersions', function($query) use ($tripUrlName, $language) {
-            $query->where('url_name', $tripUrlName)
-            ->where('language', $language);
-          });
-        })->where('city_id', $city["id"]);
-      });
-    })
-    ->first();
-
-    $this->validate($articleLanguageVersion);
-    
-    return $articleLanguageVersion;
-  }
-  
-  private function validate($articleLanguageVersion) {
-    
-    if(!$this->throwExceptionOnNotFound) {
-      return;
-    }
-    
-    if($articleLanguageVersion == null) {
-      throw new \App\Exceptions\ModelNotFoundException(
-        'Article language version does not exist!'
-      );
-    }
   }
 }

@@ -7,20 +7,33 @@ class ArticlePath extends React.Component {
     super(props);
   }
 
+  getTripPath() {
+    return '/trips/' + this.props.article.trip.urlName;
+  }
+
+  getCountryPath() {
+    return '/countries/' + this.props.article.city.country.urlName;
+  }
+
+  getCityPath() {
+    return '/countries/' + this.props.article.city.country.urlName
+         + '/cities/' + this.props.article.city.urlName;
+  }
+
   render() {
 
     return (
       <span className="article-path">
           /&nbsp;
-          <Link to={'/trips/' + this.props.article.trip.urlName}>
+          <Link to={this.getTripPath()}>
             {this.props.article.trip.name}
           </Link>
           &nbsp;/&nbsp;
-          <Link to={'/countries/' + this.props.article.city.country.urlName}>
+          <Link to={this.getCountryPath()}>
             {this.props.article.city.country.name}
           </Link>
           &nbsp;/&nbsp;
-          <Link to={'/cities/' + this.props.article.city.urlName}>
+          <Link to={this.getCityPath()}>
             {this.props.article.city.name}
           </Link>
       </span>

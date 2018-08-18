@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ArticleLayout from '../Layout/Grids/ArticleLayout';
-import ArticlePath from './ArticlePath.js';
-import ArticlePageChanger from './ArticlePageChanger.js';
+import ArticlePath from './ArticlePath';
+import ArticlePageChanger from './ArticlePageChanger';
 import getArticle from '../../apiCalls/getArticle';
+import getNextArticle from '../../apiCalls/getNextArticle';
+import getPreviousArticle from '../../apiCalls/getPreviousArticle';
 import pageSpinner from '../../services/pageSpinner';
 
 class Article extends React.Component {
@@ -12,44 +14,86 @@ class Article extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: null
+      article: null,
+      nextArticle: null,
+      previousArticle: null
     }
   }
 
   componentDidMount() {
-    this.loadArticle();
+    this.loadArticleParts();
   }
 
   componentWillReceiveProps(newProps) {
-    if(newProps.match.params.articleURLName !== this.props.match.params.articleURLName) {
-      this.props = newProps;
+    if(this.propsChanged(newProps)) {
       this.setState({
         article: null
+      }, () => {
+        this.loadArticleParts()
       });
-      this.forceUpdate();
-      this.loadArticle();
     }
   }
 
+  loadArticleParts() {
+
+    pageSpinner.start('Article');
+
+    Promise.all([
+      this.loadArticle(),
+      this.loadPreviousArticle(),
+      this.loadNextArticle()
+    ]).then(data => {
+
+      this.setState({
+        article: data[0],
+        previousArticle: data[1],
+        nextArticle: data[2]
+      });
+
+      pageSpinner.finish('Article');
+
+    }).catch(
+      error => console.log(error)
+    );
+  }
+
+  propsChanged(newProps) {
+    return newProps.match.params.tripUrlName !== this.props.match.params.tripURLName
+        || newProps.match.params.countryUrlName !== this.props.match.params.countryUrlName
+        || newProps.match.params.cityUrlName !== this.props.match.params.cityUrlName;
+  }
+
   loadArticle() {
-
-    pageSpinner.start('article');
-
-    getArticle(
+    return getArticle(
       this.props.match.params.tripURLName,
       this.props.match.params.countryUrlName,
       this.props.match.params.cityUrlName,
+      this.props.match.params.cityVisitIndex,
       this.props.translations.language
-    ).then(response => {
+    );
+  }
 
-      this.setState({
-        article: response
-      });
+  loadPreviousArticle() {
+    return getPreviousArticle(
+      this.props.match.params.tripURLName,
+      this.props.match.params.countryUrlName,
+      this.props.match.params.cityUrlName,
+      this.props.match.params.cityVisitIndex,
+      this.props.translations.language
+    ).catch(
+      () => null
+    );
+  }
 
-      pageSpinner.finish('article');
-
-    }).catch(
-      error => console.error(error)
+  loadNextArticle() {
+    return getNextArticle(
+      this.props.match.params.tripURLName,
+      this.props.match.params.countryUrlName,
+      this.props.match.params.cityUrlName,
+      this.props.match.params.cityVisitIndex,
+      this.props.translations.language
+    ).catch(
+      () => null
     );
   }
 
@@ -66,7 +110,7 @@ class Article extends React.Component {
           <h5>{this.state.article.publishTime}, <ArticlePath article={this.state.article} /></h5>
           <div className="summary" dangerouslySetInnerHTML={{__html: this.state.article.summary}}></div>
           <div dangerouslySetInnerHTML={{__html: this.state.article.text}}></div>
-          <ArticlePageChanger previousArticle={this.state.article.previousArticle} nextArticle={this.state.article.nextArticle} />
+          <ArticlePageChanger previousArticle={this.state.previousArticle} nextArticle={this.state.nextArticle} />
         </div>
       </ArticleLayout>
     );

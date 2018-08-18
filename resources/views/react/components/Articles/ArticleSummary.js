@@ -12,6 +12,7 @@ class ArticleSummary extends React.Component {
     return '/trips/' + this.props.article.trip.urlName
          + '/' + this.props.article.city.country.urlName
          + '/' + this.props.article.city.urlName
+         + '/' + this.props.article.city.visit.index
          + '/article'
   }
 
