@@ -4,14 +4,22 @@ use App\Models\Articles\ArticleLanguageVersion;
 
 class LanguageVersionsFetcher {
   
+  private $cityIds;
   private $limit;
   private $offset;
+  private $tripId;
   private $userId;
   
   public function __construct() {
+    $this->cityIds = [];
     $this->limit = null;
     $this->offset = 0;
+    $this->tripId = null;
     $this->userId = null;
+  }
+
+  public function setCityIds($cityIds) {
+    $this->cityIds = $cityIds;
   }
   
   public function setLimit($limit) {
@@ -20,6 +28,10 @@ class LanguageVersionsFetcher {
   
   public function setOffset($offset) {
     $this->offset = $offset;
+  }
+
+  public function setTripId($tripId) {
+    $this->tripId = $tripId;
   }
 
   public function setUserId($userId) {
@@ -31,6 +43,20 @@ class LanguageVersionsFetcher {
     $languageVersions = ArticleLanguageVersion::where('published', 1)
     ->where('language', $language)
     ->join('article', 'article.id', '=', 'translated_article.article_id');
+
+    $cityIds = $this->cityIds;
+    if($cityIds !== []) {
+      $languageVersions = $languageVersions->whereHas('article.visit', function($query) use ($cityIds) {
+        $query->whereIn('city_id', $cityIds);
+      });
+    }
+
+    $tripId =  $this->tripId;
+    if($tripId !== null) {
+      $languageVersions = $languageVersions->whereHas('article.visit', function($query) use ($tripId) {
+        $query->where('trip_id', $tripId);
+      });
+    }
 
     $userId = $this->userId;
     if($userId !== null) {

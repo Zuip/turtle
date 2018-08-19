@@ -67,7 +67,7 @@ class UserArticles extends React.Component {
 
     return (
       <div>
-        <h3>{this.props.translations.frontPage.latestArticles}</h3>
+        <h3>{this.props.translations.articles.latestArticles}</h3>
         <Articles articles={this.state.articles}
                   allArticlesLoaded={this.state.allArticlesLoaded}
                   loadNextArticles={this.loadNextArticles.bind(this)} />

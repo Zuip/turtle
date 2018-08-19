@@ -19,7 +19,7 @@ class LoadMoreArticlesButton extends React.Component {
         <button className="btn btn-primary load-more-articles-button"
                 onClick={this.props.loadNextArticles}>
 
-          {store.getState().translations.frontPage.loadMoreArticles}
+          {store.getState().translations.articles.loadMoreArticles}
 
         </button>
       </p>

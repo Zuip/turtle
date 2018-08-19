@@ -1,13 +1,14 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Trips;
 
 use App\Http\Controllers\Controller;
 use App\Services\Articles\ArticleDataFetcher;
 use App\Services\Articles\ArticleListParams;
 use App\Services\Articles\FormattedArticlesArrayDataFetcher;
 use App\Services\Articles\LanguageVersionsFetcher;
+use App\Services\Trips\TripFetcher;
 use Illuminate\Http\Request;
 
-class UserArticlesController extends Controller {
+class TripArticlesController extends Controller {
   
   public function get(Request $request) {
     
@@ -21,12 +22,16 @@ class UserArticlesController extends Controller {
       $request->input('limit')
     );
 
-    $userId = $request->route('userId');
+    $tripFetcher = new TripFetcher();
+    $trip = $tripFetcher->getWithUrlNameAndLanguage(
+      $request->route("tripUrlName"),
+      $request->input("language")
+    );
     
     $languageVersionsFetcher = new LanguageVersionsFetcher();
     $languageVersionsFetcher->setLimit($limit);
     $languageVersionsFetcher->setOffset($offset);
-    $languageVersionsFetcher->setUserId($userId);
+    $languageVersionsFetcher->setTripId($trip->base->id);
     $articles = $languageVersionsFetcher->getWithLanguage(
       $request->input('language')
     );

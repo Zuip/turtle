@@ -7,12 +7,14 @@ export default {
     next: 'Next',
     previous: 'Previous'
   },
+  articles: {
+    latestArticles: 'Latest articles',
+    loadMoreArticles: 'Load more articles'
+  },
   cities: {
     cities: 'Cities'
   },
   frontPage: {
-    loadMoreArticles: 'Load more articles',
-    latestArticles: 'Latest articles',
     slogan: 'Turtle.travel is a tool for finding more authentic travel destinations'
   },
   header: {

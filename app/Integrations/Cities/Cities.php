@@ -12,4 +12,12 @@ class Cities {
     );
     return $apiGet;
   }
+
+  public function getWithCountryIdAndLanguage($countryId, $language) {
+    $apiGet = new ApiGet(env('SERVICE_CITIES_URL'));
+    $apiGet->callGet(
+      "/api/countries/" . $countryId . "/cities?language=" . $language
+    );
+    return $apiGet;
+  }
 }

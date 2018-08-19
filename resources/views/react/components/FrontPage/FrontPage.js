@@ -64,7 +64,7 @@ class FrontPage extends React.Component {
     return (
       <ArticleLayout>
         <div className="frontpage">
-          <h2>{this.props.translations.frontPage.latestArticles}</h2>
+          <h2>{this.props.translations.articles.latestArticles}</h2>
           <Articles articles={this.state.articles}
                     allArticlesLoaded={this.state.allArticlesLoaded}
                     loadNextArticles={this.loadNextArticles.bind(this)} />

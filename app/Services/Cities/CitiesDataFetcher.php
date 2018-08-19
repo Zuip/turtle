@@ -3,8 +3,26 @@
 namespace App\Services\Cities;
 
 use App\Integrations\Cities\Cities;
+use App\Integrations\Cities\Country;
 
 class CitiesDataFetcher {
+
+  public function getWithCountryUrlNameAndLanguage($countryUrlName, $language) {
+
+    $countryFetcher = new Country();
+    $country = $countryFetcher->getWithUrlNameAndLanguage(
+      $countryUrlName,
+      $language
+    )->getData();
+
+    $citiesFetcher = new Cities();
+    $citiesByCountries = $citiesFetcher->getWithCountryIdAndLanguage(
+      $country["id"],
+      $language
+    )->getData();
+
+    return $citiesByCountries;
+  }
 
   public function getWithIdsAndLanguage($cityIds, $language) {
     
@@ -13,6 +31,11 @@ class CitiesDataFetcher {
       $cityIds,
       $language
     )->getData();
+
+    return $this->citiesByCountryArrayToCitiesArray($citiesByCountries);
+  }
+
+  private function citiesByCountryArrayToCitiesArray($citiesByCountries) {
 
     $citiesData = [];
 

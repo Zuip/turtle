@@ -7,12 +7,14 @@ export default {
     next: 'Seuraava',
     previous: 'Edellinen'
   },
+  articles: {
+    latestArticles: 'Uusimmat artikkelit',
+    loadMoreArticles: 'Lataa lisää artikkeleita'
+  },
   cities: {
     cities: 'Kaupungit'
   },
   frontPage: {
-    loadMoreArticles: 'Lataa lisää artikkeleita',
-    latestArticles: 'Uusimmat artikkelit',
     slogan: 'Turtle.travel on työkalu autenttisempien matkakohteiden löytämiseen'
   },
   header: {

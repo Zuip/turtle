@@ -1,13 +1,14 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Cities;
 
 use App\Http\Controllers\Controller;
 use App\Services\Articles\ArticleDataFetcher;
 use App\Services\Articles\ArticleListParams;
 use App\Services\Articles\FormattedArticlesArrayDataFetcher;
 use App\Services\Articles\LanguageVersionsFetcher;
+use App\Services\Cities\CitiesDataFetcher;
 use Illuminate\Http\Request;
 
-class UserArticlesController extends Controller {
+class CountryArticlesController extends Controller {
   
   public function get(Request $request) {
     
@@ -21,12 +22,21 @@ class UserArticlesController extends Controller {
       $request->input('limit')
     );
 
-    $userId = $request->route('userId');
+    $citiesDataFetcher = new CitiesDataFetcher();
+    $cities = $citiesDataFetcher->getWithCountryUrlNameAndLanguage(
+      $request->route("countryUrlName"),
+      $request->input("language")
+    );
+
+    $cityIds = [];
+    foreach($cities as $key => $city) {
+      $cityIds[] = $city["id"];
+    }
     
     $languageVersionsFetcher = new LanguageVersionsFetcher();
     $languageVersionsFetcher->setLimit($limit);
     $languageVersionsFetcher->setOffset($offset);
-    $languageVersionsFetcher->setUserId($userId);
+    $languageVersionsFetcher->setCityIds($cityIds);
     $articles = $languageVersionsFetcher->getWithLanguage(
       $request->input('language')
     );

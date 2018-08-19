@@ -27,6 +27,21 @@ function getUrlBase(params) {
     return '/api/users/' + params.userId + '/articles';
   }
 
+  if(typeof params.countryUrlName !== 'undefined') {
+
+    let countryBase = '/api/countries/' + params.countryUrlName;
+
+    if(typeof params.cityUrlName !== 'undefined') {
+      return countryBase + '/cities/' + params.cityUrlName + '/articles';
+    }
+
+    return countryBase + '/articles';
+  }
+
+  if(typeof params.tripUrlName !== 'undefined') {
+    return '/api/trips/' + params.tripUrlName + '/articles';
+  }
+
   return '/api/articles'
 }
 
