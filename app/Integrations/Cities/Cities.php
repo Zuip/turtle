@@ -4,6 +4,14 @@ use App\Services\CRUD\ApiGet;
 
 class Cities {
   
+  public function getWithLanguage($language) {
+    $apiGet = new ApiGet(env('SERVICE_CITIES_URL'));
+    $apiGet->callGet(
+      "/api/cities?language=" . $language
+    );
+    return $apiGet;
+  }
+
   public function getWithIdsAndLanguage($cityIds, $language) {
     $apiGet = new ApiGet(env('SERVICE_CITIES_URL'));
     $apiGet->callGet(

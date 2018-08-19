@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import BaseLayout from '../Layout/Grids/BaseLayout';
 import TwoColumnLayout from '../Layout/Grids/TwoColumnLayout';
 import FirstColumn from '../Layout/Grids/FirstColumn';
 import SecondColumn from '../Layout/Grids/SecondColumn';
@@ -86,7 +87,7 @@ class Trip extends React.Component {
 
   render() {
     return (
-      <div>
+      <BaseLayout>
         <TwoColumnLayout>
           <FirstColumn>
             <h2>{this.state.trip.name}</h2>
@@ -103,7 +104,7 @@ class Trip extends React.Component {
             
           </SecondColumn>
         </TwoColumnLayout>
-      </div>
+      </BaseLayout>
     );
   }
 }

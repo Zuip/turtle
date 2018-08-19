@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import ArticleLayout from '../Layout/Grids/ArticleLayout';
 import Articles from '../Articles/Articles';
+import BaseLayout from '../Layout/Grids/BaseLayout';
 import getArticles from '../../apiCalls/getArticles';
 import getCity from '../../apiCalls/cities/getCity';
 import pageSpinner from '../../services/pageSpinner';
@@ -93,15 +94,17 @@ class City extends React.Component {
 
   render() {
     return (
-      <ArticleLayout>
-        <h2>
-          <Link to={this.getCountryPath()}>{this.state.city.name}</Link>, {this.state.city.country.name}
-        </h2>
-        <h3>{this.props.translations.articles.latestArticles}</h3>
-        <Articles articles={this.state.articles}
-                  allArticlesLoaded={this.state.allArticlesLoaded}
-                  loadNextArticles={this.loadNextArticles.bind(this)} />
-      </ArticleLayout>
+      <BaseLayout>
+        <ArticleLayout>
+          <h2>
+            <Link to={this.getCountryPath()}>{this.state.city.name}</Link>, {this.state.city.country.name}
+          </h2>
+          <h3>{this.props.translations.articles.latestArticles}</h3>
+          <Articles articles={this.state.articles}
+                    allArticlesLoaded={this.state.allArticlesLoaded}
+                    loadNextArticles={this.loadNextArticles.bind(this)} />
+        </ArticleLayout>
+      </BaseLayout>
     );
   }
 }

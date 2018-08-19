@@ -1,7 +1,7 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Cities;
 
 use App\Http\Controllers\Controller;
-use App\Services\Cities\CitiesFetcher;
+use App\Services\Cities\CitiesDataFetcher;
 use Illuminate\Http\Request;
 use Response;
 
@@ -19,8 +19,8 @@ class CitiesController extends Controller {
       );
     }
     
-    $citiesFetcher = new CitiesFetcher();
-    $cities = $citiesFetcher->getWithLanguage(
+    $citiesDataFetcher = new CitiesDataFetcher();
+    $cities = $citiesDataFetcher->getWithLanguage(
       $request->input('language')
     );
     

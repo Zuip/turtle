@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import About from '../About/About';
 import Article from '../Articles/Article';
+import Cities from '../Cities/Cities';
 import City from '../Cities/City';
 import Country from '../Cities/Countries/Country';
 import FrontPage from '../FrontPage/FrontPage';
@@ -20,6 +21,7 @@ class Routes extends React.Component {
           <Route exact component={FrontPage} path="/" />
           <Route exact component={About} path="/about" />
           <Route exact component={Article} path="/trips/:tripURLName/:countryUrlName/:cityUrlName/:cityVisitIndex/article" />
+          <Route exact component={Cities} path="/cities" />
           <Route exact component={City} path="/countries/:countryUrlName/cities/:cityUrlName" />
           <Route exact component={Country} path="/countries/:countryUrlName" />
           <Route exact component={Login} path="/login" />

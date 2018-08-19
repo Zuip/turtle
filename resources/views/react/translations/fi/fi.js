@@ -12,7 +12,11 @@ export default {
     loadMoreArticles: 'Lataa lisää artikkeleita'
   },
   cities: {
-    cities: 'Kaupungit'
+    cities: 'Kaupungit',
+    citySearch: 'Kaupunkihaku',
+    countries: {
+      country: 'Maa'
+    }
   },
   frontPage: {
     slogan: 'Turtle.travel on työkalu autenttisempien matkakohteiden löytämiseen'

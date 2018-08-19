@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import ArticleLayout from '../Layout/Grids/ArticleLayout';
 import Articles from '../Articles/Articles';
+import BaseLayout from '../Layout/Grids/BaseLayout';
 import getArticles from '../../apiCalls/getArticles';
 import pageSpinner from '../../services/pageSpinner';
 
@@ -62,14 +63,16 @@ class FrontPage extends React.Component {
   render() {
 
     return (
-      <ArticleLayout>
-        <div className="frontpage">
-          <h2>{this.props.translations.articles.latestArticles}</h2>
-          <Articles articles={this.state.articles}
-                    allArticlesLoaded={this.state.allArticlesLoaded}
-                    loadNextArticles={this.loadNextArticles.bind(this)} />
-        </div>
-      </ArticleLayout>
+      <BaseLayout>
+        <ArticleLayout>
+          <div className="frontpage">
+            <h2>{this.props.translations.articles.latestArticles}</h2>
+            <Articles articles={this.state.articles}
+                      allArticlesLoaded={this.state.allArticlesLoaded}
+                      loadNextArticles={this.loadNextArticles.bind(this)} />
+          </div>
+        </ArticleLayout>
+      </BaseLayout>
     );
   }
 }

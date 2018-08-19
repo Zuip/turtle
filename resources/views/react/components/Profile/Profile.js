@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import BaseLayout from '../Layout/Grids/BaseLayout';
 import TwoColumnLayout from '../Layout/Grids/TwoColumnLayout';
 import FirstColumn from '../Layout/Grids/FirstColumn';
 import SecondColumn from '../Layout/Grids/SecondColumn';
@@ -79,9 +80,7 @@ class Profile extends React.Component {
     }
 
     return (
-
-      <div>
-
+      <BaseLayout>
         <TwoColumnLayout>
           <FirstColumn>
             <h2 style={ProfileStyle.h2}>
@@ -95,7 +94,6 @@ class Profile extends React.Component {
             </h2>
           </FirstColumn>
         </TwoColumnLayout>
-
         <TwoColumnLayout mobile={{ rightColumnIsOnTop: true }}>
           <FirstColumn>
             <TripsTable user={this.state.user} />
@@ -104,7 +102,7 @@ class Profile extends React.Component {
             <UserArticles user={this.state.user} />
           </SecondColumn>
         </TwoColumnLayout>
-      </div>
+      </BaseLayout>
     );
   }
 }

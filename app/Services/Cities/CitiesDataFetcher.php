@@ -7,6 +7,18 @@ use App\Integrations\Cities\Country;
 
 class CitiesDataFetcher {
 
+  public function getWithLanguage($language) {
+
+    $citiesFetcher = new Cities();
+    $citiesByCountries = $citiesFetcher->getWithLanguage(
+      $language
+    )->getData();
+
+    return array_values(
+      $this->citiesByCountryArrayToCitiesArray($citiesByCountries) 
+    );
+  }
+
   public function getWithCountryUrlNameAndLanguage($countryUrlName, $language) {
 
     $countryFetcher = new Country();
@@ -16,12 +28,12 @@ class CitiesDataFetcher {
     )->getData();
 
     $citiesFetcher = new Cities();
-    $citiesByCountries = $citiesFetcher->getWithCountryIdAndLanguage(
+    $cities = $citiesFetcher->getWithCountryIdAndLanguage(
       $country["id"],
       $language
     )->getData();
 
-    return $citiesByCountries;
+    return $cities;
   }
 
   public function getWithIdsAndLanguage($cityIds, $language) {

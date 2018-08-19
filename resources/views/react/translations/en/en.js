@@ -12,7 +12,11 @@ export default {
     loadMoreArticles: 'Load more articles'
   },
   cities: {
-    cities: 'Cities'
+    cities: 'Cities',
+    citySearch: 'City search',
+    countries: {
+      country: 'Country'
+    }
   },
   frontPage: {
     slogan: 'Turtle.travel is a tool for finding more authentic travel destinations'

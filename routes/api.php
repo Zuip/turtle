@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/articles', 'ArticlesController@get');
-Route::get('/cities', 'CitiesController@get');
+Route::get('/cities', 'Cities\\CitiesController@get');
 Route::get('/countries/{countryUrlName}', 'Cities\\CountryController@get');
 Route::get('/countries/{countryUrlName}/articles', 'Cities\\CountryArticlesController@get');
 Route::get('/countries/{countryUrlName}/cities/{cityUrlName}', 'Cities\\CityController@get');
