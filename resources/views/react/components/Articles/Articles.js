@@ -19,6 +19,15 @@ class Articles extends React.Component {
   }
 
   render() {
+
+    if(this.props.articles.length === 0) {
+      return (
+        <div>
+          <p>{this.props.translations.articles.noArticlesExists}</p>
+        </div>
+      );
+    }
+
     return (
       <div>
         {this.getArticleSummaries()}

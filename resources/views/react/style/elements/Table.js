@@ -1,7 +1,7 @@
 import ThemeSettings from '../ThemeSettings';
 
 export default {
-  borderBottom: '1px solid ' + ThemeSettings.themeSemiDarkGrey,
+  borderBottom: '1px solid ' + ThemeSettings.themeGrey,
   width: '100%',
   header: {
     row: {
@@ -16,8 +16,8 @@ export default {
     }
   },
   row: {
-    borderLeft: '1px solid ' + ThemeSettings.themeSemiDarkGrey,
-    borderRight: '1px solid ' + ThemeSettings.themeSemiDarkGrey,
+    borderLeft: '1px solid ' + ThemeSettings.themeGrey,
+    borderRight: '1px solid ' + ThemeSettings.themeGrey,
     cell: {
       p(position) {
 

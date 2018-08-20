@@ -9,7 +9,8 @@ export default {
   },
   articles: {
     latestArticles: 'Latest articles',
-    loadMoreArticles: 'Load more articles'
+    loadMoreArticles: 'Load more articles',
+    noArticlesExists: 'No articles exists'
   },
   cities: {
     cities: 'Cities',

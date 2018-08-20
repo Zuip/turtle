@@ -90,7 +90,7 @@ class Trip extends React.Component {
       <BaseLayout>
         <TwoColumnLayout>
           <FirstColumn>
-            <h2>{this.state.trip.name}</h2>
+            <h1>{this.state.trip.name}</h1>
           </FirstColumn>
         </TwoColumnLayout>
         <TwoColumnLayout>

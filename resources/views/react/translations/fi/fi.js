@@ -9,7 +9,8 @@ export default {
   },
   articles: {
     latestArticles: 'Uusimmat artikkelit',
-    loadMoreArticles: 'Lataa lisää artikkeleita'
+    loadMoreArticles: 'Lataa lisää artikkeleita',
+    noArticlesExists: 'Ei kirjoitettuja artikkeleita'
   },
   cities: {
     cities: 'Kaupungit',

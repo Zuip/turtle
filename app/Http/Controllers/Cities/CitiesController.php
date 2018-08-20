@@ -9,7 +9,7 @@ class CitiesController extends Controller {
   
   public function get(Request $request) {
     
-    if(!$request->has('language')) {
+    if(!$request->has("language")) {
       return Response::json(
         [
           "success" => false,
@@ -18,11 +18,19 @@ class CitiesController extends Controller {
         404
       );
     }
-    
+
     $citiesDataFetcher = new CitiesDataFetcher();
-    $cities = $citiesDataFetcher->getWithLanguage(
-      $request->input('language')
-    );
+
+    if($request->route("countryUrlName") === null) {
+      $cities = $citiesDataFetcher->getWithLanguage(
+        $request->input("language")
+      );
+    } else {
+      $cities = $citiesDataFetcher->getWithCountryUrlNameAndLanguage(
+        $request->route("countryUrlName"),
+        $request->input("language")
+      );
+    }
     
     return \Response::json($cities);
   }

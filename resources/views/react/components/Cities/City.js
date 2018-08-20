@@ -96,9 +96,10 @@ class City extends React.Component {
     return (
       <BaseLayout>
         <ArticleLayout>
-          <h2>
-            <Link to={this.getCountryPath()}>{this.state.city.name}</Link>, {this.state.city.country.name}
-          </h2>
+          <h1>
+            {this.state.city.name}
+            , <Link to={this.getCountryPath()}>{this.state.city.country.name}</Link>
+          </h1>
           <h3>{this.props.translations.articles.latestArticles}</h3>
           <Articles articles={this.state.articles}
                     allArticlesLoaded={this.state.allArticlesLoaded}

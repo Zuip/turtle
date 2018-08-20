@@ -18,6 +18,12 @@ class CitiesList extends React.Component {
     this.loadCities();
   }
 
+  componentDidUpdate(newProps) {
+    if(newProps.filter !== this.props.filter) {
+      this.loadCities()
+    }
+  }
+
   getCityBoxes() {
     return this.state.cities.map(
       city => (
@@ -32,7 +38,7 @@ class CitiesList extends React.Component {
     pageSpinner.start('Cities');
 
     getCities(
-      null,
+      this.props.filter.country,
       this.props.translations.language
     ).then(cities => {
       this.setState({ cities });

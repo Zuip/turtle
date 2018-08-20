@@ -18,7 +18,7 @@ export default {
   getBoxStyle() {
     return {
       backgroundColor: ThemeSettings.themeLightGrey,
-      border: '1px solid ' + ThemeSettings.themeSemiDarkGrey,
+      border: '1px solid ' + ThemeSettings.themeGrey,
       display: 'block',
       margin: '10px 0',
       minHeight: '100px',

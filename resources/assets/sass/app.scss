@@ -6,18 +6,17 @@
 
 $theme-color: #579ABF;
 $theme-hover-color: #317499;
-$theme-text-color-on-theme-color: #FFFFFF;
+$theme-text-color-on-theme-color: #fdfdfd;
 $theme-font-family: 'Roboto', sans-serif;
-$theme-light-grey: #fbfbfb;
-$theme-grey: #f3f3f3;
-$theme-semi-dark-grey: #bfbfbf;
-$theme-dark-grey: #959595;
+$theme-light-grey: #f7f7f7  ;
+$theme-grey: #a9aca9;
+$theme-dark-grey: #4d5359;
 
 $header-element-font-family: 'Nunito', sans-serif;
 $header-logo-font-family: 'Caveat Brush', cursive;
 $header-height: 70px;
 
-$footer-color: $theme-grey;
+$footer-color: $theme-dark-grey;
 $footer-height: 120px;
 
 $max-mobile-mode-width: 720px;
