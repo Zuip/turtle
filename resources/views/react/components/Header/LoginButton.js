@@ -10,6 +10,10 @@ class LoginButton extends React.Component {
 
   render() {
 
+    if(CONFIG_ENVIRONMENT === 'production') {
+      return null;
+    }
+
     if(this.props.user) {
       return null;
     }

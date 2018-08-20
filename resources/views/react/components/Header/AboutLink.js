@@ -9,6 +9,11 @@ class AboutLink extends React.Component {
   }
 
   render() {
+
+    if(CONFIG_ENVIRONMENT === 'production') {
+      return null;
+    }
+
     return (
       <Link to={'/about'}>
         <div id="header-about-link" className="header-element header-link">

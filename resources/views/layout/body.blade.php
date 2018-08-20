@@ -21,6 +21,10 @@
   <body>
     
     <div id="app"></div>
+
+    <script>
+      var CONFIG_ENVIRONMENT = '<?php echo env('APP_ENV'); ?>';
+    </script>
     
     <!-- Third party JavaScripts -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b-VSBFUZVEUigMBiGITuacfH9KHHeg"></script>
