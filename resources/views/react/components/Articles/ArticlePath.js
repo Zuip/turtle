@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class ArticlePath extends React.Component {
 
@@ -8,16 +9,20 @@ class ArticlePath extends React.Component {
   }
 
   getTripPath() {
-    return '/trips/' + this.props.article.trip.urlName;
+    return '/' + this.props.translations.routes.trips
+         + '/' + this.props.article.trip.urlName;
   }
 
   getCountryPath() {
-    return '/countries/' + this.props.article.city.country.urlName;
+    return '/' + this.props.translations.routes.countries
+         + '/' + this.props.article.city.country.urlName;
   }
 
   getCityPath() {
-    return '/countries/' + this.props.article.city.country.urlName
-         + '/cities/' + this.props.article.city.urlName;
+    return '/'+ this.props.translations.routes.countries
+         + '/' + this.props.article.city.country.urlName
+         + '/' + this.props.translations.routes.cities
+         + '/' + this.props.article.city.urlName;
   }
 
   render() {
@@ -41,4 +46,6 @@ class ArticlePath extends React.Component {
   }
 }
 
-export default ArticlePath;
+export default connect(
+  state => ({ translations: state.translations })
+)(ArticlePath);

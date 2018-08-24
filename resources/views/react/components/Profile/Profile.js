@@ -28,6 +28,14 @@ class Profile extends React.Component {
 
   componentDidUpdate(previousProps) {
 
+    if(previousProps.translations.language !== this.props.translations.language) {
+      this.props.history.push(
+        '/' + this.props.translations.routes.users
+        + '/' + this.props.match.params.user
+      );
+      return;
+    }
+
     if(previousProps.match.params.user !== this.props.match.params.user) {
       this.loadUser();
       return;

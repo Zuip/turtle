@@ -9,6 +9,7 @@ import SecondColumn from '../../Layout/Grids/SecondColumn';
 import Articles from '../../Articles/Articles';
 import getArticles from '../../../apiCalls/getArticles';
 import getCountry from '../../../apiCalls/cities/getCountry';
+import getCountryTranslations from '../../../apiCalls/cities/getCountryTranslations';
 import pageSpinner from '../../../services/pageSpinner';
 
 class Country extends React.Component {
@@ -31,15 +32,20 @@ class Country extends React.Component {
   }
 
   componentDidUpdate(previousProps) {
-
     if(previousProps.translations.language !== this.props.translations.language) {
-
-      this.setState({
-        articles: [],
-        allArticlesLoaded: false
-      }, () => {
-        this.loadCountry();
-        this.loadNextArticles();
+      this.loadCountryTranslations(
+        previousProps.translations.language
+      ).then(countryTranslations => {
+        countryTranslations.map(
+          countryTranslation => {
+            if(countryTranslation.language === this.props.translations.language) {
+              this.props.history.push(
+                '/' + this.props.translations.routes.countries
+                + '/' + countryTranslation.urlName
+              );
+            }
+          }
+        )
       });
     }
   }
@@ -54,6 +60,21 @@ class Country extends React.Component {
     ).then(country => {
       this.setState({ country });
       pageSpinner.finish('Country');
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
+  loadCountryTranslations(language) {
+
+    pageSpinner.start('Country translations');
+
+    return getCountryTranslations(
+      this.props.match.params.countryUrlName,
+      language
+    ).then(country => {
+      pageSpinner.finish('Country translations');
+      return country;
     }).catch((error) => {
       console.error(error);
     });

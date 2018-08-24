@@ -7,6 +7,7 @@ import Articles from '../Articles/Articles';
 import BaseLayout from '../Layout/Grids/BaseLayout';
 import getArticles from '../../apiCalls/getArticles';
 import getCity from '../../apiCalls/cities/getCity';
+import getCityTranslations from '../../apiCalls/cities/getCityTranslations';
 import pageSpinner from '../../services/pageSpinner';
 
 class City extends React.Component {
@@ -32,15 +33,22 @@ class City extends React.Component {
   }
 
   componentDidUpdate(previousProps) {
-
     if(previousProps.translations.language !== this.props.translations.language) {
-
-      this.setState({
-        articles: [],
-        allArticlesLoaded: false
-      }, () => {
-        this.loadCity();
-        this.loadNextArticles();
+      this.loadCityTranslations(
+        previousProps.translations.language
+      ).then(cityTranslations => {
+        cityTranslations.map(
+          cityTranslation => {
+            if(cityTranslation.language === this.props.translations.language) {
+              this.props.history.push(
+                '/' + this.props.translations.routes.countries
+                + '/' + cityTranslation.country.urlName
+                + '/' + this.props.translations.routes.cities
+                + '/' + cityTranslation.urlName
+              );
+            }
+          }
+        )
       });
     }
   }
@@ -56,6 +64,22 @@ class City extends React.Component {
     ).then(city => {
       this.setState({ city });
       pageSpinner.finish('City');
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
+  loadCityTranslations(language) {
+
+    pageSpinner.start('City translations');
+
+    return getCityTranslations(
+      this.props.match.params.countryUrlName,
+      this.props.match.params.cityUrlName,
+      language
+    ).then(city => {
+      pageSpinner.finish('City translations');
+      return city;
     }).catch((error) => {
       console.error(error);
     });

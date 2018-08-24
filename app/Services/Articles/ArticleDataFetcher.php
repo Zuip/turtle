@@ -38,7 +38,6 @@ class ArticleDataFetcher implements IArticleDataFetcher {
 
     if($this->chosen("trip")) {
       $tripDataFetcher = new TripDataFetcher();
-      $tripDataFetcher->setLimitToAttributes(["urlName"]);
       $articleData["trip"] = $tripDataFetcher->getWithArticleLanguageVersion(
         $articleLanguageVersion
       );

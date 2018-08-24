@@ -46,7 +46,7 @@ class UserArticles extends React.Component {
     this.loadNextArticles();
   }
 
-  componentDidUpdate(previousProps) {
+  /* componentDidUpdate(previousProps) {
 
     if(previousProps.translations.language !== this.props.translations.language) {
 
@@ -57,7 +57,7 @@ class UserArticles extends React.Component {
         this.loadNextArticles();
       });
     }
-  }
+  } */
 
   render() {
 

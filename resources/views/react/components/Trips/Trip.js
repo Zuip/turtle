@@ -9,6 +9,7 @@ import SecondColumn from '../Layout/Grids/SecondColumn';
 import Articles from '../Articles/Articles';
 import getArticles from '../../apiCalls/getArticles';
 import getTrip from '../../apiCalls/trips/getTrip';
+import getTripTranslations from '../../apiCalls/trips/getTripTranslations';
 import pageSpinner from '../../services/pageSpinner';
 
 class Trip extends React.Component {
@@ -31,15 +32,32 @@ class Trip extends React.Component {
   }
 
   componentDidUpdate(previousProps) {
-
     if(previousProps.translations.language !== this.props.translations.language) {
+      this.loadTripTranslations(
+        previousProps.translations.language
+      ).then(tripTranslations => {
 
-      this.setState({
-        articles: [],
-        allArticlesLoaded: false
-      }, () => {
-        this.loadTrip();
-        this.loadNextArticles();
+        let translationFound = false;
+
+        tripTranslations.map(
+          tripTranslation => {
+            if(tripTranslation.language === this.props.translations.language) {
+              
+              this.props.history.push(
+                '/' + this.props.translations.routes.trips
+                + '/' + tripTranslation.urlName
+              );
+              
+              translationFound = true;
+            }
+          }
+        )
+
+        if(!translationFound) {
+          this.props.history.push(
+            '/' + this.props.translations.routes.trips + '/404'
+          );
+        }
       });
     }
   }
@@ -54,6 +72,21 @@ class Trip extends React.Component {
     ).then(trip => {
       this.setState({ trip });
       pageSpinner.finish('Trip');
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
+  loadTripTranslations(language) {
+
+    pageSpinner.start('Trip translations');
+
+    return getTripTranslations(
+      this.props.match.params.tripUrlName,
+      language
+    ).then(trip => {
+      pageSpinner.finish('Trip translations');
+      return trip;
     }).catch((error) => {
       console.error(error);
     });

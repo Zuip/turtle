@@ -20,7 +20,7 @@ class LoginButton extends React.Component {
 
     return (
       <div className="header-element header-right">
-        <Link to={'/login'} className="btn btn-light header-login-button">
+        <Link to={'/' + this.props.translations.routes.login} className="btn btn-light header-login-button">
           {this.props.translations.header.login}
         </Link>
       </div>

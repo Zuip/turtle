@@ -7,7 +7,7 @@
     <meta name="author" content="Zui">
     <link rel="icon" href="/assets/icon.png">
 
-    <title>Zui.fi</title>
+    <title>Turtle.travel</title>
 
     <!-- Third party fonts -->
     <link href="https://fonts.googleapis.com/css?family=Caveat+Brush" rel="stylesheet">
@@ -18,12 +18,49 @@
     <link href="/assets/css/app.css" rel="stylesheet">
   </head>
 
+  <?php
+
+    $browserLanguage = 'en';
+    $supportedLanguages = [
+      'en' => ['en', 'en-US', 'en-GB'],
+      'fi' => ['fi', 'fi-FI']
+    ];
+    $languages = explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    $languageFound = false;
+
+    foreach($languages as $languageWithQ) {
+
+      $languageAndQ = explode(';', $languageWithQ);
+      $language = $languageAndQ[0];
+      
+      foreach($supportedLanguages as $languageCode => $browserLanguageCodes) {
+
+        foreach($browserLanguageCodes as $browserLocaleCode) {
+          if(strtolower($browserLocaleCode) === strtolower($language)) {
+            $browserLanguage = $languageCode;
+            $languageFound = true;
+            break;
+          }
+        }
+
+        if($languageFound) {
+          break;
+        }
+      }
+
+      if($languageFound) {
+        break;
+      }
+    }
+  ?>
+
   <body>
     
     <div id="app"></div>
 
     <script>
       var CONFIG_ENVIRONMENT = '<?php echo env('APP_ENV'); ?>';
+      var CONFIG_BROWSER_LANGUAGE = '<?php echo $language; ?>'
     </script>
     
     <!-- Third party JavaScripts -->

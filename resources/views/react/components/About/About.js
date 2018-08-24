@@ -1,34 +1,47 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import ArticleLayout from '../Layout/Grids/ArticleLayout';
 import BaseLayout from '../Layout/Grids/BaseLayout';
-import store from '../../store/store';
-
+ 
 class About extends React.Component {
+  
+  componentDidUpdate(previousProps) {
+    if(previousProps.translations.language !== this.props.translations.language) {
+      this.props.history.push(
+        '/' + this.props.translations.routes.about
+      );
+    }
+  }
+
   render() {
     return (
       <BaseLayout>
         <ArticleLayout>
 
-          <h1>{store.getState().translations.about.topic}</h1>
+          <h1>{this.props.translations.about.topic}</h1>
 
-          <h2>{store.getState().translations.about.whatIsTurtleTravel.topic}</h2>
-          <p>{store.getState().translations.about.whatIsTurtleTravel.text}</p>
+          <h2>{this.props.translations.about.whatIsTurtleTravel.topic}</h2>
+          <p>{this.props.translations.about.whatIsTurtleTravel.text}</p>
 
-          <h2>{store.getState().translations.about.whatDoWeMeanWithAuthenticity.topic}</h2>
+          <h2>{this.props.translations.about.whatDoWeMeanWithAuthenticity.topic}</h2>
           {
-            store.getState().translations.about.whatDoWeMeanWithAuthenticity.text.map(paragraph => {
-              return <p>{paragraph}</p>
-            })
+            this.props.translations.about.whatDoWeMeanWithAuthenticity.text.map(
+              (paragraph,index) => (
+                <p key={'authenticity_' + index}>{paragraph}</p>
+              )
+            )
           }
 
-          <h2>{store.getState().translations.about.whatIsOurGoal.topic}</h2>
+          <h2>{this.props.translations.about.whatIsOurGoal.topic}</h2>
           <p>
-            {store.getState().translations.about.whatIsOurGoal.text}
+            {this.props.translations.about.whatIsOurGoal.text}
             {
-              store.getState().translations.about.whatIsOurGoal.goals.map(goal => {
-                return <span><br />- {goal}</span>
-              })
+              this.props.translations.about.whatIsOurGoal.goals.map(
+                (goal, index) => (
+                  <span key={'goal_' + index}><br />- {goal}</span>
+                )
+              )
             }
           </p>
 
@@ -38,4 +51,6 @@ class About extends React.Component {
   }
 }
 
-export default About;
+export default connect(
+  state => ({ translations: state.translations })
+)(About);

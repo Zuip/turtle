@@ -9,19 +9,21 @@ class ArticlePageChanger extends React.Component {
   }
 
   getPreviousArticleLink() {
-    return '/trips/' + this.props.previousArticle.trip.urlName
-           + '/' + this.props.previousArticle.city.country.urlName
-           + '/' + this.props.previousArticle.city.urlName
-           + '/' + this.props.previousArticle.city.visit.index
-           + '/article';
+    return '/' + this.props.translations.routes.trips
+         + '/' + this.props.previousArticle.trip.urlName
+         + '/' + this.props.previousArticle.city.country.urlName
+         + '/' + this.props.previousArticle.city.urlName
+         + '/' + this.props.previousArticle.city.visit.index
+         + '/' + this.props.translations.routes.article;
   }
 
   getNextArticleLink() {
-    return '/trips/' + this.props.nextArticle.trip.urlName
-           + '/' + this.props.nextArticle.city.country.urlName
-           + '/' + this.props.nextArticle.city.urlName
-           + '/' + this.props.nextArticle.city.visit.index
-           + '/article';
+    return '/' + this.props.translations.routes.trips
+         + '/' + this.props.nextArticle.trip.urlName
+         + '/' + this.props.nextArticle.city.country.urlName
+         + '/' + this.props.nextArticle.city.urlName
+         + '/' + this.props.nextArticle.city.visit.index
+         + '/' + this.props.translations.routes.article;
   }
 
   previousArticleButton() {

@@ -8,6 +8,7 @@ import BaseLayout from '../Layout/Grids/BaseLayout';
 import getArticle from '../../apiCalls/getArticle';
 import getNextArticle from '../../apiCalls/getNextArticle';
 import getPreviousArticle from '../../apiCalls/getPreviousArticle';
+import getArticleTranslations from '../../apiCalls/articles/getArticleTranslations';
 import pageSpinner from '../../services/pageSpinner';
 
 class Article extends React.Component {
@@ -25,8 +26,45 @@ class Article extends React.Component {
     this.loadArticleParts();
   }
 
-  componentWillReceiveProps(newProps) {
-    if(this.propsChanged(newProps)) {
+  componentWillReceiveProps(previousProps) {
+
+    if(previousProps.translations.language !== this.props.translations.language) {
+      
+      this.loadArticleTranslations(
+        previousProps.translations.language
+      ).then(articleTranslations => {
+
+        let articleTranslationFound = false;
+
+        articleTranslations.map(
+          articleTranslation => {
+            if(articleTranslation.language === this.props.translations.language) {
+
+              this.props.history.push(
+                '/' + this.props.translations.routes.trips
+                + '/' + this.props.match.params.tripURLName
+                + '/' + this.props.match.params.countryUrlName
+                + '/' + this.props.match.params.cityUrlName
+                + '/' + this.props.match.params.cityVisitIndex
+                + '/' + this.props.translations.routes.articles
+              );
+
+              articleTranslationFound = true;
+            }
+          }
+        )
+
+        if(!articleTranslationFound) {
+          this.props.history.push(
+            '/' + this.props.translations.routes.article + '/404'
+          );
+        }
+      });
+
+      return;
+    }
+
+    if(this.propsChanged(previousProps)) {
       this.setState({
         article: null
       }, () => {
@@ -95,6 +133,16 @@ class Article extends React.Component {
       this.props.translations.language
     ).catch(
       () => null
+    );
+  }
+
+  loadArticleTranslations() {
+    return getArticleTranslations(
+      this.props.match.params.tripURLName,
+      this.props.match.params.countryUrlName,
+      this.props.match.params.cityUrlName,
+      this.props.match.params.cityVisitIndex,
+      this.props.translations.language
     );
   }
 

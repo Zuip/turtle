@@ -10,7 +10,8 @@ export default {
   articles: {
     latestArticles: 'Uusimmat artikkelit',
     loadMoreArticles: 'Lataa lisää artikkeleita',
-    noArticlesExists: 'Ei kirjoitettuja artikkeleita'
+    noArticlesExists: 'Ei kirjoitettuja artikkeleita',
+    translationNotFound: 'Artikkelilla ei ole suomenkielistä versiota'
   },
   cities: {
     cities: 'Kaupungit',
@@ -20,7 +21,7 @@ export default {
     }
   },
   frontPage: {
-    slogan: 'Turtle.travel on työkalu autenttisempien matkakohteiden löytämiseen'
+    slogan: 'Turtle.travel on työkalu parempien matkakohteiden löytämiseen'
   },
   header: {
     about: 'Tietoa',
@@ -42,6 +43,18 @@ export default {
   },
   profile: {
     trips: 'Matkat'
+  },
+  routes: {
+    about: 'tietoa',
+    article: 'artikkeli',
+    cities: 'kaupungit',
+    countries: 'maat',
+    login: 'kirjaudu',
+    trips: 'matkat',
+    users: 'kayttajat'
+  },
+  trips: {
+    translationNotFound: 'Matkalla ei ole suomenkielistä versiota'
   },
   website: {
     name: 'Turtle.travel'

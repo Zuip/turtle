@@ -1,7 +1,7 @@
 export default {
   topic: 'Tietoa',
   whatDoWeMeanWithAuthenticity: {
-    topic: 'Mitä tarkoitamme autenttisuudella?',
+    topic: 'What do we mean with authenticity?',
     text: [
       `
         Tarkoitamme autenttisuudella sitä, että kohde on tunnistanut omat uniikit piirteensä ja mahdollistaa vierailijalle niiden kokemisen.

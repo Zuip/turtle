@@ -8,6 +8,11 @@ class MobileUser extends React.Component {
     super(props);
   }
 
+  getProfileLink() {
+    return '/' + this.props.translations.routes.users
+         + '/' + this.props.user.name.toLowerCase();
+  }
+
   render() {
 
     if(!this.props.user) {
@@ -16,7 +21,7 @@ class MobileUser extends React.Component {
 
     return (
       <div>
-        <Link to="/profile">
+        <Link to={this.getProfileLink()}>
           <div className="header-element only-in-mobile">
             <h3>
               <i className="fas fa-user-circle"></i>

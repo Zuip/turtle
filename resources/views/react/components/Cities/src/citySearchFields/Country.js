@@ -19,6 +19,13 @@ class Country extends React.Component {
     this.loadCountries();
   }
 
+  componentDidUpdate(previousProps) {
+    if(previousProps.translations.language !== this.props.translations.language) {
+      this.loadCountries();
+      this.setState({ country: '' });
+    }
+  }
+
   loadCountries() {
 
     pageSpinner.start('Countries');

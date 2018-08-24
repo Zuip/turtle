@@ -15,7 +15,7 @@ class AboutLink extends React.Component {
     }
 
     return (
-      <Link to={'/about'}>
+      <Link to={'/' + this.props.translations.routes.about}>
         <div id="header-about-link" className="header-element header-link">
           <h3>{this.props.translations.header.about}</h3>
         </div>

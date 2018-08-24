@@ -18,14 +18,16 @@ class CitiesList extends React.Component {
     this.loadCities();
   }
 
-  componentDidUpdate(newProps) {
-    if(newProps.filter !== this.props.filter) {
+  componentDidUpdate(previousProps) {
+    if(previousProps.filter !== this.props.filter) {
       this.loadCities()
     }
   }
 
   getCityBoxes() {
-    return this.state.cities.map(
+    return this.state.cities.sort(
+      (a, b) => a.name.toLowerCase() > b.name.toLowerCase()
+    ).map(
       city => (
         <CityBox city={city}
                  key={'city_' + city.country.urlName + '_' + city.urlName} />
@@ -33,12 +35,19 @@ class CitiesList extends React.Component {
     );
   }
 
-  loadCities() {
+  loadCities(withoutFilter) {
 
     pageSpinner.start('Cities');
 
+    let filter = this.props.filter;
+    if(withoutFilter) {
+      filter = {
+        country: null
+      }
+    }
+
     getCities(
-      this.props.filter.country,
+      filter.country,
       this.props.translations.language
     ).then(cities => {
       this.setState({ cities });

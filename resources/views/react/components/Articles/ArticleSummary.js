@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import store from '../../store/store';
 
@@ -9,11 +10,12 @@ class ArticleSummary extends React.Component {
   }
 
   getArticleLink() {
-    return '/trips/' + this.props.article.trip.urlName
+    return '/' + this.props.translations.routes.trips
+         + '/' + this.props.article.trip.urlName
          + '/' + this.props.article.city.country.urlName
          + '/' + this.props.article.city.urlName
          + '/' + this.props.article.city.visit.index
-         + '/article'
+         + '/' + this.props.translations.routes.article
   }
 
   render() {
@@ -33,4 +35,6 @@ class ArticleSummary extends React.Component {
   }
 }
 
-export default ArticleSummary;
+export default connect(
+  state => ({ translations: state.translations })
+)(ArticleSummary);

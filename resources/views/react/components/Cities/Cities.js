@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import BaseLayout from '../Layout/Grids/BaseLayout';
 import LeftBarLayout from '../Layout/Grids/LeftBarLayout';
@@ -24,6 +25,14 @@ class Cities extends React.Component {
     this.setState({ filter });
   }
 
+  componentDidUpdate(previousProps) {
+    if(previousProps.translations.language !== this.props.translations.language) {
+      this.props.history.push(
+        '/' + this.props.translations.routes.cities
+      );
+    }
+  }
+
   render() {
     return (
       <LeftBarLayout useFullHeight={true}>
@@ -44,4 +53,6 @@ class Cities extends React.Component {
   }
 }
 
-export default Cities;
+export default connect(
+  state => ({ translations: state.translations })
+)(Cities);

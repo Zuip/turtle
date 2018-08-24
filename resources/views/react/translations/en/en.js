@@ -10,7 +10,8 @@ export default {
   articles: {
     latestArticles: 'Latest articles',
     loadMoreArticles: 'Load more articles',
-    noArticlesExists: 'No articles exists'
+    noArticlesExists: 'No articles exists',
+    translationNotFound: 'The article doesn\'t have English translation'
   },
   cities: {
     cities: 'Cities',
@@ -20,7 +21,7 @@ export default {
     }
   },
   frontPage: {
-    slogan: 'Turtle.travel is a tool for finding more authentic travel destinations'
+    slogan: 'Turtle.travel: A tool for finding better travel destinations'
   },
   header: {
     about: 'About',
@@ -42,6 +43,18 @@ export default {
   },
   profile: {
     trips: 'Trips'
+  },
+  routes: {
+    about: 'about',
+    article: 'article',
+    cities: 'cities',
+    countries: 'countries',
+    login: 'login',
+    trips: 'trips',
+    users: 'users'
+  },
+  trips: {
+    translationNotFound: 'The trip doesn\'t have English translation'
   },
   website: {
     name: 'Turtle.travel'

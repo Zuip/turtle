@@ -10,7 +10,7 @@ class CitiesLink extends React.Component {
 
   render() {
     return (
-      <Link to={'/cities'}>
+      <Link to={'/' + this.props.translations.routes.cities}>
         <div className="header-element header-link">
           <h3>{this.props.translations.cities.cities}</h3>
         </div>

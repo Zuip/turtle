@@ -19,6 +19,11 @@ class UserDropdown extends React.Component {
     );
   }
 
+  getProfileLink() {
+    return '/' + this.props.translations.routes.users
+         + '/' + this.props.user.name.toLowerCase();
+  }
+
   render() {
 
     if(!this.props.user) {
@@ -32,7 +37,7 @@ class UserDropdown extends React.Component {
           <span className="dropdown-toggle-text">{this.props.user.name}</span>
         </button>
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="language-dropdown-menu">
-          <Link to="/profile" className="dropdown-item">
+          <Link to={this.getProfileLink()} className="dropdown-item">
             <i className="fas fa-user-circle"></i>
             {this.props.translations.header.profile}
           </Link>

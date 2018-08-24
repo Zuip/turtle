@@ -1,5 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Articles;
 
+use App\Http\Controllers\Controller;
 use App\Models\Language;
 use App\Services\Articles\ArticleFetcher;
 use App\Services\Articles\ArticleLanguageVersionFetcher;

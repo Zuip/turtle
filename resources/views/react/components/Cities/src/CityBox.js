@@ -11,13 +11,15 @@ class CitiesList extends React.Component {
   }
 
   getCityLink() {
-    return '/countries/' + this.props.city.country.urlName
-         + '/cities/' + this.props.city.urlName
+    return '/' + this.props.translations.routes.countries
+         + '/' + this.props.city.country.urlName
+         + '/' + this.props.translations.routes.cities
+         + '/' + this.props.city.urlName;
   }
 
   render() {
     return (
-      <Link to={this.getCityLink()} 
+      <Link to={this.getCityLink()}
             style={CitiesStyle.getBoxStyle()}>
 
         <h4>
