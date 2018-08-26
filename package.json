@@ -4,6 +4,7 @@
   "description": "Zui.fi\r ------\r I have made this blog as a hobby. It combines my interest in travel with my interest in programming.",
   "main": "index.php",
   "scripts": {
+    "sass": "sass",
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack",
     "webpack-watch": "webpack --watch"
