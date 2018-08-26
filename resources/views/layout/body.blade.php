@@ -60,11 +60,9 @@
 
     <script>
       var CONFIG_ENVIRONMENT = '<?php echo env('APP_ENV'); ?>';
-      var CONFIG_BROWSER_LANGUAGE = '<?php echo $language; ?>'
+      var CONFIG_GOOGLE_ANALYTICS_KEY = '<?php echo env('GOOGLE_ANALYTICS_KEY'); ?>';
+      var CONFIG_BROWSER_LANGUAGE = '<?php echo $language; ?>';
     </script>
-    
-    <!-- Third party JavaScripts -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b-VSBFUZVEUigMBiGITuacfH9KHHeg"></script>
 
     <!-- Own JavaScripts -->
     <script src="/scripts/app.js"></script>

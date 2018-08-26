@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom'
+import { Router } from 'react-router-dom'
 
 import Footer from './Footer/Footer';
 import getCurrentUser from '../apiCalls/getCurrentUser';
+import googleAnalytics from '../services/googleAnalytics';
 import Header from './Header/Header';
 import InfoBox from './Header/InfoBox';
 import Routes from './Routes/Routes';
@@ -21,7 +22,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <Router history={googleAnalytics}>
         <div id="grid-container">
           <Header />
           <InfoBox />
@@ -29,7 +30,7 @@ class App extends React.Component {
           <SpinnerOverlay />
           <Footer />
         </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
