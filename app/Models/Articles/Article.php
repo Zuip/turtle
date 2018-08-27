@@ -8,7 +8,7 @@ class Article extends Model implements IArticle {
 	protected $table = 'article';
 
 	// The attributes that are mass assignable
-	protected $fillable = ['id', 'user_id', 'timestamp'];
+	protected $fillable = ['id', 'user_id', 'created'];
 
 	// The attributes excluded from the model's JSON form
 	protected $hidden = [];

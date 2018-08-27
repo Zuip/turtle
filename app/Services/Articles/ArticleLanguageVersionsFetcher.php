@@ -65,7 +65,7 @@ class ArticleLanguageVersionsFetcher implements IArticleLanguageVersionsFetcher 
         $a->where('city_id', $city["id"]);
       }
     })
-    ->orderBy('article.timestamp')
+    ->orderBy('article.created')
     ->get();
   }
 }

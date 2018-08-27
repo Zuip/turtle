@@ -5,7 +5,7 @@ use App\Services\Articles\ICategoryArticlesFetcher;
 
 class Mock implements ICategoryArticlesFetcher {
   
-  public function setOrderByTimestamp($orderByTimestamp) {
+  public function setOrderByCreated($orderByCreated) {
     
   }
   

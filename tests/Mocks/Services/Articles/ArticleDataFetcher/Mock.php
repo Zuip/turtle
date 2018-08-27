@@ -23,7 +23,7 @@ class Mock implements IArticleDataFetcher {
     if($this->chosen("id"         )) { $articleData["id"]          = $articleLanguageVersion->article->id;           }
     if($this->chosen("topic"      )) { $articleData["topic"]       = $articleLanguageVersion->topic;                 }
     if($this->chosen("URLName"    )) { $articleData["URLName"]     = $articleLanguageVersion->url_name;              }
-    if($this->chosen("timestamp"  )) { $articleData["timestamp"]   = $articleLanguageVersion->article->timestamp;    }
+    if($this->chosen("created"  )) { $articleData["created"]   = $articleLanguageVersion->article->created;    }
     if($this->chosen("publishTime")) { $articleData["publishTime"] = $this->getPublishTime($articleLanguageVersion); }
     if($this->chosen("published"  )) { $articleData["published"]   = $articleLanguageVersion->published;             }
     if($this->chosen("text"       )) { $articleData["text"]        = $articleLanguageVersion->text;                  }
@@ -37,7 +37,7 @@ class Mock implements IArticleDataFetcher {
   }
   
   private function getPublishTime(IArticleLanguageVersion $articleLanguageVersion) {
-    return date("j.n.Y", strtotime($articleLanguageVersion->article->timestamp));
+    return date("j.n.Y", strtotime($articleLanguageVersion->article->created));
   }
   
   private function chosen($attribute) {

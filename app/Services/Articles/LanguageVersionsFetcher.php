@@ -67,7 +67,7 @@ class LanguageVersionsFetcher {
       });
     }
 
-    $languageVersions = $languageVersions->orderBy('article.timestamp', 'desc');
+    $languageVersions = $languageVersions->orderBy('article.created', 'desc');
     
     if(isset($this->limit)) {
       $languageVersions = $languageVersions->limit($this->limit);

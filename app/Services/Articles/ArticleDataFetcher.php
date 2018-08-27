@@ -25,7 +25,7 @@ class ArticleDataFetcher implements IArticleDataFetcher {
 
     $articleData = array();
     if($this->chosen("id"         )) { $articleData["id"]          = $articleLanguageVersion->article->id;           }
-    if($this->chosen("timestamp"  )) { $articleData["timestamp"]   = $articleLanguageVersion->article->timestamp;    }
+    if($this->chosen("created"  )) { $articleData["created"]   = $articleLanguageVersion->article->created;    }
     if($this->chosen("publishTime")) { $articleData["publishTime"] = $this->getPublishTime($articleLanguageVersion); }
     if($this->chosen("published"  )) { $articleData["published"]   = $articleLanguageVersion->published;             }
     if($this->chosen("summary"    )) { $articleData["summary"]     = $articleLanguageVersion->summary;               }
@@ -68,7 +68,7 @@ class ArticleDataFetcher implements IArticleDataFetcher {
   }
   
   private function getPublishTime(IArticleLanguageVersion $articleLanguageVersion) {
-    return date("j.n.Y", strtotime($articleLanguageVersion->article->timestamp));
+    return date("j.n.Y", strtotime($articleLanguageVersion->article->created));
   }
   
   private function chosen($attribute) {

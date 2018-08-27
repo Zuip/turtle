@@ -30,7 +30,7 @@ class ArticleController extends Controller {
       "text" => $translatedArticle->text,
       "city" => $city,
       "trip" => $trip,
-      "publishTime" => $article->timestamp
+      "created" => $article->created
     ]);
   }
 

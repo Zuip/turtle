@@ -117,6 +117,7 @@ class Profile extends React.Component {
 
 export default connect(
   state => ({
+    translations: state.translations,
     user: state.user
   })
 )(Profile);

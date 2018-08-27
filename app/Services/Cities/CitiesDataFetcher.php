@@ -38,6 +38,10 @@ class CitiesDataFetcher {
 
   public function getWithIdsAndLanguage($cityIds, $language) {
     
+    if(count($cityIds) === 0) {
+      return [];
+    }
+
     $citiesFetcher = new Cities();
     $citiesByCountries = $citiesFetcher->getWithIdsAndLanguage(
       $cityIds,

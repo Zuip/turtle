@@ -19,7 +19,7 @@ Route::get('/trips/{tripUrlName}/{countryUrlName}/{cityUrlName}/{cityVisitIndex}
 Route::get('/trips/{tripUrlName}/{countryUrlName}/{cityUrlName}/{cityVisitIndex}/article/translations', 'Articles\\ArticleTranslationsController@get');
 Route::get('/user', 'SessionController@getCurrentUser');
 Route::get('/users', 'UsersController@get');
-Route::get('/users/{userId}/articles', 'UserArticlesController@get');
+Route::get('/users/{userId}/articles', 'Articles\\UserArticlesController@get');
 Route::get('/users/{userId}/trips', 'Trips\\TripsController@get');
 
 Route::post('/login', 'SessionController@login');

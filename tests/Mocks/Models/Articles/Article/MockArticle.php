@@ -7,12 +7,12 @@ use App\Models\Categories\ICategory;
 class MockArticle implements IArticle {
   
   public $id;
-  public $timestamp;
+  public $created;
   public $category;
   private $languageVersions;
   
   public function __construct() {
-    $this->timestamp = '2016-08-15';
+    $this->created = '2016-08-15';
     $this->languageVersions = [];
   }
   

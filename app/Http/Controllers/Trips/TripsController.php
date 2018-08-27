@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Trips;
 
 use App\Http\Controllers\Controller;
 use App\Services\Trips\TripsFetcher;

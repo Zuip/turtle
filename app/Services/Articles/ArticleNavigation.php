@@ -17,10 +17,10 @@ class ArticleNavigation implements IArticleNavigation {
   // that was created before current article
   public function getPreviousArticle() {
     return ArticleLanguageVersion::join('article', 'translated_article.article_id', '=', 'article.id')
-    ->where('article.timestamp', '<', $this->article->timestamp)
+    ->where('article.created', '<', $this->article->created)
     ->where('translated_article.language', $this->articleLanguageVersion->language)
     ->where('translated_article.published', true)
-    ->orderBy('article.timestamp', 'DESC')
+    ->orderBy('article.created', 'DESC')
     ->first();
   }
   
@@ -32,10 +32,10 @@ class ArticleNavigation implements IArticleNavigation {
   // that was created after current article
   public function getNextArticle() {
     return ArticleLanguageVersion::join('article', 'translated_article.article_id', '=', 'article.id')
-    ->where('article.timestamp', '>', $this->article->timestamp)
+    ->where('article.created', '>', $this->article->created)
     ->where('translated_article.language', $this->articleLanguageVersion->language)
     ->where('translated_article.published', true)
-    ->orderBy('article.timestamp')
+    ->orderBy('article.created')
     ->first();
   }
   
