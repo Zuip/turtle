@@ -40,9 +40,9 @@ class LanguageVersionsFetcher {
   
   public function getWithLanguage($language) {
     
-    $languageVersions = ArticleLanguageVersion::where('published', 1)
-    ->where('language', $language)
-    ->join('article', 'article.id', '=', 'translated_article.article_id');
+    $languageVersions = ArticleLanguageVersion::where('language', $language)
+    ->join('article', 'article.id', '=', 'translated_article.article_id')
+    ->whereNotNull('translated_article.published');
 
     $cityIds = $this->cityIds;
     if($cityIds !== []) {
@@ -67,7 +67,7 @@ class LanguageVersionsFetcher {
       });
     }
 
-    $languageVersions = $languageVersions->orderBy('article.created', 'desc');
+    $languageVersions = $languageVersions->orderBy('translated_article.published', 'desc');
     
     if(isset($this->limit)) {
       $languageVersions = $languageVersions->limit($this->limit);

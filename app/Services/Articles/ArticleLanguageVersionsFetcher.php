@@ -49,9 +49,14 @@ class ArticleLanguageVersionsFetcher implements IArticleLanguageVersionsFetcher 
       );
     }
 
-    return ArticleLanguageVersion::where('published', 1)
-    ->join('article', 'translated_article.article_id', '=', 'article.id')
-    ->where('language', $language)
+    return ArticleLanguageVersion::join(
+      'article',
+      'translated_article.article_id',
+      '=',
+      'article.id'
+    )
+    ->where('translated_article.language', $language)
+    ->whereNotNull('translated_article.published')
     ->whereHas('article.visit', function($query) use ($tripUrlName, $city, $language) {
       
       $a = $query->whereHas('trip', function($query) use ($tripUrlName, $language) {
@@ -65,7 +70,7 @@ class ArticleLanguageVersionsFetcher implements IArticleLanguageVersionsFetcher 
         $a->where('city_id', $city["id"]);
       }
     })
-    ->orderBy('article.created')
+    ->orderBy('translated_article.published')
     ->get();
   }
 }
