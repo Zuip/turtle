@@ -10,7 +10,7 @@ class ArticlePageChanger extends React.Component {
 
   getPreviousArticleLink() {
     return '/' + this.props.translations.routes.trips
-         + '/' + this.props.previousArticle.trip.urlName
+         + '/' + this.props.previousArticle.visit.trip.urlName
          + '/' + this.props.previousArticle.city.country.urlName
          + '/' + this.props.previousArticle.city.urlName
          + '/' + this.props.previousArticle.city.visit.index
@@ -19,7 +19,7 @@ class ArticlePageChanger extends React.Component {
 
   getNextArticleLink() {
     return '/' + this.props.translations.routes.trips
-         + '/' + this.props.nextArticle.trip.urlName
+         + '/' + this.props.nextArticle.visit.trip.urlName
          + '/' + this.props.nextArticle.city.country.urlName
          + '/' + this.props.nextArticle.city.urlName
          + '/' + this.props.nextArticle.city.visit.index

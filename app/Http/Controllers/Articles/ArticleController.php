@@ -6,7 +6,7 @@ use App\Services\Articles\ArticleFetcher;
 use App\Services\Articles\ArticleLanguageVersionFetcher;
 use App\Services\Articles\ArticleLanguageVersionsFetcher;
 use App\Services\Cities\CityDataFetcher;
-use App\Services\Trips\TripDataFetcher;
+use App\Services\Trips\VisitDataFetcher;
 use Illuminate\Http\Request;
 use Response;
 
@@ -22,14 +22,14 @@ class ArticleController extends Controller {
     $article = $articleFetcher->getWithId($translatedArticle["article_id"]);
 
     $city = $this->getCity($translatedArticle);
-    $trip = $this->getTrip($translatedArticle);
+    $visit = $this->getVisit($translatedArticle);
 
     return Response::json([
       "language" => $translatedArticle->language,
       "summary" => $translatedArticle->summary,
       "text" => $translatedArticle->text,
       "city" => $city,
-      "trip" => $trip,
+      "visit" => $visit,
       "created" => $article->created
     ]);
   }
@@ -60,14 +60,14 @@ class ArticleController extends Controller {
       $translatedArticles
     );
 
-    $trip = $this->getTrip($previousArticle);
+    $visit = $this->getVisit($previousArticle);
     $city = $this->getCity($previousArticle);
     $city["visit"] = [];
     $city["visit"]["index"] = $previousArticleCityVisitIndex;
 
     return [
       "city" => $city,
-      "trip" => $trip
+      "visit" => $visit
     ];
   }
 
@@ -97,14 +97,14 @@ class ArticleController extends Controller {
       $translatedArticles
     );
 
-    $trip = $this->getTrip($nextArticle);
+    $visit = $this->getVisit($nextArticle);
     $city = $this->getCity($nextArticle);
     $city["visit"] = [];
     $city["visit"]["index"] = $nextArticleCityVisitIndex;
 
     return [
       "city" => $city,
-      "trip" => $trip
+      "visit" => $visit
     ];
   }
 
@@ -126,9 +126,9 @@ class ArticleController extends Controller {
     );
   }
 
-  private function getTrip($article) {
-    $tripDataFetcher = new TripDataFetcher();
-    return $tripDataFetcher->getwithArticleLanguageVersion(
+  private function getVisit($article) {
+    $visitDataFetcher = new VisitDataFetcher();
+    return $visitDataFetcher->getwithArticleLanguageVersion(
       $article
     );
   }

@@ -29,7 +29,7 @@ class FormattedArticlesArrayDataFetcher {
       
       $articleDataFetcher = new ArticleDataFetcher();
       $articleDataFetcher->limitToAttributes([
-        "id", "publishTime", "summary", "city", "trip"
+        "id", "publishTime", "summary", "city", "visit"
       ]);
       
       $arrayFormArticles[] = $articleDataFetcher->getArticleData(

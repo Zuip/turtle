@@ -8,7 +8,7 @@ class ArticleTripCityVisitIndexFetcher {
 
     $articleLanguageVersionsFetcher = new ArticleLanguageVersionsFetcher();
 
-    $articleLanguageVersionsFetcher->setTripUrlName($article["trip"]["urlName"]);
+    $articleLanguageVersionsFetcher->setTripUrlName($article["visit"]["trip"]["urlName"]);
     $articleLanguageVersionsFetcher->setCountryUrlName($article["city"]["country"]["urlName"]);
     $articleLanguageVersionsFetcher->setCityUrlName($article["city"]["urlName"]);
     $articleLanguageVersionsFetcher->setLanguage($language);

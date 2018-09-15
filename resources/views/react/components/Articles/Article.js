@@ -5,6 +5,7 @@ import ArticleLayout from '../Layout/Grids/ArticleLayout';
 import ArticlePath from './ArticlePath';
 import ArticlePageChanger from './ArticlePageChanger';
 import BaseLayout from '../Layout/Grids/BaseLayout';
+import formatVisitDates from '../../services/trips/visits/formatVisitDates';
 import getArticle from '../../apiCalls/getArticle';
 import getNextArticle from '../../apiCalls/getNextArticle';
 import getPreviousArticle from '../../apiCalls/getPreviousArticle';
@@ -71,6 +72,13 @@ class Article extends React.Component {
         this.loadArticleParts()
       });
     }
+  }
+
+  getVisitDates() {
+    return formatVisitDates(
+      this.state.article.visit.start,
+      this.state.article.visit.end
+    );
   }
 
   loadArticleParts() {
@@ -156,8 +164,8 @@ class Article extends React.Component {
       <BaseLayout>
         <ArticleLayout>
           <div className="article">
-            <h3>{this.state.article.city.name}, {this.state.article.city.country.name}</h3>
-            <h5>{this.state.article.publishTime}, <ArticlePath article={this.state.article} /></h5>
+            <h3>{this.state.article.city.name}, {this.state.article.city.country.name}, {this.getVisitDates()}</h3>
+            <ArticlePath article={this.state.article} />
             <div className="summary" dangerouslySetInnerHTML={{__html: this.state.article.summary}}></div>
             <div dangerouslySetInnerHTML={{__html: this.state.article.text}}></div>
             <ArticlePageChanger previousArticle={this.state.previousArticle} nextArticle={this.state.nextArticle} />

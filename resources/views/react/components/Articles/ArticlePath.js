@@ -10,7 +10,7 @@ class ArticlePath extends React.Component {
 
   getTripPath() {
     return '/' + this.props.translations.routes.trips
-         + '/' + this.props.article.trip.urlName;
+         + '/' + this.props.article.visit.trip.urlName;
   }
 
   getCountryPath() {
@@ -28,20 +28,19 @@ class ArticlePath extends React.Component {
   render() {
 
     return (
-      <span className="article-path">
-          /&nbsp;
-          <Link to={this.getTripPath()}>
-            {this.props.article.trip.name}
-          </Link>
-          &nbsp;/&nbsp;
-          <Link to={this.getCountryPath()}>
-            {this.props.article.city.country.name}
-          </Link>
-          &nbsp;/&nbsp;
-          <Link to={this.getCityPath()}>
-            {this.props.article.city.name}
-          </Link>
-      </span>
+      <h5 className="article-path">
+        <Link to={this.getTripPath()}>
+          {this.props.article.visit.trip.name}
+        </Link>
+        &nbsp;/&nbsp;
+        <Link to={this.getCountryPath()}>
+          {this.props.article.city.country.name}
+        </Link>
+        &nbsp;/&nbsp;
+        <Link to={this.getCityPath()}>
+          {this.props.article.city.name}
+        </Link>
+      </h5>
     );
   }
 }
