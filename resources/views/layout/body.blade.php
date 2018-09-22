@@ -52,9 +52,18 @@
         break;
       }
     }
+
+    if(session("language") !== null) {
+      $browserLanguage = session("language");
+    }
   ?>
 
   <body>
+
+    <!-- Handling csrf -->
+    <script> 
+      var csrf_token = '<?php echo csrf_token(); ?>'; 
+    </script>
     
     <div id="app"></div>
 
@@ -66,11 +75,6 @@
 
     <!-- Own JavaScripts -->
     <script src="/scripts/app.js"></script>
-    
-    <!-- Handling csrf -->
-    <script> 
-      var csrf_token = '<?php echo csrf_token(); ?>'; 
-    </script>
     
   </body>
 </html>
