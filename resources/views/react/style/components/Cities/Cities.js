@@ -11,7 +11,7 @@ export default {
       backgroundColor: ThemeSettings.themeHoverColor,
       color: '#FFFFFF',
       height: '100%',
-      padding: '0 15px',
+      padding: '1rem',
       width: '100%'
     };
   },
@@ -30,7 +30,7 @@ export default {
   search: {
     h4: {
       margin: '0',
-      padding: '1rem 0'
+      padding: '0 0 1rem 0'
     }
   }
 };

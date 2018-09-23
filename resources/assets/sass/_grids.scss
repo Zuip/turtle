@@ -86,7 +86,7 @@
 
   display: grid;
   grid-template-columns: [page-start] 1fr [page-end];
-  grid-template-rows: [first-row-start] auto [first-row-end] 0fr [second-row-start] auto [second-row-end];
+  grid-template-rows: [first-row-start] fit-content(100%) [first-row-end] 0fr [second-row-start] auto [second-row-end];
 
   .grid-first-column, .grid-second-column {
     grid-column-start: page-start;
@@ -101,6 +101,7 @@
   .grid-second-column {
     grid-row-start: second-row-start;
     grid-row-end: second-row-end;
+    padding: 0 1.2rem;
   }
 
   @media only screen and (min-width: $max-mobile-mode-width)   {
@@ -121,7 +122,6 @@
     .grid-second-column {
       grid-column-start: second-column-start;
       grid-column-end: second-column-end;
-      padding: 0 1.2rem;
     }
   }
 }
