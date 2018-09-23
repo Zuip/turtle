@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import ArticleStyle from '../../style/components/Articles/Article';
+
 class ArticlePath extends React.Component {
 
   constructor(props) {
@@ -25,10 +27,15 @@ class ArticlePath extends React.Component {
          + '/' + this.props.article.city.urlName;
   }
 
+  getPublishTime() {
+    return this.props.article.publishTime + ', ';
+  }
+
   render() {
 
     return (
-      <h5 className="article-path">
+      <h6 style={ArticleStyle.path.h6}>
+        {this.getPublishTime()}
         <Link to={this.getTripPath()}>
           {this.props.article.visit.trip.name}
         </Link>
@@ -40,7 +47,7 @@ class ArticlePath extends React.Component {
         <Link to={this.getCityPath()}>
           {this.props.article.city.name}
         </Link>
-      </h5>
+      </h6>
     );
   }
 }

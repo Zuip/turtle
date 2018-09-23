@@ -8,72 +8,27 @@
     color: $theme-hover-color;
   }
 
-  h2 {
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
-
-  h5 {
+  h6 {
     color: $theme-dark-grey;
-    font-size: 14px;
-    margin-bottom: 15px;
   }
 
   img {
     max-width: 100%;
-    margin: 0 auto;
+    margin: 1.2rem auto 0 auto;
     display: block;
-    max-height: 650px;
-  }
-
-  .summary img {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    max-height: 38rem;
   }
 
   .summary p {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
   }
 
   p.caption {
     font-size: 0.9rem;
     color: $theme-dark-grey;
+    margin-top: 0;
     text-align: center;
-  }
-
-  .article-path {
-    margin-left: 5px;
-  }
-
-  .previous-article-button {
-
-    margin-left: 15px;
-
-    @media only screen and (min-width: $max-mobile-mode-width)   {
-      margin-left: 0;
-    }
-
-    i {
-      position: relative;
-      top: 1px;
-      margin-right: 5px;
-    }
-  }
-
-  .next-article-button {
-
-    float: right;
-    margin-right: 15px;
-
-    @media only screen and (min-width: $max-mobile-mode-width)   {
-      margin-right: 0;
-    }
-
-    i {
-      position: relative;
-      top: 1px;
-      margin-left: 5px;
-    }
   }
 }
 
@@ -81,21 +36,7 @@
 
   border-top: 1px solid $theme-grey;
   cursor: pointer;
-  padding: 30px 0;
-  
-  @media only screen and (min-width: $max-mobile-mode-width)   {
-    padding: 30px 10px;
-  }
-
-  img {
-
-    margin-top: 15px;
-    margin-bottom: 15px;
-
-    @media only screen and (min-width: $max-mobile-mode-width)   {
-      max-width: 90%;
-    }
-  }
+  padding: 0 0 1rem 0;
 
   .continue-reading {
 
@@ -112,6 +53,11 @@
   p.continue-reading:hover {
     color: $theme-hover-color;
   }
+}
+
+.article .summary img, .article-summary img {
+  margin-top: 1.3rem;
+  margin-bottom: 1.5rem;
 }
 
 .article-summary:hover {

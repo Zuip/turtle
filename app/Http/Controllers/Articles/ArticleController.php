@@ -26,11 +26,11 @@ class ArticleController extends Controller {
 
     return Response::json([
       "language" => $translatedArticle->language,
+      "publishTime" => date("j.n.Y", strtotime($translatedArticle->article->created)),
       "summary" => $translatedArticle->summary,
       "text" => $translatedArticle->text,
       "city" => $city,
-      "visit" => $visit,
-      "created" => $article->created
+      "visit" => $visit
     ]);
   }
 

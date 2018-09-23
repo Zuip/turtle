@@ -31,17 +31,16 @@
   },
   "babel": {
     "plugins": [
-      "transform-react-jsx"
+      "transform-react-jsx",
+      "transform-object-rest-spread"
     ],
-    "ignore": [
-      "foo.js",
-      "bar/**/*.js"
-    ]
+    "ignore": []
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "bootstrap": "^4.0.0-beta",

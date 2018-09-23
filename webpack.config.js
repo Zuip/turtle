@@ -11,23 +11,18 @@ module.exports = {
   module: {
     rules: [
       {
-		test: /\.js$/,
-		loader: 'babel-loader',
-		exclude: /node_modules/
-	  },
-      {
-		test: /\.jsx$/,
-		loader: 'babel-loader',
-		exclude: /node_modules/
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
       }
     ]
   },
   plugins: [
     new webpack.ProvidePlugin({
-	  $: 'jquery',
-	  jQuery: 'jquery',
-	  'window.jQuery': 'jquery',
-	  Popper: ['popper.js', 'default']
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default']
     })
   ]
 }

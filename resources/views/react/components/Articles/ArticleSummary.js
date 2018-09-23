@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import store from '../../store/store';
 
-import formatVisitDates from '../../services/trips/visits/formatVisitDates';
+import ArticleSummaryStyle from '../../style/components/Articles/ArticleSummary';
+import getArticleTitle from '../../services/articles/getArticleTitle';
 
 class ArticleSummary extends React.Component {
 
@@ -20,19 +21,16 @@ class ArticleSummary extends React.Component {
          + '/' + this.props.translations.routes.article
   }
 
-  getVisitDates() {
-    return formatVisitDates(
-      this.props.article.visit.start,
-      this.props.article.visit.end
-    );
-  }
-
   render() {
     return (
       <Link to={this.getArticleLink()}>
         <div className="article article-summary">
-          <h3>{this.props.article.city.name}, {this.props.article.city.country.name}, {this.getVisitDates()}</h3>
-          <h5>{this.props.article.publishTime}</h5>
+          <h3 style={ArticleSummaryStyle.h3}>
+            {getArticleTitle(this.props.article)}
+          </h3>
+          <h6 style={ArticleSummaryStyle.h6}>
+            {this.props.article.publishTime}
+          </h6>
           <div dangerouslySetInnerHTML={{__html: this.props.article.summary}}></div>
           <p className="continue-reading">
             {store.getState().translations.article.continueReading}

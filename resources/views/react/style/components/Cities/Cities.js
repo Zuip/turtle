@@ -1,4 +1,4 @@
-import ThemeSettings from '../ThemeSettings';
+import ThemeSettings from '../../ThemeSettings';
 
 export default {
   getContentColumnStyle() {
@@ -21,8 +21,16 @@ export default {
       border: '1px solid ' + ThemeSettings.themeGrey,
       display: 'block',
       margin: '10px 0',
-      minHeight: '100px',
-      padding: '15px'
+      padding: '1.2rem'
+    }
+  },
+  h4: {
+    margin: '1rem 0'
+  },
+  search: {
+    h4: {
+      margin: '0',
+      padding: '1rem 0'
     }
   }
 };

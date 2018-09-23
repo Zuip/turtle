@@ -7,7 +7,7 @@ import FirstColumn from '../Layout/Grids/FirstColumn';
 import SecondColumn from '../Layout/Grids/SecondColumn';
 
 import CitiesList from './src/CitiesList';
-import CitiesStyle from '../../style/components/Cities';
+import CitiesStyle from '../../style/components/Cities/Cities';
 import CitySearch from './src/CitySearch';
 
 class Cities extends React.Component {

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import CountryDropdown from './citySearchFields/Country';
 
+import CityStyle from '../../../style/components/Cities/Cities';
+
 class CitySearch extends React.Component {
 
   constructor(props) {
@@ -28,7 +30,9 @@ class CitySearch extends React.Component {
   render() {
     return (
       <div>
-        <h4>{this.props.translations.cities.citySearch}</h4>
+        <h4 style={CityStyle.search.h4}>
+          {this.props.translations.cities.citySearch}
+        </h4>
         <CountryDropdown onChange={this.countryDropdownChanged.bind(this)} />
       </div>
     );

@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import ArticleStyle from '../../style/components/Articles/Article';
+
 class ArticlePageChanger extends React.Component {
 
   constructor(props) {
@@ -33,11 +35,18 @@ class ArticlePageChanger extends React.Component {
     }
 
     return (
-      <Link to={this.getPreviousArticleLink()}
-            className="btn btn-primary previous-article-button">
+      <Link
+        to={this.getPreviousArticleLink()}
+        className="btn btn-primary"
+        style={ArticleStyle.pageChanger.previous}
+      >
 
-        <i className="fa fa-chevron-left" aria-hidden="true"></i>
+        <i className="fa fa-chevron-left"
+           aria-hidden="true"
+           style={ArticleStyle.pageChanger.iLeft}/>
+
         {this.props.translations.article.previous}
+
       </Link>
     );
   }
@@ -49,18 +58,25 @@ class ArticlePageChanger extends React.Component {
     }
 
     return (
-      <Link to={this.getNextArticleLink()}
-            className="btn btn-primary next-article-button">
+      <Link
+        to={this.getNextArticleLink()}
+        className="btn btn-primary"
+        style={ArticleStyle.pageChanger.next}
+      >
 
         {this.props.translations.article.next}
-        <i className="fa fa-chevron-right" aria-hidden="true"></i>
+
+        <i className="fa fa-chevron-right"
+           aria-hidden="true"
+           style={ArticleStyle.pageChanger.iRight}/>
+
       </Link>
     );
   }
 
   render() {
     return (
-      <div>
+      <div style={ArticleStyle.pageChanger}>
         {this.previousArticleButton()}
         {this.nextArticleButton()}
       </div>
