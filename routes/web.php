@@ -11,6 +11,10 @@
 |
 */
 
+Route::any('/sitemap', function () {
+  return view('layout/sitemap');
+});
+
 Route::any('/{any}', function () {
     return view('layout/body');
 })->where('any', '.*');
