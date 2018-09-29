@@ -12,7 +12,13 @@ export default function(startDateString, endDateString) {
   }
 
   if(startParts[0] === endParts[0]) {
+
+    if(startParts[1] === endParts[1]) {
+      startParts.shift();
+    }
+
     startParts.shift();
+
     startParts[0] += '.';
   }
 
