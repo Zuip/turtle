@@ -7,5 +7,5 @@ export default function(title) {
     return;
   }
 
-  document.title = base + ' - ' + title;
+  document.title = title + ' - ' + base;
 };

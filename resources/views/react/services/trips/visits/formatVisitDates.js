@@ -23,6 +23,6 @@ export default function(startDateString, endDateString) {
   }
 
   return formatDateParts(startParts)
-       + ' - '
+       + '-'
        + formatDateParts(endParts);
 };
