@@ -18,46 +18,6 @@
     <link href="/assets/css/app.css" rel="stylesheet">
   </head>
 
-  <?php
-
-    $browserLanguage = 'en';
-    $supportedLanguages = [
-      'en' => ['en', 'en-US', 'en-GB'],
-      'fi' => ['fi', 'fi-FI']
-    ];
-    $languages = explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']);
-    $languageFound = false;
-
-    foreach($languages as $languageWithQ) {
-
-      $languageAndQ = explode(';', $languageWithQ);
-      $language = $languageAndQ[0];
-      
-      foreach($supportedLanguages as $languageCode => $browserLanguageCodes) {
-
-        foreach($browserLanguageCodes as $browserLocaleCode) {
-          if(strtolower($browserLocaleCode) === strtolower($language)) {
-            $browserLanguage = $languageCode;
-            $languageFound = true;
-            break;
-          }
-        }
-
-        if($languageFound) {
-          break;
-        }
-      }
-
-      if($languageFound) {
-        break;
-      }
-    }
-
-    if(session("language") !== null) {
-      $browserLanguage = session("language");
-    }
-  ?>
-
   <body>
 
     <!-- Handling csrf -->
