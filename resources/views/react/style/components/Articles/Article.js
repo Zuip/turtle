@@ -21,6 +21,7 @@ let pageChanger = {
     marginRight: '1.2rem'
   },
   previous: {
+    float: 'left',
     marginLeft: '1.2rem'
   }
 };

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import ArticleStyle from '../../style/components/Articles/Article';
+import Clearfix from '../Layout/Clearfix';
 
 class ArticlePageChanger extends React.Component {
 
@@ -79,6 +80,7 @@ class ArticlePageChanger extends React.Component {
       <div style={ArticleStyle.pageChanger}>
         {this.previousArticleButton()}
         {this.nextArticleButton()}
+        <Clearfix />
       </div>
     );
   }
