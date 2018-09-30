@@ -44,7 +44,7 @@ class Routes extends React.Component {
 
           <Route exact component={FI_About} path="/tietoa" />
           <Route exact component={FI_Article} path="/matkat/:tripURLName/:countryUrlName/:cityUrlName/:cityVisitIndex/artikkeli" />
-          <Route exact component={EN_ArticleNotFound} path="/artikkeli/404" />
+          <Route exact component={FI_ArticleNotFound} path="/artikkeli/404" />
           <Route exact component={FI_Cities} path="/kaupungit" />
           <Route exact component={FI_City} path="/maat/:countryUrlName/kaupungit/:cityUrlName" />
           <Route exact component={FI_Country} path="/maat/:countryUrlName" />

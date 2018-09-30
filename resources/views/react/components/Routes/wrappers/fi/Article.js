@@ -2,12 +2,17 @@ import React from 'react';
 
 import Article from '../../../Articles/Article';
 import setLanguage from '../../../../services/setLanguage';
+import setTitle from '../../../../services/setTitle';
 
 class ArticleRouteWrapper extends React.Component {
 
   constructor(props) {
     super(props);
     setLanguage('fi');
+  }
+
+  componentDidMount() {
+    setTitle();
   }
 
   render() {

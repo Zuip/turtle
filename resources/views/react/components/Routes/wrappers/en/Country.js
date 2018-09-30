@@ -2,6 +2,7 @@ import React from 'react';
 
 import Country from '../../../Cities/Countries/Country';
 import setLanguage from '../../../../services/setLanguage';
+import setTitle from '../../../../services/setTitle';
 
 class CountryRouteWrapper extends React.Component {
 
@@ -10,6 +11,10 @@ class CountryRouteWrapper extends React.Component {
     setLanguage('en');
   }
 
+  componentDidMount() {
+    setTitle();
+  }
+  
   render() {
     return (
       <Country match={this.props.match} history={this.props.history} />

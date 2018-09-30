@@ -2,9 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ArticleLayout from '../Layout/Grids/ArticleLayout';
+import setTitle from '../../services/setTitle';
  
 class About extends React.Component {
   
+  componentDidMount() {
+    setTitle(this.props.translations.about.topic);
+  }
+
   componentDidUpdate(previousProps) {
     if(previousProps.translations.language !== this.props.translations.language) {
       this.props.history.push(

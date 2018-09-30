@@ -6,6 +6,7 @@ import Articles from '../Articles/Articles';
 import BaseLayout from '../Layout/Grids/BaseLayout';
 import getArticles from '../../apiCalls/getArticles';
 import pageSpinner from '../../services/pageSpinner';
+import setTitle from '../../services/setTitle';
 
 class FrontPage extends React.Component {
 
@@ -44,6 +45,7 @@ class FrontPage extends React.Component {
   }
 
   componentDidMount() {
+    setTitle();
     this.loadNextArticles();
   }
 

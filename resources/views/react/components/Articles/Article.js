@@ -11,6 +11,7 @@ import getNextArticle from '../../apiCalls/getNextArticle';
 import getPreviousArticle from '../../apiCalls/getPreviousArticle';
 import getArticleTranslations from '../../apiCalls/articles/getArticleTranslations';
 import pageSpinner from '../../services/pageSpinner';
+import setTitle from '../../services/setTitle';
 
 class Article extends React.Component {
 
@@ -89,6 +90,10 @@ class Article extends React.Component {
         previousArticle: data[1],
         nextArticle: data[2]
       });
+
+      setTitle(
+        getArticleTitle(this.state.article)
+      );
 
       pageSpinner.finish('Article');
 

@@ -3,12 +3,17 @@ import React from 'react';
 import TranslationNotFound from '../../../Trips/TranslationNotFound';
 import Trip from '../../../Trips/Trip';
 import setLanguage from '../../../../services/setLanguage';
+import setTitle from '../../../../services/setTitle';
 
 class TripRouteWrapper extends React.Component {
 
   constructor(props) {
     super(props);
     setLanguage('en');
+  }
+
+  componentDidMount() {
+    setTitle();
   }
 
   render() {

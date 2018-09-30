@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 
 import ArticleLayout from './Layout/Grids/ArticleLayout';
 import BaseLayout from './Layout/Grids/BaseLayout';
+import setTitle from '../services/setTitle';
 
 class NotFoundPage extends React.Component {
+
+  componentDidMount() {
+    setTitle();
+  }
 
   render() {
     return (
