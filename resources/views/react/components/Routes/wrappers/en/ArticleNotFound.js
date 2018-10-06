@@ -6,6 +6,11 @@ import RouteWrapperParent from './RouteWrapperParent';
 
 class ArticleNotFoundRouteWrapper extends RouteWrapperParent {
   render() {
+
+    if(!this.state.loaded) {
+      return null;
+    }
+
     return (
       <TranslationNotFound match={this.props.match} history={this.props.history} />
     );

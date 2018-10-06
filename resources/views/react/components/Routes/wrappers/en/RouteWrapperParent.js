@@ -7,8 +7,16 @@ import setTitle from '../../../../services/setTitle';
 class RouteWrapperParent extends React.Component {
 
   constructor(props) {
+
     super(props);
-    setLanguage('en');
+
+    this.state = {
+      loaded: false
+    }
+
+    setLanguage('en').then(() => {
+      this.setState({ loaded: true });
+    });
   }
 
   componentDidMount() {

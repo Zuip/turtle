@@ -8,7 +8,14 @@ class RouteWrapperParent extends React.Component {
 
   constructor(props) {
     super(props);
-    setLanguage('fi');
+
+    this.state = {
+      loaded: false
+    }
+
+    setLanguage('fi').then(() => {
+      this.setState({ loaded: true });
+    });
   }
 
   componentDidMount() {

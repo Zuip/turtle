@@ -6,6 +6,11 @@ import RouteWrapperParent from './RouteWrapperParent';
 
 class CountryRouteWrapper extends RouteWrapperParent {
   render() {
+
+    if(!this.state.loaded) {
+      return null;
+    }
+
     return (
       <Country match={this.props.match} history={this.props.history} />
     );

@@ -6,6 +6,11 @@ import RouteWrapperParent from './RouteWrapperParent';
 
 class AboutRouteWrapper extends RouteWrapperParent {
   render() {
+
+    if(!this.state.loaded) {
+      return null;
+    }
+
     return (
       <About match={this.props.match} history={this.props.history} />
     );

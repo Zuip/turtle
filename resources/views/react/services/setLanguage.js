@@ -8,32 +8,38 @@ import fi from '../translations/fi/fi';
 
 import pageSpinner from './pageSpinner';
 
-export default function(language) {
+export default function(languageCode) {
 
-  let newLanguage = null;
+  return Promise.resolve().then(() => {
 
-  if(language === 'fi') {
-    newLanguage = fi;
-  }
+    let language = getNewLanguage(languageCode);
+    if(language === null) {
+      return;
+    }
 
-  if(language === 'en') {
-    newLanguage = en;
-  }
+    let state = store.getState();
 
-  if(newLanguage === null) {
-    return;
-  }
+    if(state.translations === language) {
+      return;
+    }
 
-  let state = store.getState();
-
-  if(state.translations === newLanguage) {
-    store.dispatch(setLanguage(newLanguage));
-    return;
-  }
-
-  pageSpinner.start('Language');
-  putUserLanguage(language).then(() => {
-    store.dispatch(setLanguage(newLanguage));
-    pageSpinner.finish('Language');
+    pageSpinner.start('Language');
+    return putUserLanguage(languageCode).then(() => {
+      store.dispatch(setLanguage(language));
+      pageSpinner.finish('Language');
+    });
   });
+}
+
+function getNewLanguage(languageCode) {
+
+  if(languageCode === 'fi') {
+    return fi;
+  }
+
+  if(languageCode === 'en') {
+    return en;
+  }
+
+  return null;
 }

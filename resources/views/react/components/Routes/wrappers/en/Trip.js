@@ -8,6 +8,10 @@ import RouteWrapperParent from './RouteWrapperParent';
 class TripRouteWrapper extends RouteWrapperParent {
   render() {
 
+    if(!this.state.loaded) {
+      return null;
+    }
+
     if(this.props.match.params.tripUrlName === '404') {
       return (
         <TranslationNotFound match={this.props.match} history={this.props.history} />
