@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import store from '../../store/store';
-
 class Slogan extends React.Component {
   render() {
     return (
       <div id="frontpage-slogan" className="info-box">
-        <h1>{this.props.translations.frontPage.slogan}</h1>
+        <h1>Turtle.travel: {this.props.translations.slogan}</h1>
       </div>
     );
   }

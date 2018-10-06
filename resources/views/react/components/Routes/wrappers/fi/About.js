@@ -1,20 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import About from '../../../About/About';
-import setLanguage from '../../../../services/setLanguage';
-import setTitle from '../../../../services/setTitle';
+import RouteWrapperParent from './RouteWrapperParent';
 
-class AboutRouteWrapper extends React.Component {
-
-  constructor(props) {
-    super(props);
-    setLanguage('fi');
-  }
-
-  componentDidMount() {
-    setTitle();
-  }
-
+class AboutRouteWrapper extends RouteWrapperParent {
   render() {
     return (
       <About match={this.props.match} history={this.props.history} />
@@ -22,4 +12,6 @@ class AboutRouteWrapper extends React.Component {
   }
 }
 
-export default AboutRouteWrapper;
+export default connect(
+  state => ({ translations: state.translations })
+)(AboutRouteWrapper);

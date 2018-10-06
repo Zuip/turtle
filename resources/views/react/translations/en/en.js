@@ -20,9 +20,6 @@ export default {
       country: 'Country'
     }
   },
-  frontPage: {
-    slogan: 'Turtle.travel: A tool for finding better travel destinations'
-  },
   header: {
     about: 'About',
     admin: 'Admin',
@@ -53,6 +50,7 @@ export default {
     trips: 'trips',
     users: 'users'
   },
+  slogan: 'Travel Stories & Ideas. Destination Comparisons.',
   trips: {
     translationNotFound: 'The trip doesn\'t have English translation'
   },

@@ -1,20 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Country from '../../../Cities/Countries/Country';
-import setLanguage from '../../../../services/setLanguage';
-import setTitle from '../../../../services/setTitle';
+import RouteWrapperParent from './RouteWrapperParent';
 
-class CountryRouteWrapper extends React.Component {
-
-  constructor(props) {
-    super(props);
-    setLanguage('en');
-  }
-
-  componentDidMount() {
-    setTitle();
-  }
-  
+class CountryRouteWrapper extends RouteWrapperParent {
   render() {
     return (
       <Country match={this.props.match} history={this.props.history} />
@@ -22,4 +12,6 @@ class CountryRouteWrapper extends React.Component {
   }
 }
 
-export default CountryRouteWrapper;
+export default connect(
+  state => ({ translations: state.translations })
+)(CountryRouteWrapper);

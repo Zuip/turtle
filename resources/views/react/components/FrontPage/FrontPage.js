@@ -6,6 +6,7 @@ import Articles from '../Articles/Articles';
 import BaseLayout from '../Layout/Grids/BaseLayout';
 import getArticles from '../../apiCalls/getArticles';
 import pageSpinner from '../../services/pageSpinner';
+import setDescription from '../../services/setDescription';
 import setTitle from '../../services/setTitle';
 
 class FrontPage extends React.Component {
@@ -45,7 +46,8 @@ class FrontPage extends React.Component {
   }
 
   componentDidMount() {
-    setTitle();
+    setTitle(this.props.translations.slogan, true);
+    setDescription('Turtle.travel: ' + this.props.translations.slogan);
     this.loadNextArticles();
   }
 

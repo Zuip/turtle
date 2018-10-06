@@ -1,20 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Article from '../../../Articles/Article';
-import setLanguage from '../../../../services/setLanguage';
-import setTitle from '../../../../services/setTitle';
+import RouteWrapperParent from './RouteWrapperParent';
 
-class ArticleRouteWrapper extends React.Component {
-
-  constructor(props) {
-    super(props);
-    setLanguage('fi');
-  }
-
-  componentDidMount() {
-    setTitle();
-  }
-
+class ArticleRouteWrapper extends RouteWrapperParent {
   render() {
     return (
       <Article match={this.props.match} history={this.props.history} />
@@ -22,4 +12,6 @@ class ArticleRouteWrapper extends React.Component {
   }
 }
 
-export default ArticleRouteWrapper;
+export default connect(
+  state => ({ translations: state.translations })
+)(ArticleRouteWrapper);

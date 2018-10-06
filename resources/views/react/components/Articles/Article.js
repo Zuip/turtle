@@ -6,12 +6,14 @@ import ArticlePath from './ArticlePath';
 import ArticlePageChanger from './ArticlePageChanger';
 import ArticleStyle from '../../style/components/Articles/Article';
 import getArticle from '../../apiCalls/getArticle';
+import getArticleSummaryText from '../../services/articles/getArticleSummaryText';
 import getArticleTitle from '../../services/articles/getArticleTitle';
+import getArticleTranslations from '../../apiCalls/articles/getArticleTranslations';
 import getNextArticle from '../../apiCalls/getNextArticle';
 import getPreviousArticle from '../../apiCalls/getPreviousArticle';
-import getArticleTranslations from '../../apiCalls/articles/getArticleTranslations';
 import pageSpinner from '../../services/pageSpinner';
 import setTitle from '../../services/setTitle';
+import setDescription from '../../services/setDescription';
 
 class Article extends React.Component {
 
@@ -91,9 +93,8 @@ class Article extends React.Component {
         nextArticle: data[2]
       });
 
-      setTitle(
-        getArticleTitle(this.state.article)
-      );
+      setTitle(getArticleTitle(this.state.article));
+      setDescription(getArticleSummaryText(this.state.article));
 
       pageSpinner.finish('Article');
 

@@ -1,20 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Login from '../../../Login/Login';
-import setLanguage from '../../../../services/setLanguage';
-import setTitle from '../../../../services/setTitle';
+import RouteWrapperParent from './RouteWrapperParent';
 
-class LoginRouteWrapper extends React.Component {
-
-  constructor(props) {
-    super(props);
-    setLanguage('en');
-  }
-
-  componentDidMount() {
-    setTitle();
-  }
-
+class LoginRouteWrapper extends RouteWrapperParent {
   render() {
     return (
       <Login match={this.props.match} history={this.props.history} />
@@ -22,4 +12,6 @@ class LoginRouteWrapper extends React.Component {
   }
 }
 
-export default LoginRouteWrapper;
+export default connect(
+  state => ({ translations: state.translations })
+)(LoginRouteWrapper);

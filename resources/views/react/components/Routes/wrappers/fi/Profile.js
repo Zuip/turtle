@@ -1,20 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Profile from '../../../Profile/Profile';
-import setLanguage from '../../../../services/setLanguage';
-import setTitle from '../../../../services/setTitle';
+import RouteWrapperParent from './RouteWrapperParent';
 
-class ProfileRouteWrapper extends React.Component {
-
-  constructor(props) {
-    super(props);
-    setLanguage('fi');
-  }
-
-  componentDidMount() {
-    setTitle();
-  }
-
+class ProfileRouteWrapper extends RouteWrapperParent {
   render() {
     return (
       <Profile match={this.props.match} history={this.props.history} />
@@ -22,4 +12,6 @@ class ProfileRouteWrapper extends React.Component {
   }
 }
 
-export default ProfileRouteWrapper;
+export default connect(
+  state => ({ translations: state.translations })
+)(ProfileRouteWrapper);

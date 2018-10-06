@@ -20,9 +20,6 @@ export default {
       country: 'Maa'
     }
   },
-  frontPage: {
-    slogan: 'Turtle.travel on työkalu parempien matkakohteiden löytämiseen'
-  },
   header: {
     about: 'Tietoa',
     admin: 'Asetukset',
@@ -53,6 +50,7 @@ export default {
     trips: 'matkat',
     users: 'kayttajat'
   },
+  slogan: 'Matkakertomuksia ja -ideoita. Kohdevertailuja.',
   trips: {
     translationNotFound: 'Matkalla ei ole suomenkielistä versiota'
   },
