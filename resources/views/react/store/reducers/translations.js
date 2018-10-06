@@ -10,6 +10,7 @@ if(CONFIG_BROWSER_LANGUAGE === 'fi') {
 export default function(state = defaultLanguage, action) {
 
   if(action.type === SET_LANGUAGE) {
+    document.documentElement.lang = action.language.language;
     return action.language;
   }
 
