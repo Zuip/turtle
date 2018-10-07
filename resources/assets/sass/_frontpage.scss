@@ -18,16 +18,27 @@
   color: $theme-text-color-on-theme-color;
   height: 500px;
   text-align: center;
-  text-shadow: -2px 0 $theme-hover-color, 0 2px $theme-hover-color, 2px 0 $theme-hover-color, 0 -2px $theme-hover-color;
+  text-shadow:
+    -1px -1px 0 $theme-hover-color,
+    1px -1px 0 $theme-hover-color,
+    -1px 1px 0 $theme-hover-color,
+    1px 1px 0 $theme-hover-color;
 
   @media screen and (min-width: 1071px) {
     background-size: 100% auto;
   }
 
   h1 {
+    font-size: 2em;
     margin: 0 20px;
     position: relative;
     top: 50%;
     transform: translate(0, -50%);
+  }
+
+  @media only screen and (min-width: $max-mobile-mode-width)   {
+    h1 {
+      font-size: 2.5em;
+    }
   }
 }
