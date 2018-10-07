@@ -46,19 +46,6 @@ class UserArticles extends React.Component {
     this.loadNextArticles();
   }
 
-  /* componentDidUpdate(previousProps) {
-
-    if(previousProps.translations.language !== this.props.translations.language) {
-
-      this.setState({
-        articles: [],
-        allArticlesLoaded: false
-      }, () => {
-        this.loadNextArticles();
-      });
-    }
-  } */
-
   render() {
 
     if(this.state.articles.length === 0) {

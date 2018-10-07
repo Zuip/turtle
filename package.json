@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Zuip/zuifi#readme",
   "dependencies": {
+    "google-map-react": "^1.0.9",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-ga": "^2.5.3",

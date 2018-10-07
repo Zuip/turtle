@@ -28,6 +28,7 @@
     <script>
       var CONFIG_ENVIRONMENT = '<?php echo env('APP_ENV'); ?>';
       var CONFIG_GOOGLE_ANALYTICS_KEY = '<?php echo env('GOOGLE_ANALYTICS_KEY'); ?>';
+      var CONFIG_GOOGLE_MAPS_KEY = '<?php echo env('GOOGLE_MAPS_KEY'); ?>'
       var CONFIG_BROWSER_LANGUAGE = '<?php echo $browserLanguage; ?>';
     </script>
 

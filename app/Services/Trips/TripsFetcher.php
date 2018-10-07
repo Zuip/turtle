@@ -71,10 +71,12 @@ class TripsFetcher {
         "id" => $visit->article_id
       ],
       "city" => [
-        "name" => $city["name"],
         "country" => [
           "name" => $city["country"]["name"]
-        ]
+        ],
+        "latitude" => $city["latitude"],
+        "longitude" => $city["longitude"],
+        "name" => $city["name"]
       ]
     ];
   }

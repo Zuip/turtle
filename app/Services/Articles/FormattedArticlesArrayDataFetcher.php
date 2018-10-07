@@ -6,8 +6,6 @@ class FormattedArticlesArrayDataFetcher {
 
     $arrayArticles = $this->getArrayFormArticles($articles);
 
-    $articleLanguageVersionsFetcher = new ArticleLanguageVersionsFetcher();
-    
     foreach($arrayArticles as $articleKey => $article) {
       
       $articleTripCityVisitIndexFetcher = new ArticleTripCityVisitIndexFetcher();

@@ -7,23 +7,28 @@ import FirstColumn from '../Layout/Grids/FirstColumn';
 import SecondColumn from '../Layout/Grids/SecondColumn';
 
 import getUser from '../../apiCalls/getUser';
+import getUserTrips from '../../apiCalls/getUserTrips';
 import NotFoundPage from '../NotFoundPage';
 import pageSpinner from '../../services/pageSpinner';
 import TripsTable from './TripsTable';
 import ProfileStyle from '../../style/components/Profile';
 import UserArticles from './UserArticles';
+import VisitedCitiesMap from './VisitedCitiesMap';
 
 class Profile extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      trips: null,
       user: null
     }
   }
 
   componentDidMount() {
-    this.loadUser();
+    this.loadUser().then(
+      user => this.loadTrips(user)
+    );
   }
 
   componentDidUpdate(previousProps) {
@@ -48,6 +53,23 @@ class Profile extends React.Component {
     }
   }
 
+  loadTrips(user) {
+
+    pageSpinner.start('trips');
+
+    return getUserTrips(
+      user.id,
+      this.props.translations.language
+    ).then(
+      trips => trips.filter(trip => trip.visits.length)
+    ).then(trips => {
+      this.setState({ trips });
+      pageSpinner.finish('trips');
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
   loadUser() {
 
     let userName = this.props.match.params.user;
@@ -62,18 +84,19 @@ class Profile extends React.Component {
       userName = this.props.user.name;
     }
 
-    pageSpinner.start('article');
+    pageSpinner.start('Profile user');
 
-    getUser(
+    return getUser(
       userName
     ).then(user => {
       this.setState({ user });
-      pageSpinner.finish('article');
+      pageSpinner.finish('Profile user');
+      return user;
     }).catch(error => {
       
       if(error.status === 404) {
         this.setState({ user: null });
-        pageSpinner.finish('article');
+        pageSpinner.finish('Profile user');
         return;
       }
 
@@ -87,10 +110,15 @@ class Profile extends React.Component {
       return <NotFoundPage />;
     }
 
+    if(this.state.trips === null) {
+      return null;
+    }
+
     return (
       <BaseLayout>
         <TwoColumnLayout>
           <FirstColumn>
+
             <h2 style={ProfileStyle.h2}>
 
               <i className="fas fa-user-circle"
@@ -100,11 +128,22 @@ class Profile extends React.Component {
               {this.state.user.name}
               
             </h2>
+
           </FirstColumn>
         </TwoColumnLayout>
-        <TwoColumnLayout mobile={{ rightColumnIsOnTop: true }}>
+        <TwoColumnLayout>
           <FirstColumn>
-            <TripsTable user={this.state.user} />
+
+            <TripsTable
+              trips={this.state.trips}
+              user={this.state.user}
+            />
+
+            <VisitedCitiesMap
+              trips={this.state.trips}
+              user={this.state.user}
+            />
+
           </FirstColumn>
           <SecondColumn>
             <UserArticles user={this.state.user} />

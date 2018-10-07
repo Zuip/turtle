@@ -59,6 +59,8 @@ class CitiesDataFetcher {
       foreach($country["cities"] as $city) {
         $citiesData[$city["id"]] = [
           "id" => $city["id"],
+          "latitude" => $city["latitude"],
+          "longitude" => $city["longitude"],
           "name" => $city["name"],
           "urlName" => $city["urlName"],
           "country" => [
