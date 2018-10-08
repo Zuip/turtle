@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import CityStyle from '../../../../style/components/Cities/City';
 import getCityUsers from '../../../../apiCalls/cities/getCityUsers';
 import MultiHeaderTable from '../../../Layout/Tables/MultiHeader/MultiHeaderTable';
 import pageSpinner from '../../../../services/pageSpinner';
@@ -71,7 +72,9 @@ class CityUsers extends React.Component {
     }
 
     return (
-      <MultiHeaderTable content={this.getUsersTableData()} />
+      <div style={CityStyle.cityUsers}>
+        <MultiHeaderTable content={this.getUsersTableData()} />
+      </div>
     );
   }
 }
