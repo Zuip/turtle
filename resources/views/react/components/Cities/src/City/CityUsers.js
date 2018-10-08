@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import CityStyle from '../../../../style/components/Cities/City';
 import getCityUsers from '../../../../apiCalls/cities/getCityUsers';
+import getUserPath from '../../../../services/paths/getUserPath';
 import MultiHeaderTable from '../../../Layout/Tables/MultiHeader/MultiHeaderTable';
 import pageSpinner from '../../../../services/pageSpinner';
 
@@ -49,7 +50,7 @@ class CityUsers extends React.Component {
           rows: this.state.cityUsers.map(
             user => ({
               cells: [
-                <Link to={'/users/' + user.name}>
+                <Link to={getUserPath(user, this.props.translations)}>
                   {user.name}
                 </Link>,
                 null
