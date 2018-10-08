@@ -27,11 +27,11 @@ class VisitedCitiesMap extends React.Component {
 
           if(typeof latitude === 'undefined') {
             pointersMap.set(
-              parseInt(visit.city.latitude),
-              [parseInt(visit.city.longitude)]
+              parseFloat(visit.city.latitude),
+              [parseFloat(visit.city.longitude)]
             );
           } else if(!latitude.includes(visit.city.longitude)) {
-            latitude.push(parseInt(visit.city.longitude));
+            latitude.push(parseFloat(visit.city.longitude));
           }
         }
       })
@@ -64,6 +64,10 @@ class VisitedCitiesMap extends React.Component {
   render() {
 
     let cityPointers = this.getCityPointersData();
+
+    if(cityPointers.length === 0) {
+      return null;
+    }
 
     return (
       <div style={VisitedCitiesMapStyle}>

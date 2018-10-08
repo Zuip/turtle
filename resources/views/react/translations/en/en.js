@@ -18,7 +18,8 @@ export default {
     citySearch: 'City search',
     countries: {
       country: 'Country'
-    }
+    },
+    usersVisitedInCity: 'Users that have visited'
   },
   header: {
     about: 'About',

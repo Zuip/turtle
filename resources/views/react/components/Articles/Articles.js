@@ -29,7 +29,7 @@ class Articles extends React.Component {
     }
 
     return (
-      <div>
+      <div className="articles">
         {this.getArticleSummaries()}
         <LoadMoreArticlesButton allArticlesLoaded={this.props.allArticlesLoaded}
                                 loadNextArticles={this.props.loadNextArticles} />

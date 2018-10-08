@@ -139,14 +139,16 @@ class Profile extends React.Component {
               user={this.state.user}
             />
 
+          </FirstColumn>
+          <SecondColumn>
+
             <VisitedCitiesMap
               trips={this.state.trips}
               user={this.state.user}
             />
 
-          </FirstColumn>
-          <SecondColumn>
             <UserArticles user={this.state.user} />
+            
           </SecondColumn>
         </TwoColumnLayout>
       </BaseLayout>

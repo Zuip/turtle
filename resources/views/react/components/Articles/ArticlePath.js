@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 
 import ArticleStyle from '../../style/components/Articles/Article';
 
+import getCityPath from '../../services/paths/getCityPath';
+import getCountryPath from '../../services/paths/getCountryPath';
+import getTripPath from '../../services/paths/getTripPath';
+
 class ArticlePath extends React.Component {
 
   constructor(props) {
@@ -11,20 +15,25 @@ class ArticlePath extends React.Component {
   }
 
   getTripPath() {
-    return '/' + this.props.translations.routes.trips
-         + '/' + this.props.article.visit.trip.urlName;
+    return getTripPath(
+      this.props.article.visit.trip,
+      this.props.translations
+    );
   }
 
   getCountryPath() {
-    return '/' + this.props.translations.routes.countries
-         + '/' + this.props.article.city.country.urlName;
+    return getCountryPath(
+      this.props.article.city,
+      this.props.translations
+    );
   }
 
   getCityPath() {
-    return '/'+ this.props.translations.routes.countries
-         + '/' + this.props.article.city.country.urlName
-         + '/' + this.props.translations.routes.cities
-         + '/' + this.props.article.city.urlName;
+    return getCityPath(
+      this.props.article.city.country,
+      this.props.article.city,
+      this.props.translations
+    );
   }
 
   getPublishTime() {

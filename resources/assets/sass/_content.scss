@@ -14,10 +14,11 @@
   }
 
   a {
-    color: inherit;
+    color: $theme-color;
   }
 
   a:hover {
+    color: $theme-hover-color;
     text-decoration: none;
   }
 

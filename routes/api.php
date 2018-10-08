@@ -9,6 +9,7 @@ Route::get("/countries/{countryUrlName}/cities", "Cities\\CitiesController@get")
 Route::get("/countries/{countryUrlName}/cities/{cityUrlName}", "Cities\\CityController@get");
 Route::get("/countries/{countryUrlName}/cities/{cityUrlName}/articles", "Cities\\CityArticlesController@get");
 Route::get("/countries/{countryUrlName}/cities/{cityUrlName}/translations", "Cities\\CityTranslationsController@get");
+Route::get("/countries/{countryUrlName}/cities/{cityUrlName}/users", "Cities\\CityUsersController@get");
 Route::get("/countries/{countryUrlName}/translations", "Cities\\CountryTranslationsController@get");
 Route::get("/trips/{tripUrlName}", "Trips\\TripController@get");
 Route::get("/trips/{tripUrlName}/articles", "Trips\\TripArticlesController@get");

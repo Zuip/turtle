@@ -18,7 +18,8 @@ export default {
     citySearch: 'Kaupunkihaku',
     countries: {
       country: 'Maa'
-    }
+    },
+    usersVisitedInCity: 'Vierailleet käyttäjät'
   },
   header: {
     about: 'Tietoa',

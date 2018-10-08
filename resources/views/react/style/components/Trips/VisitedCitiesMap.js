@@ -2,6 +2,7 @@ import ThemeSettings from '../../ThemeSettings';
 
 export default {
   height: '600px',
+  margin: '20px 0',
   maxHeight: '90vh',
   pointer: {
     backgroundColor: ThemeSettings.themeColor,
