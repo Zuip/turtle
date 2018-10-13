@@ -11,6 +11,7 @@ import CityArticles from './src/City/CityArticles';
 import CityUsers from './src/City/CityUsers';
 import getCity from '../../apiCalls/cities/getCity';
 import getCityTranslations from '../../apiCalls/cities/getCityTranslations';
+import getCountryPath from '../../services/paths/getCountryPath';
 import pageSpinner from '../../services/pageSpinner';
 
 class City extends React.Component {
@@ -63,8 +64,26 @@ class City extends React.Component {
     });
   }
 
-  getCountryPath() {
-    return '/countries/' + this.state.city.country.urlName;
+  getTopic() {
+
+    let countryPath = getCountryPath(
+      this.state.city.country,
+      this.props.translations
+    );
+
+    let city = this.state.city.name;
+    
+    let country = (
+      <Link to={countryPath}>
+        {this.state.city.country.name}
+      </Link>
+    );
+
+    return (
+      <h1>
+        {city}, {country}
+      </h1>
+    );
   }
 
   loadCityTranslations(language) {
@@ -93,12 +112,7 @@ class City extends React.Component {
       <BaseLayout>
         <TwoColumnLayout>
           <FirstColumn>
-            <h1>
-              {this.state.city.name}
-              , <Link to={this.getCountryPath()}>
-                {this.state.city.country.name}
-              </Link>
-            </h1>
+            {this.getTopic()}
           </FirstColumn>
         </TwoColumnLayout>
         <TwoColumnLayout>
