@@ -4,6 +4,7 @@ namespace App\Services\Trips;
 
 use App\Models\Articles\IArticleLanguageVersion;
 use App\Models\Trips\TranslatedTrip;
+use App\Services\Cities\CitiesDataFetcher;
 
 class TripDataFetcher {
 
@@ -23,6 +24,44 @@ class TripDataFetcher {
     return [
       "name" => $translatedTrip->name,
       "urlName" => $translatedTrip->url_name
+    ];
+  }
+
+  public function getWithTranslatedTrip($translatedTrip) {
+
+    $visits = [];
+    foreach($translatedTrip->base->visits as $visit) {
+      $visits[] = [
+        "cityId" => $visit->city_id
+      ];
+    }
+
+    $cityIds = [];
+    foreach($visits as $visit) {
+      $cityIds[] = $visit["cityId"];
+    }
+    
+    $citiesDataFetcher = new CitiesDataFetcher();
+    $citiesData = $citiesDataFetcher->getWithIdsAndLanguage(
+      $cityIds,
+      $translatedTrip->language
+    );
+
+    foreach($visits as $key => $visit) {
+      foreach($citiesData as $cityData) {
+        if($visit["cityId"] === $cityData["id"]) {
+          unset($cityData["id"]);
+          unset($cityData["country"]["id"]);
+          $visits[$key]["city"] = $cityData;
+          unset($visits[$key]["cityId"]);
+        }
+      }
+    }
+
+    return [
+      "name" => $translatedTrip->name,
+      "urlName" => $translatedTrip->url_name,
+      "visits" => $visits
     ];
   }
 

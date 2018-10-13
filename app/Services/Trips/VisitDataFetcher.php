@@ -22,32 +22,6 @@ class VisitDataFetcher {
     ];
   }
 
-  public function getWithUrlNameAndLanguage($tripUrlName, $language) {
-    
-    $trip = TranslatedTrip::where('url_name', $tripUrlName)
-                          ->where('language', $language)
-                          ->first();
-
-    return [
-      "id" => $trip->base->id,
-      "name" => $trip->name,
-      "urlName" => $trip->url_name
-    ];
-  }
-
-  public function getWithIdAndLanguage($tripId, $language) {
-    
-    $trip = TranslatedTrip::where('trip_id', $tripId)
-                          ->where('language', $language)
-                          ->first();
-
-    return [
-      "id" => $trip->base->id,
-      "name" => $trip->name,
-      "urlName" => $trip->url_name
-    ];
-  }
-
   private function getVisitStart($visit) {
     return $visit->visit_start_year
          . "-"

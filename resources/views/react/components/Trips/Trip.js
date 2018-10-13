@@ -6,29 +6,23 @@ import TwoColumnLayout from '../Layout/Grids/TwoColumnLayout';
 import FirstColumn from '../Layout/Grids/FirstColumn';
 import SecondColumn from '../Layout/Grids/SecondColumn';
 
-import Articles from '../Articles/Articles';
-import getArticles from '../../apiCalls/getArticles';
+import TripArticles from './src/Trip/TripArticles';
 import getTrip from '../../apiCalls/trips/getTrip';
 import getTripTranslations from '../../apiCalls/trips/getTripTranslations';
 import pageSpinner from '../../services/pageSpinner';
+import VisitedCitiesMap from './src/Trip/VisitedCitiesMap';
 
 class Trip extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      articles: [],
-      articleBlockSize: 5,
-      allArticlesLoaded: false,
-      trip: {
-        name: null
-      }
+      trip: null
     };
   }
 
   componentDidMount() {
     this.loadTrip();
-    this.loadNextArticles();
   }
 
   componentDidUpdate(previousProps) {
@@ -92,33 +86,12 @@ class Trip extends React.Component {
     });
   }
 
-  loadNextArticles() {
-
-    pageSpinner.start('Trip articles');
-
-    getArticles({
-      language: this.props.translations.language,
-      offset: this.state.articles.length,
-      limit: this.state.articleBlockSize,
-      tripUrlName: this.props.match.params.tripUrlName
-    }).then(articles => {
-
-      if(articles.length !== this.state.articleBlockSize) {
-        this.setState({ allArticlesLoaded: true });
-      }
-
-      this.setState({
-        articles: this.state.articles.concat(articles)
-      });
-
-      pageSpinner.finish('Trip articles');
-
-    }).catch((error) => {
-      console.error(error);
-    });
-  }
-
   render() {
+
+    if(this.state.trip === null) {
+      return null;
+    }
+
     return (
       <BaseLayout>
         <TwoColumnLayout>
@@ -126,15 +99,12 @@ class Trip extends React.Component {
             <h1>{this.state.trip.name}</h1>
           </FirstColumn>
         </TwoColumnLayout>
-        <TwoColumnLayout>
+        <TwoColumnLayout mobile={{ rightColumnIsOnTop: true }}>
           <FirstColumn>
-            <h3>{this.props.translations.articles.latestArticles}</h3>
-            <Articles articles={this.state.articles}
-                      allArticlesLoaded={this.state.allArticlesLoaded}
-                      loadNextArticles={this.loadNextArticles.bind(this)} />
+            <TripArticles trip={this.state.trip} />
           </FirstColumn>
           <SecondColumn>
-            
+            <VisitedCitiesMap trip={this.state.trip} />
           </SecondColumn>
         </TwoColumnLayout>
       </BaseLayout>

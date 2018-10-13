@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Services\Trips\TripFetcher;
+use App\Services\Trips\TripDataFetcher;
 use Illuminate\Http\Request;
 use Response;
 
@@ -25,9 +26,9 @@ class TripController extends Controller {
       $request->input('language')
     );
     
-    return \Response::json([
-      "name" => $trip->name,
-      "urlName" => $trip->url_name
-    ]);
+    $tripDataFetcher = new TripDataFetcher();
+    $tripData = $tripDataFetcher->getWithTranslatedTrip($trip);
+    
+    return \Response::json($tripData);
   }
 }
