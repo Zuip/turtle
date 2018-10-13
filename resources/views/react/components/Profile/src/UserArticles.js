@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Articles from '../Articles/Articles';
-import getArticles from '../../apiCalls/getArticles';
-import pageSpinner from '../../services/pageSpinner';
+import Articles from '../../Articles/Articles';
+import getArticles from '../../../apiCalls/getArticles';
+import pageSpinner from '../../../services/pageSpinner';
 
 class UserArticles extends React.Component {
 

@@ -10,10 +10,11 @@ import getUser from '../../apiCalls/getUser';
 import getUserTrips from '../../apiCalls/getUserTrips';
 import NotFoundPage from '../NotFoundPage';
 import pageSpinner from '../../services/pageSpinner';
-import TripsTable from './TripsTable';
 import ProfileStyle from '../../style/components/Profile';
-import UserArticles from './UserArticles';
-import VisitedCitiesMap from './VisitedCitiesMap';
+
+import TripsTable from './src/TripsTable';
+import UserArticles from './src/UserArticles';
+import VisitedCitiesMap from './src/VisitedCitiesMap';
 
 class Profile extends React.Component {
 

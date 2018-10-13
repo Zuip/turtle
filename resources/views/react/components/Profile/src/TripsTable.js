@@ -2,10 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import MultiHeaderTable from '../Layout/Tables/MultiHeader/MultiHeaderTable';
+import MultiHeaderTable from '../../Layout/Tables/MultiHeader/MultiHeaderTable';
+import ProfileStyle from '../../../style/components/Profile';
 
-import getCityPath from '../../services/paths/getCityPath';
-import getCountryPath from '../../services/paths/getCountryPath';
+import getCityPath from '../../../services/paths/getCityPath';
+import getCountryPath from '../../../services/paths/getCountryPath';
+import getTripPath from '../../../services/paths/getTripPath';
 
 class TripsTable extends React.Component {
 
@@ -50,6 +52,15 @@ class TripsTable extends React.Component {
     );
   }
 
+  getHeaderCell(trip) {
+    let tripPath = getTripPath(trip, this.props.translations);
+    return (
+      <Link to={tripPath} style={ProfileStyle.tripsTable.header.a}>
+        {trip.name}
+      </Link>
+    );
+  }
+
   getNameCell(visit) {
 
     let cityLink = this.getCityLink(visit);
@@ -70,7 +81,9 @@ class TripsTable extends React.Component {
       sections: this.props.trips.map(
         trip => ({
           header: {
-            cells: [trip.name]
+            cells: [
+              this.getHeaderCell(trip)
+            ]
           },
           rows: trip.visits.map(
             visit => ({

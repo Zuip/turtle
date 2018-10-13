@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import VisitedCitiesMap from '../Cities/VisitedCitiesMap';
+import VisitedCitiesMap from '../../Cities/VisitedCitiesMap';
 
 class ProfileVisitedCitiesMap extends React.Component {
 
