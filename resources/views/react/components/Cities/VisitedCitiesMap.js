@@ -2,7 +2,7 @@ import GoogleMapReact from 'google-map-react';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import CityVisitPointer from './CityVisitPointer';
+import CityVisitPointer from './src/visitedCitiesMap/CityVisitPointer';
 import getMapCityPointerData from '../../services/cities/getMapCityPointerData';
 import VisitedCitiesMapStyle from '../../style/components/Trips/VisitedCitiesMap';
 
@@ -29,6 +29,7 @@ class VisitedCitiesMap extends React.Component {
         key={key}
         lat={coordinates.latitude}
         lng={coordinates.longitude}
+        city={visits[0].city}
       />
     );
   }
