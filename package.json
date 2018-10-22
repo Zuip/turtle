@@ -1,7 +1,7 @@
 {
-  "name": "zuifi",
+  "name": "turtle",
   "version": "1.0.0",
-  "description": "Zui.fi\r ------\r I have made this blog as a hobby. It combines my interest in travel with my interest in programming.",
+  "description": "",
   "main": "index.php",
   "scripts": {
     "sass": "sass resources/assets/sass/app.scss:public/assets/css/app.css",
@@ -21,8 +21,9 @@
   },
   "homepage": "https://github.com/Zuip/zuifi#readme",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
+    "es6-promise": "^4.2.5",
     "google-map-react": "^1.0.9",
+    "isomorphic-fetch": "^2.2.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-ga": "^2.5.3",
@@ -44,6 +45,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "bootstrap": "^4.0.0-beta",
