@@ -1,7 +1,5 @@
-import { fetch as fetchPolyfill } from 'whatwg-fetch';
-
 export default function(path) {
-  return fetchPolyfill(
+  return fetch(
     path,
     {
       method: 'GET',

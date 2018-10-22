@@ -1,8 +1,6 @@
-import { fetch as fetchPolyfill } from 'whatwg-fetch';
-
 export default function(data) {
   return function(path) {
-    return fetchPolyfill(
+    return fetch(
       path,
       {
         method: 'PUT',
