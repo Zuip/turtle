@@ -2,7 +2,7 @@ import React from 'react';
 import { Router } from 'react-router-dom'
 
 import Footer from './Footer/Footer';
-import getCurrentUser from '../apiCalls/getCurrentUser';
+import getCurrentUser from '../apiCalls/users/getCurrentUser';
 import googleAnalytics from '../services/googleAnalytics';
 import Header from './Header/Header';
 import InfoBox from './Header/InfoBox';
@@ -15,9 +15,9 @@ class App extends React.Component {
   componentDidMount() {
     getCurrentUser().then(
       user => setCurrentUser(user)
-    ).catch(
-      error => console.log(error)
-    );
+    ).catch(() => {
+        // Not logged in
+    });
   }
 
   render() {

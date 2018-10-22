@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ArticleLayout from '../Layout/Grids/ArticleLayout';
 import BaseLayout from '../Layout/Grids/BaseLayout';
 import pageSpinner from '../../services/pageSpinner';
-import postLogin from '../../apiCalls/postLogin';
+import postLogin from '../../apiCalls/users/postLogin';
 import setCurrentUser from '../../services/setCurrentUser';
 
 class Login extends React.Component {

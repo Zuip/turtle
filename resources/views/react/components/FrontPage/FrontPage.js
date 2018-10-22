@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ArticleLayout from '../Layout/Grids/ArticleLayout';
 import Articles from '../Articles/Articles';
 import BaseLayout from '../Layout/Grids/BaseLayout';
-import getArticles from '../../apiCalls/getArticles';
+import getArticles from '../../apiCalls/articles/getArticles';
 import pageSpinner from '../../services/pageSpinner';
 import setDescription from '../../services/setDescription';
 import setTitle from '../../services/setTitle';

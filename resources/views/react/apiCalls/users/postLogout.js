@@ -1,12 +1,13 @@
-import get from '../../services/api/get';
+import post from '../../services/api/post';
 import promiseJSON from '../../services/api/promiseJSON';
 import pipe from '../../services/pipe';
 
-export default function(language) {
+export default function(data) {
   return pipe(
-    get,
+    post(data),
+    rejectHttpStatus400,
     promiseJSON
   )(
-    '/api/countries?language=' + language
+    '/api/logout'
   );
 };

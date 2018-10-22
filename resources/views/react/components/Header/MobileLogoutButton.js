@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import postLogout from '../../apiCalls/postLogout';
+import postLogout from '../../apiCalls/users/postLogout';
 import setCurrentUser from '../../services/setCurrentUser';
 
 class MobileLogoutButton extends React.Component {

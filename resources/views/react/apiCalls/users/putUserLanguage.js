@@ -1,12 +1,13 @@
-import get from '../../services/api/get';
+import put from '../../services/api/put';
 import promiseJSON from '../../services/api/promiseJSON';
 import pipe from '../../services/pipe';
 
 export default function(language) {
   return pipe(
-    get,
+    put({ language }),
+    rejectHttpStatus400,
     promiseJSON
   )(
-    '/api/countries?language=' + language
+    '/api/user/language'
   );
 };

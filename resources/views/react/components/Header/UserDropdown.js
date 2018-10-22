@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import postLogout from '../../apiCalls/postLogout';
+import postLogout from '../../apiCalls/users/postLogout';
 import setCurrentUser from '../../services/setCurrentUser';
 
 class UserDropdown extends React.Component {

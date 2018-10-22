@@ -1,7 +1,7 @@
 import { setLanguage } from '../store/actions';
 import store from '../store/store';
 
-import putUserLanguage from '../apiCalls/putUserLanguage';
+import putUserLanguage from '../apiCalls/users/putUserLanguage';
 
 import en from '../translations/en/en';
 import fi from '../translations/fi/fi';

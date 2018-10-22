@@ -7,11 +7,11 @@ import FirstColumn from '../../Layout/Grids/FirstColumn';
 import SecondColumn from '../../Layout/Grids/SecondColumn';
 
 import Articles from '../../Articles/Articles';
-import getArticles from '../../../apiCalls/getArticles';
+import getArticles from '../../../apiCalls/articles/getArticles';
 import getCountry from '../../../apiCalls/cities/getCountry';
 import pageSpinner from '../../../services/pageSpinner';
 
-class Country extends React.Component {
+class Countries extends React.Component {
 
   constructor(props) {
     super(props);
@@ -111,4 +111,4 @@ class Country extends React.Component {
 
 export default connect(
   state => ({ translations: state.translations })
-)(Country);
+)(Countries);

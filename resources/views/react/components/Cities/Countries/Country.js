@@ -7,7 +7,7 @@ import FirstColumn from '../../Layout/Grids/FirstColumn';
 import SecondColumn from '../../Layout/Grids/SecondColumn';
 
 import Articles from '../../Articles/Articles';
-import getArticles from '../../../apiCalls/getArticles';
+import getArticles from '../../../apiCalls/articles/getArticles';
 import getCountry from '../../../apiCalls/cities/getCountry';
 import getCountryTranslations from '../../../apiCalls/cities/getCountryTranslations';
 import pageSpinner from '../../../services/pageSpinner';

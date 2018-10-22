@@ -11,8 +11,6 @@ export default function(tripUrlName, countryUrlName, cityUrlName, cityVisitIndex
     + '/' + countryUrlName
     + '/' + cityUrlName
     + '/' + cityVisitIndex
-    + '/article'
-    + '/translations'
-    + '?language=' + language
+    + '/article?language=' + language
   );
 };

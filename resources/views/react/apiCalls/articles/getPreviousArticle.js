@@ -12,7 +12,6 @@ export default function(tripUrlName, countryUrlName, cityUrlName, cityVisitIndex
     + '/' + cityUrlName
     + '/' + cityVisitIndex
     + '/article'
-    + '/translations'
-    + '?language=' + language
+    + '/previous?language=' + language
   );
 };

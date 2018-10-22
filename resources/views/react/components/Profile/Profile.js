@@ -6,8 +6,8 @@ import TwoColumnLayout from '../Layout/Grids/TwoColumnLayout';
 import FirstColumn from '../Layout/Grids/FirstColumn';
 import SecondColumn from '../Layout/Grids/SecondColumn';
 
-import getUser from '../../apiCalls/getUser';
-import getUserTrips from '../../apiCalls/getUserTrips';
+import getUser from '../../apiCalls/users/getUser';
+import getUserTrips from '../../apiCalls/trips/getUserTrips';
 import NotFoundPage from '../NotFoundPage';
 import pageSpinner from '../../services/pageSpinner';
 import ProfileStyle from '../../style/components/Profile';

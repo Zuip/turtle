@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Articles from '../../../Articles/Articles';
-import getArticles from '../../../../apiCalls/getArticles';
+import getArticles from '../../../../apiCalls/articles/getArticles';
 import pageSpinner from '../../../../services/pageSpinner';
 
 class TripArticles extends React.Component {
