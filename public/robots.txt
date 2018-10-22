@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+User-Agent: Googlebot
+Allow: .js
+Allow: .css
+Allow: /*.js*
+Allow: /*.css*
+
 Sitemap: https://turtle.travel/sitemap
