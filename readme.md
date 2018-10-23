@@ -1,5 +1,6 @@
-## Zui.fi
-I have made this blog as a hobby. It combines my interest in travel with my interest in programming.
+## Turtle
+
+A travel blog and travel destination comparison website
 
 ## Used technologies in this project
 - PHP
@@ -11,10 +12,12 @@ I have made this blog as a hobby. It combines my interest in travel with my inte
 - Font Awesome
 
 Create development environment
-1. run "npm install"
-2. run "composer install"
-3. run "npm run webpack"
-4. run "sass resources/assets/sass/app.scss:public/assets/css/app.css"
+1. Run "npm install"
+2. Run "composer install"
+3. Run "npm run webpack"
+4. Run "npm run sass"
+5. Copy .env.example as .env and configure needed settings
+6. Run "php artisan migrate" to setup database
 
 ## Testing
 
