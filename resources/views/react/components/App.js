@@ -1,8 +1,5 @@
-import 'isomorphic-fetch';
-
 import React from 'react';
 import { Router } from 'react-router-dom'
-
 
 import Footer from './Footer/Footer';
 import getCurrentUser from '../apiCalls/users/getCurrentUser';
