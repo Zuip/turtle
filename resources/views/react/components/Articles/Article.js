@@ -11,6 +11,7 @@ import getArticleTitle from '../../services/articles/getArticleTitle';
 import getArticleTranslations from '../../apiCalls/articles/getArticleTranslations';
 import getNextArticle from '../../apiCalls/articles/getNextArticle';
 import getPreviousArticle from '../../apiCalls/articles/getPreviousArticle';
+import logError from '../../services/logError';
 import pageSpinner from '../../services/pageSpinner';
 import setTitle from '../../services/setTitle';
 import setDescription from '../../services/setDescription';
@@ -99,7 +100,7 @@ class Article extends React.Component {
       pageSpinner.finish('Article');
 
     }).catch(
-      error => console.log(error)
+      error => logError(error)
     );
   }
 

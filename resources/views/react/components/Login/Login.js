@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import ArticleLayout from '../Layout/Grids/ArticleLayout';
 import BaseLayout from '../Layout/Grids/BaseLayout';
+import logError from '../../services/logError';
 import pageSpinner from '../../services/pageSpinner';
 import postLogin from '../../apiCalls/users/postLogin';
 import setCurrentUser from '../../services/setCurrentUser';
@@ -36,7 +37,7 @@ class Login extends React.Component {
       pageSpinner.finish('Login');
       
     }).catch(
-      error => console.log(error)
+      error => logError(error)
     );
   }
 

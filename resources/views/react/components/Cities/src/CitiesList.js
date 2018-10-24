@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import CityBox from './CityBox';
 import getCities from '../../../apiCalls/cities/getCities';
+import logError from '../../../services/logError';
 import pageSpinner from '../../../services/pageSpinner';
 
 class CitiesList extends React.Component {
@@ -52,9 +53,9 @@ class CitiesList extends React.Component {
     ).then(cities => {
       this.setState({ cities });
       pageSpinner.finish('Cities');
-    }).catch(error => {
-      console.log(error);
-    });
+    }).catch(
+      error => logError(error)
+    );
   }
 
   render() {

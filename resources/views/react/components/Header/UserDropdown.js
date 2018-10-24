@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import logError from '../../services/logError';
 import postLogout from '../../apiCalls/users/postLogout';
 import setCurrentUser from '../../services/setCurrentUser';
 
@@ -15,7 +16,7 @@ class UserDropdown extends React.Component {
     postLogout().then(
       () => setCurrentUser(null)
     ).catch(
-      error => console.log(error)
+      error => logError(error)
     );
   }
 

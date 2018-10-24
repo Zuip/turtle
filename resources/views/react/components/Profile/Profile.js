@@ -10,6 +10,7 @@ import getUser from '../../apiCalls/users/getUser';
 import getUserTrips from '../../apiCalls/trips/getUserTrips';
 import NotFoundPage from '../NotFoundPage';
 import pageSpinner from '../../services/pageSpinner';
+import logError from '../../services/logError';
 import ProfileStyle from '../../style/components/Profile';
 
 import TripsTable from './src/TripsTable';
@@ -67,7 +68,7 @@ class Profile extends React.Component {
       this.setState({ trips });
       pageSpinner.finish('trips');
     }).catch(error => {
-      console.log(error);
+      logError(error);
     });
   }
 
@@ -101,7 +102,7 @@ class Profile extends React.Component {
         return;
       }
 
-      console.log(error);
+      logError(error);
     });
   }
 

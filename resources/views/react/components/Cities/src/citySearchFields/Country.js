@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import DropdownStyle from '../../../../style/elements/Dropdown';
 import getCountries from '../../../../apiCalls/cities/getCountries';
 import pageSpinner from '../../../../services/pageSpinner';
+import logError from '../../../../services/logError';
 
 class Country extends React.Component {
 
@@ -39,9 +40,9 @@ class Country extends React.Component {
     ).then(countries => {
       this.setState({ countries });
       pageSpinner.finish('Countries');
-    }).catch(error => {
-      console.log(error);
-    });
+    }).catch(
+      error => logError(error)
+    );
   }
 
   getOptions() {
