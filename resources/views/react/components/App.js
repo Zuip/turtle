@@ -9,15 +9,16 @@ import InfoBox from './Header/InfoBox';
 import Routes from './Routes/Routes';
 import setCurrentUser from '../services/setCurrentUser';
 import SpinnerOverlay from './Overlay/SpinnerOverlay';
+import logError from '../services/logError';
 
 class App extends React.Component {
 
   componentDidMount() {
     getCurrentUser().then(
       user => setCurrentUser(user)
-    ).catch(() => {
-        // Not logged in
-    });
+    ).catch(
+      error => logError(error)
+    );
   }
 
   render() {

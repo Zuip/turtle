@@ -40,7 +40,7 @@ class SessionController extends Controller {
   public function getCurrentUser(Request $request) {
     
     if(!$request->session()->has('userId')) {
-      return Response::json(null, 404);
+      return Response::json(["id" => null]);
     }
     
     $userFetcher = new User();
