@@ -23,6 +23,7 @@ Route::get("/users", "UsersController@get");
 Route::get("/users/{userId}/articles", "Articles\\UserArticlesController@get");
 Route::get("/users/{userId}/trips", "Trips\\TripsController@get");
 
+Route::post("/error/log", "ErrorLogController@post");
 Route::post("/login", "SessionController@login");
 Route::post("/logout", "SessionController@logout");
 

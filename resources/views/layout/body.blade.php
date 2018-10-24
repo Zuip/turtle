@@ -32,8 +32,25 @@
       var CONFIG_BROWSER_LANGUAGE = '<?php echo $browserLanguage; ?>';
     </script>
 
+    <script>
+      window.addEventListener('error', function(e) {
+        var errorText = [
+          e.message,
+          'URL: ' + e.filename,
+          'Line: ' + e.lineno + ', Column: ' + e.colno,
+          'Stack: ' + (e.error && e.error.stack || '(no stack trace)')
+        ].join('\n');
+
+        var client = new XMLHttpRequest();
+        client.open('POST', '/api/error/log');
+        client.setRequestHeader('Content-Type', 'application/json');
+        client.setRequestHeader('X-CSRF-TOKEN', csrf_token);
+        client.send(JSON.stringify({errorText}));
+      });
+    </script>
+
     <!-- Own JavaScripts -->
-    <script src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
     
   </body>
 </html>
