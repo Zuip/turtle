@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Zuip/zuifi#readme",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "es6-promise": "^4.2.5",
     "google-map-react": "^1.0.9",
     "isomorphic-fetch": "^2.2.1",
