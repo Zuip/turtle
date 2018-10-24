@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.php",
   "scripts": {
-    "sass": "sass resources/assets/sass/app.scss:public/assets/css/app.css",
+    "sass": "sass resources/assets/sass/app.scss:public/assets/css/app.css --style compressed",
     "sass-watch": "sass --watch resources/assets/sass/app.scss:public/assets/css/app.css",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack",
-    "webpack-watch": "webpack --watch"
+    "webpack": "webpack --env prod",
+    "webpack-watch": "webpack --env dev --watch"
   },
   "repository": {
     "type": "git",
@@ -55,7 +55,7 @@
     "popper.js": "^1.11.1",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
-    "uglifyjs-webpack-plugin": "^1.2.5",
+    "uglifyjs-webpack-plugin": "^1.3.0",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8"
   }
