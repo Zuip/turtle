@@ -1,5 +1,6 @@
 import 'es5-shim';
 import 'es6-shim';
+import 'whatwg-fetch';
 
 import { Provider } from 'react-redux'
 import React from 'react';
