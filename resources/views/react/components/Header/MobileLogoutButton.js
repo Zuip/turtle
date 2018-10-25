@@ -15,7 +15,7 @@ class MobileLogoutButton extends React.Component {
     postLogout().then(
       () => setCurrentUser(null)
     ).catch(
-      error => logError(error)
+      error => logError(error, 'components/Header/MobileLogoutButton.js')
     );
   }
 

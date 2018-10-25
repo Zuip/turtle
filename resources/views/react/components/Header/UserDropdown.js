@@ -16,7 +16,7 @@ class UserDropdown extends React.Component {
     postLogout().then(
       () => setCurrentUser(null)
     ).catch(
-      error => logError(error)
+      error => logError(error, 'components/Header/UserDropdown.js')
     );
   }
 

@@ -68,7 +68,7 @@ class Profile extends React.Component {
       this.setState({ trips });
       pageSpinner.finish('trips');
     }).catch(error => {
-      logError(error);
+      logError(error, 'components/Profile/Profile.js (trips)');
     });
   }
 
@@ -102,7 +102,7 @@ class Profile extends React.Component {
         return;
       }
 
-      logError(error);
+      logError(error, 'components/Profile/Profile.js (user)');
     });
   }
 

@@ -100,7 +100,7 @@ class Article extends React.Component {
       pageSpinner.finish('Article');
 
     }).catch(
-      error => logError(error)
+      error => logError(error, 'components/Articles/Article.js')
     );
   }
 

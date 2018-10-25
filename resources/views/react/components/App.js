@@ -17,7 +17,7 @@ class App extends React.Component {
     getCurrentUser().then(
       user => setCurrentUser(user)
     ).catch(
-      error => logError(error)
+      error => logError(error, 'components/App.js')
     );
   }
 

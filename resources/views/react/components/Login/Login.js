@@ -37,7 +37,7 @@ class Login extends React.Component {
       pageSpinner.finish('Login');
       
     }).catch(
-      error => logError(error)
+      error => logError(error, 'components/Login/Login.js')
     );
   }
 

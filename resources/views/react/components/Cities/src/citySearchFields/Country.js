@@ -41,7 +41,7 @@ class Country extends React.Component {
       this.setState({ countries });
       pageSpinner.finish('Countries');
     }).catch(
-      error => logError(error)
+      error => logError(error, 'components/Cities/src/citySearchFields/Country.js')
     );
   }
 

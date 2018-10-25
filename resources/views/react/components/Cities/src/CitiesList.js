@@ -54,7 +54,7 @@ class CitiesList extends React.Component {
       this.setState({ cities });
       pageSpinner.finish('Cities');
     }).catch(
-      error => logError(error)
+      error => logError(error, 'components/Cities/src/CitiesList.js')
     );
   }
 
