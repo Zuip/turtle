@@ -10,8 +10,6 @@ export default function(promise) {
       );
     }
   
-    return response;
-  }).then(
-    data => data.json()
-  );
+    return response.json();
+  });
 };
