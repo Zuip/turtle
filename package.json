@@ -24,6 +24,7 @@
     "es5-shim": "^4.5.12",
     "es6-shim": "^0.35.3",
     "google-map-react": "^1.0.9",
+    "polyfill-array-includes": "^1.0.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-ga": "^2.5.3",
