@@ -34,9 +34,14 @@ class Country extends React.Component {
     getCountries(
       this.props.translations.language
     ).then(
-      countries => countries.sort(
-        (a, b) =>  a.name.toLowerCase() > b.name.toLowerCase()
-      )
+      countries => countries.sort(function(a, b) {
+
+        if(a.name.toLowerCase() === b.name.toLowerCase()) {
+          return 0;
+        }
+
+        return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;
+      })
     ).then(countries => {
       this.setState({ countries });
       pageSpinner.finish('Countries');

@@ -50,6 +50,19 @@ class CitiesList extends React.Component {
     getCities(
       filter.country,
       this.props.translations.language
+    ).then(
+      cities => cities.sort(function(a, b) {
+
+        if(a.name.toLowerCase() === b.name.toLowerCase()) {
+          if(a.country.name.toLowerCase() === b.country.name.toLowerCase()) {
+            return 0;
+          }
+
+          return a.country.name.toLowerCase() > b.country.name.toLowerCase() ? 1 : -1;
+        }
+
+        return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;
+      })
     ).then(cities => {
       this.setState({ cities });
       pageSpinner.finish('Cities');
