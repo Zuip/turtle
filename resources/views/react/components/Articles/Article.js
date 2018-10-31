@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import ArticleLayout from '../Layout/Grids/ArticleLayout';
 import ArticlePath from './ArticlePath';
@@ -13,8 +14,6 @@ import getNextArticle from '../../apiCalls/articles/getNextArticle';
 import getPreviousArticle from '../../apiCalls/articles/getPreviousArticle';
 import logError from '../../services/logError';
 import pageSpinner from '../../services/pageSpinner';
-import setTitle from '../../services/setTitle';
-import setDescription from '../../services/setDescription';
 
 class Article extends React.Component {
 
@@ -94,9 +93,6 @@ class Article extends React.Component {
         nextArticle: data[2]
       });
 
-      setTitle(getArticleTitle(this.state.article));
-      setDescription(getArticleSummaryText(this.state.article));
-
       pageSpinner.finish('Article');
 
     }).catch(
@@ -162,6 +158,15 @@ class Article extends React.Component {
 
     return (
       <ArticleLayout>
+        <Helmet>
+          <title>
+            {getArticleTitle(this.state.article)}
+          </title>
+          <meta
+            name="description"
+            content={getArticleSummaryText(this.state.article)}
+          />
+        </Helmet>
         <div className="article">
           <h2 style={ArticleStyle.h2}>
             {getArticleTitle(this.state.article)}

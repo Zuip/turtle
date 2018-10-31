@@ -1,5 +1,7 @@
 import React from 'react';
-import { Router } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
+import { Router } from 'react-router-dom';
 
 import Footer from './Footer/Footer';
 import getCurrentUser from '../apiCalls/users/getCurrentUser';
@@ -25,6 +27,15 @@ class App extends React.Component {
     return (
       <Router history={googleAnalytics}>
         <div id="grid-container">
+          <Helmet>
+            <title>
+              {'Turtle.travel: ' + this.props.translations.slogan}
+            </title>
+            <meta
+              name="description"
+              content={'Turtle.travel: ' + this.props.translations.slogan}
+            />
+          </Helmet>
           <Header />
           <InfoBox />
           <Routes />
@@ -36,4 +47,6 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default connect(
+  state => ({ translations: state.translations })
+)(App);

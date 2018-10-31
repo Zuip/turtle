@@ -3,16 +3,8 @@ import { connect } from 'react-redux';
 
 import ArticleLayout from './Layout/Grids/ArticleLayout';
 import BaseLayout from './Layout/Grids/BaseLayout';
-import setDescription from '../services/setDescription';
-import setTitle from '../services/setTitle';
 
 class NotFoundPage extends React.Component {
-
-  componentDidMount() {
-    setDescription('Turtle.travel: ' + this.props.translations.slogan);
-    setTitle();
-  }
-
   render() {
     return (
       <BaseLayout>
