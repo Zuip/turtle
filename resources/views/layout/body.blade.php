@@ -25,7 +25,7 @@
     <script>
       var CONFIG_ENVIRONMENT = '<?php echo env('APP_ENV'); ?>';
       var CONFIG_GOOGLE_ANALYTICS_KEY = '<?php echo env('GOOGLE_ANALYTICS_KEY'); ?>';
-      var CONFIG_GOOGLE_MAPS_KEY = '<?php echo env('GOOGLE_MAPS_KEY'); ?>'
+      var CONFIG_GOOGLE_MAPS_KEY = '<?php echo env('GOOGLE_MAPS_KEY'); ?>';
       var CONFIG_BROWSER_LANGUAGE = '<?php echo $browserLanguage; ?>';
     </script>
 
@@ -42,7 +42,7 @@
         client.open('POST', '/api/error/log');
         client.setRequestHeader('Content-Type', 'application/json');
         client.setRequestHeader('X-CSRF-TOKEN', csrf_token);
-        client.send(JSON.stringify({errorText}));
+        client.send(JSON.stringify({errorText: errorText}));
       });
     </script>
 
