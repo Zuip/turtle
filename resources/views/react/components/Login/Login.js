@@ -13,6 +13,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      incorrect: false,
       username: '',
       password: ''
     };
@@ -21,6 +22,10 @@ class Login extends React.Component {
   login() {
 
     pageSpinner.start('Login');
+
+    this.setState({
+      incorrect: false
+    });
 
     postLogin(
       this.state.username,
@@ -36,9 +41,21 @@ class Login extends React.Component {
 
       pageSpinner.finish('Login');
       
-    }).catch(
-      error => logError(error, 'components/Login/Login.js')
-    );
+    }).catch(error => {
+
+      if(error.status === 404) {
+
+        pageSpinner.finish('Login');
+
+        this.setState({
+          incorrect: true
+        });
+
+        return;
+      }
+      
+      logError(error, 'components/Login/Login.js')
+    });
   }
 
   handleUsernameChange(e) {
@@ -53,6 +70,19 @@ class Login extends React.Component {
     if (e.key === 'Enter') {
       this.login();
     }
+  }
+
+  getIncorrectMessage() {
+
+    if(!this.state.incorrect) {
+      return null;
+    }
+
+    return (
+      <div class="alert alert-danger">
+        {this.props.translations.login.incorrect}
+      </div>
+    );
   }
 
   render() {
@@ -72,6 +102,9 @@ class Login extends React.Component {
       <BaseLayout>
         <ArticleLayout>
           <h3>{this.props.translations.login.login}</h3>
+
+          {this.getIncorrectMessage()}
+
           <div className="form-group">
             <p>
               <label>{this.props.translations.login.username}</label>

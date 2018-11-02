@@ -30,6 +30,7 @@ export default {
   },
   language: 'fi',
   login: {
+    incorrect: 'Käyttäjätunnus tai salasana on virheellinen',
     login: 'Kirjaudu',
     loginSucceeded: 'Kirjautuminen onnistui!',
     username: 'Käyttäjätunnus',

@@ -30,8 +30,9 @@ export default {
   },
   language: 'en',
   login: {
+    incorrect: 'Username or password is invalid',
     login: 'Login',
-    loginSucceeded: 'Kirjautuminen onnistui!',
+    loginSucceeded: 'Login succeeded!',
     username: 'Username',
     password: 'Password'
   },
