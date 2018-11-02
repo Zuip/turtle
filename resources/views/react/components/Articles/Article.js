@@ -30,49 +30,34 @@ class Article extends React.Component {
     this.loadArticleParts();
   }
 
-  componentWillReceiveProps(previousProps) {
+  componentDidUpdate(previousProps) {
 
     if(previousProps.translations.language !== this.props.translations.language) {
-      
       this.loadArticleTranslations(
         previousProps.translations.language
       ).then(articleTranslations => {
 
-        let articleTranslationFound = false;
+        let nextTranslation = articleTranslations.find(
+          articleTranslation => articleTranslation.language === this.props.translations.language
+        );
 
-        articleTranslations.map(
-          articleTranslation => {
-            if(articleTranslation.language === this.props.translations.language) {
+        if(nextTranslation) {
 
-              this.props.history.push(
-                '/' + this.props.translations.routes.trips
-                + '/' + this.props.match.params.tripURLName
-                + '/' + this.props.match.params.countryUrlName
-                + '/' + this.props.match.params.cityUrlName
-                + '/' + this.props.match.params.cityVisitIndex
-                + '/' + this.props.translations.routes.articles
-              );
-
-              articleTranslationFound = true;
-            }
-          }
-        )
-
-        if(!articleTranslationFound) {
           this.props.history.push(
-            '/' + this.props.translations.routes.article + '/404'
+            '/' + this.props.translations.routes.trips
+            + '/' + nextTranslation.trip.urlName
+            + '/' + nextTranslation.city.country.urlName
+            + '/' + nextTranslation.city.urlName
+            + '/' + this.props.match.params.cityVisitIndex
+            + '/' + this.props.translations.routes.article
           );
+
+          return;
         }
-      });
 
-      return;
-    }
-
-    if(this.propsChanged(previousProps)) {
-      this.setState({
-        article: null
-      }, () => {
-        this.loadArticleParts()
+        this.props.history.push(
+          '/' + this.props.translations.routes.article + '/404'
+        );
       });
     }
   }
@@ -140,13 +125,13 @@ class Article extends React.Component {
     );
   }
 
-  loadArticleTranslations() {
+  loadArticleTranslations(language) {
     return getArticleTranslations(
       this.props.match.params.tripURLName,
       this.props.match.params.countryUrlName,
       this.props.match.params.cityUrlName,
       this.props.match.params.cityVisitIndex,
-      this.props.translations.language
+      language
     );
   }
 
@@ -158,6 +143,7 @@ class Article extends React.Component {
 
     return (
       <ArticleLayout>
+        
         <Helmet>
           <title>
             {getArticleTitle(this.state.article)}
@@ -167,14 +153,27 @@ class Article extends React.Component {
             content={getArticleSummaryText(this.state.article)}
           />
         </Helmet>
+
         <div className="article">
+
           <h2 style={ArticleStyle.h2}>
             {getArticleTitle(this.state.article)}
           </h2>
+
           <ArticlePath article={this.state.article} />
-          <div className="summary" dangerouslySetInnerHTML={{__html: this.state.article.summary}}></div>
-          <div dangerouslySetInnerHTML={{__html: this.state.article.text}}></div>
-          <ArticlePageChanger previousArticle={this.state.previousArticle} nextArticle={this.state.nextArticle} />
+
+          <div
+            className="summary"
+            dangerouslySetInnerHTML={{__html: this.state.article.summary}}
+          />
+
+          <div dangerouslySetInnerHTML={{__html: this.state.article.text}} />
+
+          <ArticlePageChanger
+            previousArticle={this.state.previousArticle}
+            nextArticle={this.state.nextArticle}
+          />
+
         </div>
       </ArticleLayout>
     );
