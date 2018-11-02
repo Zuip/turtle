@@ -13,7 +13,5 @@ export default function(tripUrlName, language) {
       method: 'GET',
       credentials: 'same-origin'
     }
-  ).then(
-    response => response.json()
   );
 };
