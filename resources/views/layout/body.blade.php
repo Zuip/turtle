@@ -11,6 +11,7 @@
     
     <!-- Custom styles -->
     <link href="/assets/css/app.css" rel="stylesheet">
+    <link rel="alternate" type="application/rss+xml" title="Turtle.travel" href="<?php echo env('APP_URL'); ?>/<?php echo $browserLanguage; ?>.turtle.travel.rss" />
   </head>
 
   <body>
