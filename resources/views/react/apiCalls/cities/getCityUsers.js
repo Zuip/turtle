@@ -7,7 +7,7 @@ export default function(countryUrlName, cityUrlName, language) {
     get,
     promiseJSON
   )(
-    '/api'
+    '/oldapi'
     + '/countries/' + countryUrlName
     + '/cities/' + cityUrlName
     + '/users'

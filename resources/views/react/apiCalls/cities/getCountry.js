@@ -4,7 +4,7 @@ import pipe from '../../services/pipe';
 
 export default function(countryUrlName, language) {
   return fetch(
-    '/api/countries/' + countryUrlName
+    '/oldapi/countries/' + countryUrlName
     + '?language=' + language
   );
 };

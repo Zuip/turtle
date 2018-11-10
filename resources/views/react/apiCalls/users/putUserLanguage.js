@@ -7,6 +7,6 @@ export default function(language) {
     put({ language }),
     promiseJSON
   )(
-    '/api/user/language'
+    '/oldapi/user/language'
   );
 };

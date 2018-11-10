@@ -7,6 +7,6 @@ export default function(data) {
     post(data),
     promiseJSON
   )(
-    '/api/logout'
+    '/oldapi/logout'
   );
 };

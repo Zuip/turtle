@@ -7,7 +7,7 @@ export default function(tripUrlName, countryUrlName, cityUrlName, cityVisitIndex
     get,
     promiseJSON
   )(
-    '/api/trips/' + tripUrlName
+    '/oldapi/trips/' + tripUrlName
     + '/' + countryUrlName
     + '/' + cityUrlName
     + '/' + cityVisitIndex

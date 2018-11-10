@@ -10,6 +10,6 @@ export default function(username, password) {
     }),
     promiseJSON
   )(
-    '/api/login'
+    '/oldapi/login'
   );
 };

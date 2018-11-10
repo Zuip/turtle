@@ -7,7 +7,7 @@ export default function(userId, language) {
     get,
     promiseJSON
   )(
-    '/api/users/' + userId + '/trips?language=' + language
+    '/oldapi/users/' + userId + '/trips?language=' + language
   );
 };
   

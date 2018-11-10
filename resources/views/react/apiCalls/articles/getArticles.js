@@ -25,12 +25,12 @@ export default function(params) {
 function getUrlBase(params) {
 
   if(typeof params.userId !== 'undefined') {
-    return '/api/users/' + params.userId + '/articles';
+    return '/oldapi/users/' + params.userId + '/articles';
   }
 
   if(typeof params.countryUrlName !== 'undefined') {
 
-    let countryBase = '/api/countries/' + params.countryUrlName;
+    let countryBase = '/oldapi/countries/' + params.countryUrlName;
 
     if(typeof params.cityUrlName !== 'undefined') {
       return countryBase + '/cities/' + params.cityUrlName + '/articles';
@@ -40,10 +40,10 @@ function getUrlBase(params) {
   }
 
   if(typeof params.tripUrlName !== 'undefined') {
-    return '/api/trips/' + params.tripUrlName + '/articles';
+    return '/oldapi/trips/' + params.tripUrlName + '/articles';
   }
 
-  return '/api/articles'
+  return '/oldapi/articles'
 }
 
 function getLanguageQuery(params) {

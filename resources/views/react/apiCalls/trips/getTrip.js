@@ -7,7 +7,7 @@ export default function(tripUrlName, language) {
     get,
     promiseJSON
   )(
-    '/api/trips/' + tripUrlName
+    '/oldapi/trips/' + tripUrlName
     + '?language=' + language,
     {
       method: 'GET',

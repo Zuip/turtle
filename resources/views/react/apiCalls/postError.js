@@ -7,6 +7,6 @@ export default function(data) {
     post({ errorText: data }),
     promiseJSON
   )(
-    '/api/error/log'
+    '/oldapi/error/log'
   );
 };

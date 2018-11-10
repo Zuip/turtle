@@ -1,16 +1,9 @@
 <?php
 
 Route::get("/articles", "Articles\\ArticlesController@get");
-Route::get("/cities", "Cities\\CitiesController@get");
-Route::get("/countries", "Cities\\CountriesController@get");
-Route::get("/countries/{countryUrlName}", "Cities\\CountryController@get");
 Route::get("/countries/{countryUrlName}/articles", "Cities\\CountryArticlesController@get");
-Route::get("/countries/{countryUrlName}/cities", "Cities\\CitiesController@get");
-Route::get("/countries/{countryUrlName}/cities/{cityUrlName}", "Cities\\CityController@get");
 Route::get("/countries/{countryUrlName}/cities/{cityUrlName}/articles", "Cities\\CityArticlesController@get");
-Route::get("/countries/{countryUrlName}/cities/{cityUrlName}/translations", "Cities\\CityTranslationsController@get");
 Route::get("/countries/{countryUrlName}/cities/{cityUrlName}/users", "Cities\\CityUsersController@get");
-Route::get("/countries/{countryUrlName}/translations", "Cities\\CountryTranslationsController@get");
 Route::get("/trips/{tripUrlName}", "Trips\\TripController@get");
 Route::get("/trips/{tripUrlName}/articles", "Trips\\TripArticlesController@get");
 Route::get("/trips/{tripUrlName}/translations", "Trips\\TripTranslationsController@get");
