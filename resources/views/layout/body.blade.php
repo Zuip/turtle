@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css?family=Caveat+Brush" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    
+    <link href="/assets/webfonts/fa-solid-900.woff2" rel="preload" as="font" crossorigin="anonymous">
+
     <!-- Custom styles -->
     <link href="/assets/css/app.css" rel="stylesheet">
     <link rel="alternate" type="application/rss+xml" title="Turtle.travel" href="<?php echo env('APP_URL'); ?>/<?php echo $browserLanguage; ?>.turtle.travel.rss" />
