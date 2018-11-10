@@ -3,8 +3,7 @@ import formatVisitDates from '..//trips/visits/formatVisitDates';
 export default function(article) {
   return article.city.name + ', '
         + article.city.country.name + ', '
-        + getVisitDates(article)
-        + ' - Turtle.travel';
+        + getVisitDates(article);
 }
 
 function getVisitDates(article) {

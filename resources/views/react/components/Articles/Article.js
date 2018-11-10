@@ -146,7 +146,7 @@ class Article extends React.Component {
         
         <Helmet>
           <title>
-            {getArticleTitle(this.state.article)}
+            {getArticleTitle(this.state.article)} - Turtle.travel
           </title>
           <meta
             name="description"
