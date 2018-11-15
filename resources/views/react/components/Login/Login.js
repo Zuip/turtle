@@ -79,7 +79,7 @@ class Login extends React.Component {
     }
 
     return (
-      <div class="alert alert-danger">
+      <div className="alert alert-danger">
         {this.props.translations.login.incorrect}
       </div>
     );

@@ -7,7 +7,7 @@ export default function() {
     get,
     promiseJSON
   )(
-    '/oldapi/user'
+    '/api/user'
   );
 };
   

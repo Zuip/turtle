@@ -19,14 +19,4 @@ class User {
     );
     return $apiGet;
   }
-  
-  public function getWithUsernameAndPassword($username, $password) {
-    $apiGet = new ApiGet(env('SERVICE_USERS_URL'));
-    $apiGet->callGet(
-      '/api/users'
-      . '?username=' . urlencode($username)
-      . '&password=' . urlencode($password)
-    );
-    return $apiGet;
-  }
 }
