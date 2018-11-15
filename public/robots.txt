@@ -2,6 +2,11 @@ User-agent: *
 Allow: /
 
 User-Agent: Googlebot
+Disallow: /api/
+Disallow: /countries/
+Disallow: /kayttajat/
+Disallow: /maat/
+Disallow: /users/
 Allow: .js
 Allow: .css
 Allow: /*.js*
